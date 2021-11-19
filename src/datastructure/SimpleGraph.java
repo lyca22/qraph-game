@@ -33,8 +33,18 @@ public class SimpleGraph<E extends Comparable<E>> implements ISimpleGraph<E> {
 
 	@Override
 	public int[][] floydWarshall() {
-		// TODO Auto-generated method stub
-		return null;
+		int[][] distances = edges;
+		for (int k = 0; k < distances.length; k++) {
+			for (int i = 0; i < distances.length; i++) {
+				for (int j = 0; j < distances.length; j++) {
+					if(distances[i][j] > distances[i][k] + distances[k][j]) {
+						distances[i][j] = distances[i][k] + distances[k][j];
+					}
+				}
+			}
+		}
+		
+		return distances;
 	}
 
 	@Override
@@ -45,8 +55,14 @@ public class SimpleGraph<E extends Comparable<E>> implements ISimpleGraph<E> {
 
 	@Override
 	public int degreeOf(SimpleVertex<E> vertex) {
-		// TODO Auto-generated method stub
-		return 0;
+		int degree = 0;
+		for (int i = 0; i < edges.length; i++) {
+			if(edges[i][vertex.getId()] != 0 && edges[i][vertex.getId()] != Integer.MAX_VALUE) {
+				degree++;
+			}
+		}
+		
+		return degree;
 	}
 
 	@Override
