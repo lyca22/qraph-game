@@ -1,6 +1,7 @@
 package datastructure;
 
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 import java.util.Set;
 
 public class SimpleGraph<E extends Comparable<E>> implements ISimpleGraph<E> {
@@ -26,9 +27,43 @@ public class SimpleGraph<E extends Comparable<E>> implements ISimpleGraph<E> {
 	}
 
 	@Override
-	public ArrayList<SimpleVertex<E>> dijkstra(E value) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<SimpleVertex<E>> dijkstra(E value) {	
+		int source = containsVertex(value);
+		int[] dist = null;
+		ArrayList<SimpleVertex<E>> prev = new ArrayList<>(vertices.size());
+		
+		if(source != -1) {
+			dist = new int[vertices.size()];
+			dist[source] = 0;
+			//WARNING: PriorityQueue is java built in class that is not sorted
+			//Requires a Comparator parameter
+			PriorityQueue<SimpleVertex<E>> queue = new PriorityQueue<>(vertices.size()); 
+			for (int i = 0; i < vertices.size(); i++) {
+				if(i != source) {
+					dist[i] = Integer.MAX_VALUE;
+				}
+				queue.add(vertices.get(i)); //It does not works cause the queue has not order
+			}
+			
+			while(!queue.isEmpty()) {
+				SimpleVertex<E> first = queue.remove();
+				int id = first.getId();
+				for (SimpleVertex<E> neighbor : vertices) {
+					if(edges[id][neighbor.getId()] != 0 && edges[id][neighbor.getId()] != Integer.MAX_VALUE) {
+						int alt = dist[id] + edges[id][neighbor.getId()];
+						if(alt < dist[neighbor.getId()]) {
+							dist[neighbor.getId()] = alt;
+							prev.set(neighbor.getId(), first);
+							//The queue does not support decrease operation
+							//queue.decreasePriority(neighbor, alt);
+						}
+					}
+				}
+			}
+			
+		}
+		
+		return prev;
 	}
 
 	@Override
