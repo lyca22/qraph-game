@@ -57,8 +57,21 @@ public class SimpleGraph<E extends Comparable<E>> implements ISimpleGraph<E> {
 
 	@Override
 	public void addVertex(E value) {
-		// TODO Auto-generated method stub
+		SimpleVertex<E> vertex = new SimpleVertex<E>(value, vertices.size());
+		vertices.add(vertex);
 		
+		int[][] tempEdges = new int[vertices.size()][vertices.size()];
+		for (int i = 0; i < tempEdges.length - 1; i++) {
+			//Fill of the new column and row
+			tempEdges[i][tempEdges.length - 1] = Integer.MAX_VALUE;
+			tempEdges[tempEdges.length - 1][i] = Integer.MAX_VALUE;
+			
+			//Copy of previous values
+			for(int j = 0; j < tempEdges.length - 1; j++) {
+				tempEdges[i][j] = edges[i][j];
+			}
+		}
+		edges = tempEdges;
 	}
 
 	@Override
@@ -82,7 +95,7 @@ public class SimpleGraph<E extends Comparable<E>> implements ISimpleGraph<E> {
 		return edges;
 	}
 
-	@Overrides
+	@Override
 	public void setEdges(int[][] edges) {
 		this.edges = edges;
 	}
