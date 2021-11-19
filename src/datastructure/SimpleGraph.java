@@ -50,9 +50,17 @@ public class SimpleGraph<E extends Comparable<E>> implements ISimpleGraph<E> {
 	}
 
 	@Override
-	public boolean containsVertex(E value) {
-		// TODO Auto-generated method stub
-		return false;
+	public int containsVertex(E value) {
+		int position = -1;
+		int i = 0;
+		while(i < vertices.size()) {
+			if(vertices.get(i).getValue().equals(value)) {
+				position = i;
+			}
+			i++;
+		}
+		
+		return position;
 	}
 
 	@Override
@@ -76,8 +84,14 @@ public class SimpleGraph<E extends Comparable<E>> implements ISimpleGraph<E> {
 
 	@Override
 	public void addEdge(E initial, E end, int weight) {
-		// TODO Auto-generated method stub
-		
+		int indexInitial = containsVertex(initial);
+		int indexEnd = containsVertex(end);
+		if(indexInitial != -1 && indexEnd != -1) {
+			edges[indexInitial][indexEnd] = weight;
+			edges[indexEnd][indexInitial] = weight;
+		}else {
+			throw new IndexOutOfBoundsException("The graph does not contains the vertex initial and/or end");
+		}
 	}
 
 	@Override

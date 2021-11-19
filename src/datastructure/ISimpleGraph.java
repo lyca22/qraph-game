@@ -13,7 +13,7 @@ public interface ISimpleGraph<E extends Comparable<E>> {
 	public Set<Integer> kruskal();	//Pending: Change the return type
 	//public TreeSet<SimpleVertex<E>> prim();
 	public int degreeOf(SimpleVertex<E> vertex);
-	public boolean containsVertex(E value);
+	public int containsVertex(E value);		//Return changed from boolean to int
 	public void addVertex(E value);
 	public void addEdge(E initial, E end, int weight);
 	public ArrayList<SimpleVertex<E>> getVertices();
