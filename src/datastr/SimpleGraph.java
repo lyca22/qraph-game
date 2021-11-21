@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class SimpleGraph<V> extends Graph<V> {
+public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 
 	private ArrayList<ArrayList<Integer>> edges;
 
