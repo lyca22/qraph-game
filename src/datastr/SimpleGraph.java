@@ -160,9 +160,37 @@ public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 	}
 
 	@Override
-	public Graph<Vertex<V>> prim() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Vertex<V>> prim(Vertex<V> initial) {
+		ArrayList<Vertex<V>> predecessors = new ArrayList<>();
+		for (int i = 0; i < getVertices().size(); i++) {
+			getVertices().get(i).setWeightFromPoint(Integer.MAX_VALUE);
+			getVertices().get(i).setColor(VertexColor.WHITE);
+			predecessors.add(null);
+		}
+		
+		initial.setWeightFromPoint(0);
+		LinkedList<Vertex<V>> pq = new LinkedList<>();
+		for (Vertex<V> vertex : getVertices()) {
+			pq.add(vertex);
+		}
+		
+		while(!pq.isEmpty()) {
+			Collections.sort(pq, new VertexWeightComparator<V>());
+			Vertex<V> vertex = pq.poll();
+			ArrayList<Integer> edgeList = edges.get(vertex.getId());
+			for(int i = 0; i < edgeList.size(); i++) {
+				if(edgeList.get(i) != Integer.MAX_VALUE && i != vertex.getId()) {
+					if(getVertices().get(i).getColor() == VertexColor.WHITE && edgeList.get(i) < getVertices().get(i).getWeightFromPoint()) {
+						getVertices().get(i).setWeightFromPoint(edgeList.get(i));
+						predecessors.set(i, vertex);
+						Collections.sort(pq, new VertexWeightComparator<V>());
+					}
+				}
+			}
+			vertex.setColor(VertexColor.BLACK);
+		}
+		
+		return predecessors;
 	}
 
 	@Override

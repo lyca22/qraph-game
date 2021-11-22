@@ -9,7 +9,7 @@ public interface IMatrixGraph<V> {
 	public void breadthFirstSearch(Vertex<V> start);
 	public ArrayList<Integer> dijkstra(Vertex<V> start);
 	//We might want to change the return type. TODO
-	public Graph<Vertex<V>> prim();
+	public ArrayList<Vertex<V>> prim(Vertex<V> initial);
 	//We might want to change the return type. TODO
 	public ArrayList<Edge<V>> kruskal();
 	public int degreeOf(Vertex<V> vertex);
