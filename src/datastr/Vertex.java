@@ -10,7 +10,7 @@ public class Vertex<V> {
 	private VertexColor color;
 	private int weightFromPoint;
 	
-	public Vertex(V value, int id, int distance) {
+	public Vertex(V value, int id) {
 		super();
 		this.value = value;
 		this.id = id;
