@@ -9,10 +9,12 @@ import java.util.Set;
 
 public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 
+	private ArrayList<Vertex<V>> vertices;
 	private ArrayList<ArrayList<Integer>> edges;
 
 	public SimpleGraph() {
 		super();
+		setVertices(new ArrayList<Vertex<V>>());
 		edges = new ArrayList<ArrayList<Integer>>();
 	}
 
@@ -22,6 +24,14 @@ public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 
 	public void setEdges(ArrayList<ArrayList<Integer>> edges) {
 		this.edges = edges;
+	}
+	
+	public ArrayList<Vertex<V>> getVertices() {
+		return vertices;
+	}
+	
+	public void setVertices(ArrayList<Vertex<V>> vertices) {
+		this.vertices = vertices;
 	}
 
 	@Override

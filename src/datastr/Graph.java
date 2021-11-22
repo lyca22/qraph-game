@@ -4,21 +4,10 @@ import java.util.ArrayList;
 
 public abstract class Graph<V> implements IGraph<V> {
 
-	private ArrayList<Vertex<V>> vertices;
 	private ArrayList<ArrayList<Integer>> minimumWeightPaths;
 	
 	public Graph() {
-		super();
-		setVertices(new ArrayList<Vertex<V>>());
 		setMinimumWeightPaths(new ArrayList<ArrayList<Integer>>());
-	}
-	
-	public ArrayList<Vertex<V>> getVertices() {
-		return vertices;
-	}
-	
-	public void setVertices(ArrayList<Vertex<V>> vertices) {
-		this.vertices = vertices;
 	}
 	
 	public ArrayList<ArrayList<Integer>> getMinimumWeightPaths() {
