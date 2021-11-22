@@ -2,8 +2,10 @@ package datastr;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Set;
 
 public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 
@@ -164,9 +166,40 @@ public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 	}
 
 	@Override
-	public Graph<Vertex<V>> kruskal() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Edge<V>> kruskal() {
+		//Creates the msp, the represent array for each vertex
+		ArrayList<Edge<V>> msp = new ArrayList<>();
+		int[] represent = new int[getVertices().size()];
+		for (int i = 0; i < represent.length; i++) {
+			represent[i] = i;
+		}
+		
+		//Gets the edges from the adjacency matrix. Iterates only through the upper part
+		//cause it's a symmetric matrix.
+		ArrayList<Edge<V>> sortedEdges = new ArrayList<>();
+		for (int i = 0; i < edges.size() - 1; i++) {
+			for (int j = i + 1; j <  edges.size(); j++) {
+				if(!edges.get(i).get(j).equals(Integer.MAX_VALUE)) {
+					Vertex<V> init = getVertices().get(i);
+					Vertex<V> end = getVertices().get(j);
+					Edge<V> edge = new Edge<V>(init, end, edges.get(i).get(j));
+					sortedEdges.add(edge);
+				}
+			}
+		}
+		
+		Collections.sort(sortedEdges, new EdgeComparator<>());
+		
+		//Compares for each edge if it's vertices are in the same "set" based on their represent
+		//If they have different represents, the edge is added to the msp.
+		for (Edge<V> edge : sortedEdges) {
+			if(represent[edge.getInitial().getId()] != represent[edge.getEnd().getId()]) {
+				represent[edge.getEnd().getId()] = edge.getInitial().getId();
+				msp.add(edge);
+			}
+		}
+		
+		return msp; //Returns A, the msp. Change return type. TODO
 	}
 
 	@Override

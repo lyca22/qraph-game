@@ -11,7 +11,7 @@ public interface IMatrixGraph<V> {
 	//We might want to change the return type. TODO
 	public Graph<Vertex<V>> prim();
 	//We might want to change the return type. TODO
-	public Graph<Vertex<V>> kruskal();
+	public ArrayList<Edge<V>> kruskal();
 	public int degreeOf(Vertex<V> vertex);
 	
 }
