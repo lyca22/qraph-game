@@ -1,7 +1,8 @@
 package datastr;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 
@@ -98,8 +99,29 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 
 	@Override
 	public void breadthFirstSearch(ListVertex<V> start) {
-		// TODO Auto-generated method stub
+		for (ListVertex<V> vertex : adjList) {
+			vertex.setColor(VertexColor.WHITE);
+			vertex.setDistance(Integer.MAX_VALUE);
+			vertex.setPredecessor(null);
+		}
+		start.setColor(VertexColor.GRAY);
+		start.setDistance(0);
 		
+		Queue<ListVertex<V>> queue = new LinkedList<ListVertex<V>>();
+		queue.add(start);
+		while(!queue.isEmpty()) {
+			ListVertex<V> vertex = queue.poll();
+			ArrayList<ListEdge<V>> edgeList = vertex.getEdges();
+			for (ListEdge<V> edge : edgeList) {
+				ListVertex<V> endVertex = edge.getEnd();
+				if(endVertex.getColor() == VertexColor.WHITE) {
+					endVertex.setColor(VertexColor.GRAY);
+					endVertex.setDistance(vertex.getDistance()+1);
+					endVertex.setPredecessor(vertex);
+					queue.add(endVertex);
+				}
+			}
+		}
 	}
 
 	@Override

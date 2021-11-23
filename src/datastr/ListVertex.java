@@ -4,18 +4,18 @@ import java.util.ArrayList;
 
 public class ListVertex<V> extends Vertex<V>{
 
-	private ArrayList<Edge<V>> edges;
+	private ArrayList<ListEdge<V>> edges;
 	
 	public ListVertex(V value, int id) {
 		super(value, id);
-		edges = new ArrayList<Edge<V>>();
+		edges = new ArrayList<ListEdge<V>>();
 	}
 
-	public ArrayList<Edge<V>> getEdges() {
+	public ArrayList<ListEdge<V>> getEdges() {
 		return edges;
 	}
 
-	public void setEdges(ArrayList<Edge<V>> edges) {
+	public void setEdges(ArrayList<ListEdge<V>> edges) {
 		this.edges = edges;
 	}
 

@@ -59,7 +59,6 @@ public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 		}
 		start.setColor(VertexColor.GRAY);
 		start.setDistance(0);
-		start.setPredecessor(null);
 		Queue<Vertex<V>> queue = new LinkedList<Vertex<V>>();
 		queue.add(start);
 		while(!queue.isEmpty()) {
