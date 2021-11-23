@@ -9,9 +9,9 @@ public interface IListGraph<V> {
 	public void breadthFirstSearch(ListVertex<V> start);
 	public ArrayList<Integer> dijkstra(ListVertex<V> start);
 	//We might want to change the return type. TODO
-	public Graph<ListVertex<V>> prim();
+	public ArrayList<ListVertex<V>> prim(ListVertex<V> initial);
 	//We might want to change the return type. TODO
-	public Graph<ListVertex<V>> kruskal();
+	public ArrayList<ListEdge<V>> kruskal();
 	public int degreeOf(ListVertex<V> vertex);
 	
 }

@@ -190,7 +190,6 @@ public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 					if(getVertices().get(i).getColor() == VertexColor.WHITE && edgeList.get(i) < getVertices().get(i).getWeightFromPoint()) {
 						getVertices().get(i).setWeightFromPoint(edgeList.get(i));
 						predecessors.set(i, vertex);
-						Collections.sort(pq, new VertexWeightComparator<V>());
 					}
 				}
 			}

@@ -155,21 +155,41 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 	}
 
 	@Override
-	public Graph<ListVertex<V>> prim() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<ListVertex<V>> prim(ListVertex<V> initial) {
+		ArrayList<ListVertex<V>> predecessors = new ArrayList<>();
+		LinkedList<ListVertex<V>> pq = new LinkedList<>();
+		for (ListVertex<V> vertex : adjList) {
+			vertex.setWeightFromPoint(Integer.MAX_VALUE);
+			vertex.setColor(VertexColor.WHITE);
+			pq.add(vertex);
+		}
+		
+		initial.setWeightFromPoint(0);
+		while(!pq.isEmpty()) {
+			Collections.sort(pq, new VertexWeightComparator<V>());
+			ListVertex<V> vertex = pq.poll();
+			for (ListEdge<V>  edge : vertex.getEdges()) {
+				ListVertex<V> end = edge.getEnd();
+				if(end.getColor() == VertexColor.WHITE && edge.getWeight() < end.getWeightFromPoint()) {
+					end.setWeightFromPoint(edge.getWeight());
+					predecessors.set(end.getId(), vertex);
+				}
+			}
+			vertex.setColor(VertexColor.BLACK);
+		}
+		
+		return predecessors;
 	}
 
 	@Override
-	public Graph<ListVertex<V>> kruskal() {
+	public ArrayList<ListEdge<V>> kruskal() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int degreeOf(ListVertex<V> vertex) {
-		// TODO Auto-generated method stub
-		return 0;
+		return vertex.getEdges().size();
 	}
 
 	public ArrayList<ListVertex<V>> getAdjList() {
