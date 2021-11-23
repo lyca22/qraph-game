@@ -183,8 +183,43 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 
 	@Override
 	public ArrayList<ListEdge<V>> kruskal() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<ListEdge<V>> msp = new ArrayList<>();
+		int[] represent = new int[adjList.size()];
+		for (int i = 0; i < represent.length; i++) {
+			represent[i] = i;
+		}
+		
+		ArrayList<ListEdge<V>> sortedEdges = new ArrayList<>();
+		for (ListVertex<V> vertex : adjList) {
+			for (ListEdge<V> edge : vertex.getEdges()) {
+				if(!listContainsEdge(sortedEdges, edge)) {
+					sortedEdges.add(edge);
+				}
+			}
+		}
+		
+		Collections.sort(sortedEdges, new ListEdgeComparator<>());
+		
+		for (ListEdge<V> edge : sortedEdges) {
+			if(represent[edge.getInitial().getId()] != represent[edge.getEnd().getId()]) {
+				represent[edge.getEnd().getId()] = edge.getInitial().getId();
+				msp.add(edge);
+			}
+		}
+		
+		return msp;
+	}
+
+	private boolean listContainsEdge(ArrayList<ListEdge<V>> list, ListEdge<V> edge) {
+		boolean contains = false;
+		for (int i = 0; i < list.size() && !contains; i++) {
+			ListEdge<V> current = list.get(i);
+			if((edge.getInitial().equals(current.getInitial()) && edge.getEnd().equals(current.getEnd())) || 
+					(edge.getEnd().equals(current.getInitial()) && edge.getInitial().equals(current.getEnd()))) {
+				contains = true;
+			}
+		}
+		return contains;
 	}
 
 	@Override
