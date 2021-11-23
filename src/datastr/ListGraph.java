@@ -1,6 +1,7 @@
 package datastr;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -49,10 +50,9 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 				}else {
 					rowList.add(Integer.MAX_VALUE);
 				}
-				
 			}
 			
-			for (Edge<V> edge : vertex.getEdges()) {
+			for (ListEdge<V> edge : vertex.getEdges()) {
 				rowList.set(edge.getEnd().getId(), edge.getWeight());
 			}
 			
@@ -78,9 +78,9 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 				vertex1.getEdges().get(idx1).setWeight(weight);
 				vertex2.getEdges().get(idx2).setWeight(weight);
 			}else {
-				Edge<V> edge1 = new Edge<V>(vertex1, vertex2, weight);
+				ListEdge<V> edge1 = new ListEdge<V>(vertex1, vertex2, weight);
 				vertex1.getEdges().add(edge1);
-				Edge<V> edge2 = new Edge<V>(vertex2, vertex1, weight);
+				ListEdge<V> edge2 = new ListEdge<V>(vertex2, vertex1, weight);
 				vertex2.getEdges().add(edge2);
 			}
 		}
@@ -126,8 +126,32 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 
 	@Override
 	public ArrayList<Integer> dijkstra(ListVertex<V> start) {
-		// TODO Auto-generated method stub
-		return null;
+		Integer[] previous = new Integer[adjList.size()];
+		LinkedList<ListVertex<V>> pq = new LinkedList<ListVertex<V>>();
+		for (ListVertex<V> vertex : adjList) {
+			if(vertex.equals(start)) {
+				vertex.setWeightFromPoint(0);
+			}else {
+				vertex.setWeightFromPoint(Integer.MAX_VALUE);
+			}
+			pq.offer(vertex);
+		}
+		
+		while(!pq.isEmpty()) {
+			Collections.sort(pq, new VertexWeightComparator<V>());
+			ListVertex<V> vertex = pq.poll();
+			for (ListEdge<V> edge : vertex.getEdges()) {
+				int alternative = edge.getWeight() + vertex.getWeightFromPoint();
+				if(alternative < edge.getEnd().getWeightFromPoint()) {
+					edge.getEnd().setWeightFromPoint(alternative);
+					previous[edge.getEnd().getId()] = vertex.getId();
+				}
+			}
+		}
+		
+		ArrayList<Integer> output = new ArrayList<Integer>();
+		Collections.addAll(output, previous);
+		return output;
 	}
 
 	@Override
