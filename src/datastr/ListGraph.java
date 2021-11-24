@@ -14,58 +14,18 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 		adjList = new ArrayList<ListVertex<V>>();
 	}
 
+	public ArrayList<ListVertex<V>> getAdjList() {
+		return adjList;
+	}
+
+	public void setAdjList(ArrayList<ListVertex<V>> adjList) {
+		this.adjList = adjList;
+	}
+
 	@Override
 	public void addVertex(V value) {
 		ListVertex<V> vertex = new ListVertex<V>(value, adjList.size());
 		adjList.add(vertex);
-	}
-
-	@Override
-	public void depthFirstSearch() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void floydWarshall() {
-		createDistanceMatrix();
-		for(int k = 0; k < adjList.size(); k++) {
-			for(int i = 0; i < adjList.size(); i++) {
-				for(int j = 0; j < adjList.size(); j++) {
-					if(getMinimumWeightPaths().get(i).get(j) > getMinimumWeightPaths().get(i).get(k) + getMinimumWeightPaths().get(k).get(j)) {
-						getMinimumWeightPaths().get(i).set(j, getMinimumWeightPaths().get(i).get(k) + getMinimumWeightPaths().get(k).get(j));
-					}
-				}
-			}
-		}
-	}
-
-	private void createDistanceMatrix() {
-		ArrayList<ArrayList<Integer>> distance = new ArrayList<ArrayList<Integer>>();
-		for (ListVertex<V> vertex : adjList) {
-			ArrayList<Integer> rowList = new ArrayList<>();
-			for (int i = 0; i < adjList.size(); i++) {
-				if(i == vertex.getId()) {
-					rowList.add(0);
-				}else {
-					rowList.add(Integer.MAX_VALUE);
-				}
-			}
-			
-			for (ListEdge<V> edge : vertex.getEdges()) {
-				rowList.set(edge.getEnd().getId(), edge.getWeight());
-			}
-			
-			distance.add(rowList);
-		}
-		
-		setMinimumWeightPaths(distance);
-	}
-
-	@Override
-	public ListVertex<V> searchInListVertexList(int id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -85,7 +45,7 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 			}
 		}
 	}
-	
+
 	public int containsEdge(ListVertex<V> initial, ListVertex<V> end) {
 		int found = -1;
 		for (int i = 0; i < initial.getEdges().size() && found != -1; i++) {
@@ -125,6 +85,11 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 	}
 
 	@Override
+	public void depthFirstSearch() {
+		
+	}
+
+	@Override
 	public ArrayList<Integer> dijkstra(ListVertex<V> start) {
 		Integer[] previous = new Integer[adjList.size()];
 		LinkedList<ListVertex<V>> pq = new LinkedList<ListVertex<V>>();
@@ -152,6 +117,42 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 		ArrayList<Integer> output = new ArrayList<Integer>();
 		Collections.addAll(output, previous);
 		return output;
+	}
+
+	@Override
+	public void floydWarshall() {
+		createDistanceMatrix();
+		for(int k = 0; k < adjList.size(); k++) {
+			for(int i = 0; i < adjList.size(); i++) {
+				for(int j = 0; j < adjList.size(); j++) {
+					if(getMinimumWeightPaths().get(i).get(j) > getMinimumWeightPaths().get(i).get(k) + getMinimumWeightPaths().get(k).get(j)) {
+						getMinimumWeightPaths().get(i).set(j, getMinimumWeightPaths().get(i).get(k) + getMinimumWeightPaths().get(k).get(j));
+					}
+				}
+			}
+		}
+	}
+
+	private void createDistanceMatrix() {
+		ArrayList<ArrayList<Integer>> distance = new ArrayList<ArrayList<Integer>>();
+		for (ListVertex<V> vertex : adjList) {
+			ArrayList<Integer> rowList = new ArrayList<>();
+			for (int i = 0; i < adjList.size(); i++) {
+				if(i == vertex.getId()) {
+					rowList.add(0);
+				}else {
+					rowList.add(Integer.MAX_VALUE);
+				}
+			}
+			
+			for (ListEdge<V> edge : vertex.getEdges()) {
+				rowList.set(edge.getEnd().getId(), edge.getWeight());
+			}
+			
+			distance.add(rowList);
+		}
+		
+		setMinimumWeightPaths(distance);
 	}
 
 	@Override
@@ -227,12 +228,16 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 		return vertex.getEdges().size();
 	}
 
-	public ArrayList<ListVertex<V>> getAdjList() {
-		return adjList;
+	@Override
+	public boolean containsValue(V value) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	public void setAdjList(ArrayList<ListVertex<V>> adjList) {
-		this.adjList = adjList;
+	@Override
+	public ListVertex<V> searchInListVertexList(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -248,4 +248,16 @@ public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 		return count;
 	}
 
+	@Override
+	public boolean containsValue(V value) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Vertex<V> searchInVertexList(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
