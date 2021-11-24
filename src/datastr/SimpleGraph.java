@@ -23,11 +23,11 @@ public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 	public void setEdges(ArrayList<ArrayList<Integer>> edges) {
 		this.edges = edges;
 	}
-	
+
 	public ArrayList<Vertex<V>> getVertices() {
 		return vertices;
 	}
-	
+
 	public void setVertices(ArrayList<Vertex<V>> vertices) {
 		this.vertices = vertices;
 	}
@@ -111,7 +111,7 @@ public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 		vertex.getTimestamps().setSecond(time);
 		return time;
 	}
-	
+
 	@Override
 	public ArrayList<Integer> dijkstra(Vertex<V> start) {
 		Integer[] previous = new Integer[getVertices().size()];
@@ -174,13 +174,13 @@ public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 			getVertices().get(i).setColor(VertexColor.WHITE);
 			predecessors.add(null);
 		}
-		
+
 		initial.setWeightFromPoint(0);
 		LinkedList<Vertex<V>> pq = new LinkedList<>();
 		for (Vertex<V> vertex : getVertices()) {
 			pq.add(vertex);
 		}
-		
+
 		while(!pq.isEmpty()) {
 			Collections.sort(pq, new VertexWeightComparator<V>());
 			Vertex<V> vertex = pq.poll();
@@ -195,7 +195,7 @@ public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 			}
 			vertex.setColor(VertexColor.BLACK);
 		}
-		
+
 		return predecessors;
 	}
 
@@ -207,7 +207,7 @@ public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 		for (int i = 0; i < represent.length; i++) {
 			represent[i] = i;
 		}
-		
+
 		//Gets the edges from the adjacency matrix. Iterates only through the upper part
 		//cause it's a symmetric matrix.
 		ArrayList<Edge<V>> sortedEdges = new ArrayList<>();
@@ -221,9 +221,9 @@ public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 				}
 			}
 		}
-		
+
 		Collections.sort(sortedEdges, new EdgeComparator<>());
-		
+
 		//Compares for each edge if it's vertices are in the same "set" based on their represent
 		//If they have different represents, the edge is added to the msp.
 		for (Edge<V> edge : sortedEdges) {
@@ -232,7 +232,7 @@ public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 				msp.add(edge);
 			}
 		}
-		
+
 		return msp; //Returns A, the msp. Change return type. TODO
 	}
 
@@ -243,21 +243,20 @@ public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 		for(int i = 0; i < edgeList.size(); i++) {
 			if(edgeList.get(i) != Integer.MAX_VALUE && i != vertex.getId()) {
 				count++;
-				}
 			}
+		}
 		return count;
 	}
 
 	@Override
 	public boolean containsValue(V value) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Vertex<V> searchInVertexList(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean contains = false;
+		for(int i = 0; i < vertices.size() && !contains; i++) {
+			if(vertices.get(i).getValue().equals(value)) {
+				contains = true;
+			}
+		}
+		return contains;
 	}
 
 }

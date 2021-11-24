@@ -8,7 +8,7 @@ import java.util.Queue;
 public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 
 	private ArrayList<ListVertex<V>> adjList;
-	
+
 	public ListGraph() {
 		super();
 		adjList = new ArrayList<ListVertex<V>>();
@@ -30,7 +30,7 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 
 	@Override
 	public void addEdge(ListVertex<V> vertex1, ListVertex<V> vertex2, int weight) {
-		
+
 		if(adjList.contains(vertex1) && adjList.contains(vertex2)) {
 			int idx1 = containsEdge(vertex1, vertex2);
 			int idx2 = containsEdge(vertex2, vertex1);
@@ -53,7 +53,7 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 				found = i;
 			}
 		}
-		
+
 		return found;
 	}
 
@@ -66,7 +66,7 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 		}
 		start.setColor(VertexColor.GRAY);
 		start.setDistance(0);
-		
+
 		Queue<ListVertex<V>> queue = new LinkedList<ListVertex<V>>();
 		queue.add(start);
 		while(!queue.isEmpty()) {
@@ -86,7 +86,34 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 
 	@Override
 	public void depthFirstSearch() {
-		
+		for(int i = 0; i < adjList.size(); i++) {
+			adjList.get(i).setColor(VertexColor.WHITE);
+			adjList.get(i).setPredecessor(null);
+		}
+		for(int i = 0; i < adjList.size(); i++) {
+			if(adjList.get(i).getColor().equals(VertexColor.WHITE)) {
+				depthVisit(adjList.get(i), 0);
+			}
+		}
+	}
+
+	private int depthVisit(ListVertex<V> listVertex, int time) {
+		time = time + 1;
+		listVertex.getTimestamps().setFirst(time);
+		listVertex.setColor(VertexColor.GRAY);
+		for(int i = 0; i < listVertex.getEdges().size(); i++) {
+			if(listVertex.getEdges().get(i).getWeight() != Integer.MAX_VALUE) {
+				ListVertex<V> endVertex = listVertex.getEdges().get(i).getEnd();
+				if(endVertex.getColor() == VertexColor.WHITE) {
+					endVertex.setPredecessor(listVertex);
+					time = depthVisit(endVertex, time);
+				}
+			}
+		}
+		listVertex.setColor(VertexColor.BLACK);
+		time = time + 1;
+		listVertex.getTimestamps().setSecond(time);
+		return time;
 	}
 
 	@Override
@@ -101,7 +128,7 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 			}
 			pq.offer(vertex);
 		}
-		
+
 		while(!pq.isEmpty()) {
 			Collections.sort(pq, new VertexWeightComparator<V>());
 			ListVertex<V> vertex = pq.poll();
@@ -113,7 +140,7 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 				}
 			}
 		}
-		
+
 		ArrayList<Integer> output = new ArrayList<Integer>();
 		Collections.addAll(output, previous);
 		return output;
@@ -144,14 +171,14 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 					rowList.add(Integer.MAX_VALUE);
 				}
 			}
-			
+
 			for (ListEdge<V> edge : vertex.getEdges()) {
 				rowList.set(edge.getEnd().getId(), edge.getWeight());
 			}
-			
+
 			distance.add(rowList);
 		}
-		
+
 		setMinimumWeightPaths(distance);
 	}
 
@@ -164,7 +191,7 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 			vertex.setColor(VertexColor.WHITE);
 			pq.add(vertex);
 		}
-		
+
 		initial.setWeightFromPoint(0);
 		while(!pq.isEmpty()) {
 			Collections.sort(pq, new VertexWeightComparator<V>());
@@ -178,7 +205,7 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 			}
 			vertex.setColor(VertexColor.BLACK);
 		}
-		
+
 		return predecessors;
 	}
 
@@ -189,7 +216,7 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 		for (int i = 0; i < represent.length; i++) {
 			represent[i] = i;
 		}
-		
+
 		ArrayList<ListEdge<V>> sortedEdges = new ArrayList<>();
 		for (ListVertex<V> vertex : adjList) {
 			for (ListEdge<V> edge : vertex.getEdges()) {
@@ -198,16 +225,16 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 				}
 			}
 		}
-		
+
 		Collections.sort(sortedEdges, new ListEdgeComparator<>());
-		
+
 		for (ListEdge<V> edge : sortedEdges) {
 			if(represent[edge.getInitial().getId()] != represent[edge.getEnd().getId()]) {
 				represent[edge.getEnd().getId()] = edge.getInitial().getId();
 				msp.add(edge);
 			}
 		}
-		
+
 		return msp;
 	}
 
@@ -230,14 +257,13 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 
 	@Override
 	public boolean containsValue(V value) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public ListVertex<V> searchInListVertexList(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean contains = false;
+		for(int i = 0; i < adjList.size() && !contains; i++) {
+			if(adjList.get(i).getValue().equals(value)) {
+				contains = true;
+			}
+		}
+		return contains;
 	}
 
 }
