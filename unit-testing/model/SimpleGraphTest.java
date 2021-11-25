@@ -9,16 +9,19 @@ import datastr.Vertex;
 
 class SimpleGraphTest {
 
+	SimpleGraph<Integer> sp;
+	
 	void setUp1() throws Exception {
+		sp = new SimpleGraph<Integer>();
 	}
 
 	void setUp2() throws Exception {
-		SimpleGraph<Integer> sp = new SimpleGraph<Integer>();
+		sp = new SimpleGraph<Integer>();
 		sp.addVertex(1);
 	}
 
 	void setUp3() throws Exception {
-		SimpleGraph<Integer> sp = new SimpleGraph<Integer>();
+		sp = new SimpleGraph<Integer>();
 		sp.addVertex(1);
 		sp.addVertex(2);
 		sp.addVertex(3);
@@ -30,15 +33,9 @@ class SimpleGraphTest {
 		sp.addEdge(v1, v2, 3);
 		sp.addEdge(v1, v3, 6);
 		sp.addEdge(v1, v4, 3);
-		sp.addEdge(v2, v1, 3);
 		sp.addEdge(v2, v3, 4);
 		sp.addEdge(v2, v4, 1);
-		sp.addEdge(v3, v1, 6);
-		sp.addEdge(v3, v2, 4);
 		sp.addEdge(v3, v4, 2);
-		sp.addEdge(v4, v1, 3);
-		sp.addEdge(v4, v2, 1);
-		sp.addEdge(v4, v3, 2);
 	}
 	
 	@Test
