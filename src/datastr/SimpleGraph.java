@@ -46,6 +46,7 @@ public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 
 	@Override
 	public void deleteVertex(Vertex<V> vertex) {
+		//Error when the list is empty. We gotta change that.
 		vertices.remove(vertex.getId());
 		edges.remove(vertex.getId());
 		for(int i = 0; i < vertices.size(); i++) {
@@ -58,6 +59,8 @@ public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 
 	@Override
 	public void addEdge(Vertex<V> vertex1, Vertex<V> vertex2, int weight) {
+		//It might have an exception if the vertices do not exist in the current graph.
+		//Error when the list is empty as well.
 		edges.get(vertex1.getId()).set(vertex2.getId(), weight);
 		edges.get(vertex2.getId()).set(vertex1.getId(), weight);
 	}
@@ -250,6 +253,7 @@ public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 
 	@Override
 	public int degreeOf(Vertex<V> vertex) {
+		//Might have an error with an empty graph.
 		int count = 0;
 		ArrayList<Integer> edgeList = edges.get(vertex.getId());
 		for(int i = 0; i < edgeList.size(); i++) {
