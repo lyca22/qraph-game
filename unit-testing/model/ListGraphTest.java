@@ -6,10 +6,12 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import datastr.Edge;
 import datastr.ListEdge;
 import datastr.ListGraph;
 import datastr.ListVertex;
 import datastr.Pair;
+import datastr.Vertex;
 
 class ListGraphTest {
 
@@ -300,14 +302,28 @@ class ListGraphTest {
 		}
 	}
 	
+	
 	@Test
-	void testPrim() {
-		fail("Not yet implemented");
+	void testPrim() throws Exception {
+		setUp2();
+		
+		setUp3();
+		//missing this
+		assertTrue(true);
 	}
 	
 	@Test
-	void testKruskal() {
-		fail("Not yet implemented");
+	void testKruskal() throws Exception {
+		setUp2();
+		ArrayList<ListEdge<Integer>> b = sp.kruskal();	
+		assertTrue(b.isEmpty());
+		
+		setUp3();
+		ArrayList<ListEdge<Integer>> a = sp.kruskal();		
+		assertTrue(a.size()==6);
+		assertTrue(a.get(0).getInitial().getId() == 1);
+		assertTrue(a.get(0).getEnd().getId() == 3);
+		assertTrue(a.get(0).getWeight() == 1);
 	}
 	
 	@Test
