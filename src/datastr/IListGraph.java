@@ -3,7 +3,8 @@ package datastr;
 import java.util.ArrayList;
 
 public interface IListGraph<V> {
-	
+
+	public void deleteVertex(ListVertex<V> vertex);
 	public void addEdge(ListVertex<V> vertex1, ListVertex<V> vertex2, int weight);
 	public void breadthFirstSearch(ListVertex<V> start);
 	public ArrayList<Integer> dijkstra(ListVertex<V> start);

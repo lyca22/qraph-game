@@ -29,6 +29,24 @@ public class ListGraph<V> extends Graph<V> implements IListGraph<V> {
 	}
 
 	@Override
+	public void deleteVertex(ListVertex<V> vertex) {
+		for(int i = 0; i < adjList.size(); i++) {
+			if(!adjList.get(i).equals(vertex)) {
+				if(i > vertex.getId()) {
+					adjList.get(i).setId(adjList.get(i).getId() - 1);
+				}
+				ArrayList<ListEdge<V>> edgeList = adjList.get(i).getEdges();
+				for(int j = 0; j < edgeList.size(); j++) {
+					if(edgeList.get(j).getEnd().equals(vertex)) {
+						edgeList.remove(j);
+					}
+				}
+			}
+		}
+		adjList.remove(vertex.getId());
+	}
+
+	@Override
 	public void addEdge(ListVertex<V> vertex1, ListVertex<V> vertex2, int weight) {
 
 		if(adjList.contains(vertex1) && adjList.contains(vertex2)) {

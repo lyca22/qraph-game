@@ -45,6 +45,11 @@ public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 	}
 
 	@Override
+	public void deleteVertex(Vertex<V> vertex) {
+		
+	}
+
+	@Override
 	public void addEdge(Vertex<V> vertex1, Vertex<V> vertex2, int weight) {
 		edges.get(vertex1.getId()).set(vertex2.getId(), weight);
 		edges.get(vertex2.getId()).set(vertex1.getId(), weight);

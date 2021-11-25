@@ -3,7 +3,8 @@ package datastr;
 import java.util.ArrayList;
 
 public interface IMatrixGraph<V> {
-	
+
+	public void deleteVertex(Vertex<V> vertex);
 	public void addEdge(Vertex<V> vertex1, Vertex<V> vertex2, int weight);
 	public void breadthFirstSearch(Vertex<V> start);
 	public ArrayList<Integer> dijkstra(Vertex<V> start);
