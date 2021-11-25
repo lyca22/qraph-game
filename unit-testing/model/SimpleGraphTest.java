@@ -166,12 +166,21 @@ class SimpleGraphTest {
 		assertEquals(sp.getEdges().get(3).get(3), 0);
 	}
 	
-	/*
+	
 	@Test
-	void testPrim() {
-		fail("Not yet implemented");
+	void testPrim() throws Exception {
+		setUp2();
+		
+		
+		setUp3();
+		ArrayList<Vertex<Integer>> a;
+		a = sp.prim(sp.getVertices().get(0));
+			
+		assertTrue(a.get(1).equals(sp.getVertices().get(0)));
+		assertTrue(a.get(2).equals(sp.getVertices().get(3)));
+		assertTrue(a.get(3).equals(sp.getVertices().get(1)));
 	}
-	*/
+	
 	
 	@Test
 	void testKruskal() throws Exception {
