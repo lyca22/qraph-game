@@ -7,6 +7,7 @@ import java.util.Iterator;
 
 import org.junit.jupiter.api.Test;
 
+import datastr.Edge;
 import datastr.SimpleGraph;
 import datastr.Vertex;
 
@@ -131,9 +132,6 @@ class SimpleGraphTest {
 	@Test
 	void testDijkstra() throws Exception {
 		
-		setUp1();
-		
-		
 		setUp2();
 		assertEquals(sp.dijkstra(sp.getVertices().get(0)).get(0), null);
 		
@@ -173,12 +171,22 @@ class SimpleGraphTest {
 	void testPrim() {
 		fail("Not yet implemented");
 	}
+	*/
 	
 	@Test
-	void testKruskal() {
-		fail("Not yet implemented");
+	void testKruskal() throws Exception {
+		
+		setUp2();
+		ArrayList<Edge<Integer>> b = sp.kruskal();	
+		assertTrue(b.isEmpty());
+		
+		setUp3();
+		ArrayList<Edge<Integer>> a = sp.kruskal();		
+		assertTrue(a.size()==6);
+		assertTrue(a.get(0).getInitial().getId() == 1);
+		assertTrue(a.get(0).getEnd().getId() == 3);
+		assertTrue(a.get(0).getWeight() == 1);
 	}
-	*/
 	
 	@Test
 	void testDegreeOf() throws Exception {		
