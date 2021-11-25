@@ -2,6 +2,9 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import org.junit.jupiter.api.Test;
 
 import datastr.SimpleGraph;
@@ -50,10 +53,14 @@ class SimpleGraphTest {
 		assertEquals(sp.getVertices().size(), 2);
 		assertTrue(sp.getVertices().get(1).getValue()==3);
 		
+		assertEquals(sp.getEdges().get(0).get(0), 0);
+		
+		
 		setUp3();
 		sp.addVertex(5);
 		assertEquals(sp.getVertices().size(), 5);
 		assertTrue(sp.getVertices().get(4).getValue()==5);
+	
 	}
 
 	@Test
@@ -102,21 +109,66 @@ class SimpleGraphTest {
 	
 	
 	@Test
-	void testDFS() {
-		fail("Not yet implemented");
+	void testDFS() throws Exception {
+		setUp2();
+		sp.depthFirstSearch();
+		assertEquals(sp.getVertices().get(0).getTimestamps().getFirst(), 1);
+		assertEquals(sp.getVertices().get(0).getTimestamps().getSecond(), 2);
+		
+		setUp3();
+		sp.depthFirstSearch();
+		assertEquals(sp.getVertices().get(0).getTimestamps().getFirst(), 1);
+		assertEquals(sp.getVertices().get(0).getTimestamps().getSecond(), 8);
+		assertEquals(sp.getVertices().get(1).getTimestamps().getFirst(), 2);
+		assertEquals(sp.getVertices().get(1).getTimestamps().getSecond(), 7);
+		assertEquals(sp.getVertices().get(2).getTimestamps().getFirst(), 3);
+		assertEquals(sp.getVertices().get(2).getTimestamps().getSecond(), 6);
+		assertEquals(sp.getVertices().get(3).getTimestamps().getFirst(), 4);
+		assertEquals(sp.getVertices().get(3).getTimestamps().getSecond(), 5);
+	}
+	
+	
+	@Test
+	void testDijkstra() throws Exception {
+		
+		setUp1();
+		
+		
+		setUp2();
+		assertEquals(sp.dijkstra(sp.getVertices().get(0)).get(0), null);
+		
+		
+		setUp3();
+		ArrayList<Integer> a = sp.dijkstra(sp.getVertices().get(1));
+			assertEquals(a.get(0), 1);
+			assertEquals(a.get(1), null);
+			assertEquals(a.get(2), 3);
+			assertEquals(a.get(3), 1);
+	}
+	
+	
+	@Test
+	void testFloydWarshall() throws Exception {
+		
+		setUp2();
+		sp.floydWarshall();		
+		assertEquals(sp.getEdges().get(0).get(0), 0);
+		
+		setUp3();
+		sp.floydWarshall();		
+		assertEquals(sp.getEdges().get(0).get(0), 0);
+		assertEquals(sp.getEdges().get(0).get(1), 3);
+		assertEquals(sp.getEdges().get(0).get(2), 6);
+		assertEquals(sp.getEdges().get(0).get(3), 3);
+		assertEquals(sp.getEdges().get(1).get(1), 0);
+		assertEquals(sp.getEdges().get(1).get(2), 4);
+		assertEquals(sp.getEdges().get(1).get(3), 1);
+		assertEquals(sp.getEdges().get(2).get(2), 0);
+		assertEquals(sp.getEdges().get(2).get(3), 2);
+		assertEquals(sp.getEdges().get(3).get(3), 0);
 	}
 	
 	/*
-	@Test
-	void testDijkstra() {
-		fail("Not yet implemented");
-	}
-	
-	@Test
-	void testFloydWarshall() {
-		fail("Not yet implemented");
-	}
-	
 	@Test
 	void testPrim() {
 		fail("Not yet implemented");
@@ -126,10 +178,16 @@ class SimpleGraphTest {
 	void testKruskal() {
 		fail("Not yet implemented");
 	}
+	*/
 	
 	@Test
-	void testDegreeOf() {
-		fail("Not yet implemented");
+	void testDegreeOf() throws Exception {		
+		setUp2();
+		assertEquals(sp.degreeOf(sp.getVertices().get(0)), 0);
+		
+		
+		setUp3();
+		assertEquals(sp.degreeOf(sp.getVertices().get(0)), 3);
 	}
-	*/
+	
 }
