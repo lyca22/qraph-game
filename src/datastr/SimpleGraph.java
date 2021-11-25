@@ -46,51 +46,54 @@ public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 
 	@Override
 	public void deleteVertex(Vertex<V> vertex) {
-		//Error when the list is empty. We gotta change that.
-		vertices.remove(vertex.getId());
-		edges.remove(vertex.getId());
-		for(int i = 0; i < vertices.size(); i++) {
-			if(vertices.get(i).getId() > vertex.getId()) {
-				vertices.get(i).setId(vertices.get(i).getId() - 1);
+		if(vertices.contains(vertex)) {
+			vertices.remove(vertex.getId());
+			edges.remove(vertex.getId());
+			for(int i = 0; i < vertices.size(); i++) {
+				if(vertices.get(i).getId() > vertex.getId()) {
+					vertices.get(i).setId(vertices.get(i).getId() - 1);
+				}
+				edges.get(i).remove(vertex.getId());
 			}
-			edges.get(i).remove(vertex.getId());
 		}
 	}
 
 	@Override
 	public void addEdge(Vertex<V> vertex1, Vertex<V> vertex2, int weight) {
-		//It might have an exception if the vertices do not exist in the current graph.
-		//Error when the list is empty as well.
-		edges.get(vertex1.getId()).set(vertex2.getId(), weight);
-		edges.get(vertex2.getId()).set(vertex1.getId(), weight);
+		if(vertices.contains(vertex1) && vertices.contains(vertex2)) {
+			edges.get(vertex1.getId()).set(vertex2.getId(), weight);
+			edges.get(vertex2.getId()).set(vertex1.getId(), weight);
+		}
 	}
 
 	@Override
 	public void breadthFirstSearch(Vertex<V> start) {
-		for(int i = 0; i < getVertices().size(); i++) {
-			getVertices().get(i).setColor(VertexColor.WHITE);
-			getVertices().get(i).setDistance(Integer.MAX_VALUE);
-			getVertices().get(i).setPredecessor(null);
-		}
-		start.setColor(VertexColor.GRAY);
-		start.setDistance(0);
-		Queue<Vertex<V>> queue = new LinkedList<Vertex<V>>();
-		queue.add(start);
-		while(!queue.isEmpty()) {
-			Vertex<V> vertex = queue.poll();
-			ArrayList<Integer> edgeList = edges.get(vertex.getId());
-			for(int i = 0; i < edgeList.size(); i++) {
-				if(edgeList.get(i) != Integer.MAX_VALUE && i != vertex.getId()) {
-					Vertex<V> endVertex = getVertices().get(i);
-					if(endVertex.getColor() == VertexColor.WHITE) {
-						endVertex.setColor(VertexColor.GRAY);
-						endVertex.setDistance(vertex.getDistance()+1);
-						endVertex.setPredecessor(vertex);
-						queue.add(endVertex);
+		if(vertices.contains(start)) {
+			for(int i = 0; i < getVertices().size(); i++) {
+				getVertices().get(i).setColor(VertexColor.WHITE);
+				getVertices().get(i).setDistance(Integer.MAX_VALUE);
+				getVertices().get(i).setPredecessor(null);
+			}
+			start.setColor(VertexColor.GRAY);
+			start.setDistance(0);
+			Queue<Vertex<V>> queue = new LinkedList<Vertex<V>>();
+			queue.add(start);
+			while(!queue.isEmpty()) {
+				Vertex<V> vertex = queue.poll();
+				ArrayList<Integer> edgeList = edges.get(vertex.getId());
+				for(int i = 0; i < edgeList.size(); i++) {
+					if(edgeList.get(i) != Integer.MAX_VALUE && i != vertex.getId()) {
+						Vertex<V> endVertex = getVertices().get(i);
+						if(endVertex.getColor() == VertexColor.WHITE) {
+							endVertex.setColor(VertexColor.GRAY);
+							endVertex.setDistance(vertex.getDistance()+1);
+							endVertex.setPredecessor(vertex);
+							queue.add(endVertex);
+						}
 					}
 				}
+				vertex.setColor(VertexColor.BLACK);
 			}
-			vertex.setColor(VertexColor.BLACK);
 		}
 	}
 
@@ -253,12 +256,13 @@ public class SimpleGraph<V> extends Graph<V> implements IMatrixGraph<V> {
 
 	@Override
 	public int degreeOf(Vertex<V> vertex) {
-		//Might have an error with an empty graph.
 		int count = 0;
-		ArrayList<Integer> edgeList = edges.get(vertex.getId());
-		for(int i = 0; i < edgeList.size(); i++) {
-			if(edgeList.get(i) != Integer.MAX_VALUE && i != vertex.getId()) {
-				count++;
+		if(vertices.contains(vertex)) {
+			ArrayList<Integer> edgeList = edges.get(vertex.getId());
+			for(int i = 0; i < edgeList.size(); i++) {
+				if(edgeList.get(i) != Integer.MAX_VALUE && i != vertex.getId()) {
+					count++;
+				}
 			}
 		}
 		return count;
