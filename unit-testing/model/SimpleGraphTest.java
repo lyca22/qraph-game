@@ -9,16 +9,19 @@ import datastr.Vertex;
 
 class SimpleGraphTest {
 
+	SimpleGraph<Integer> sp;
+	
 	void setUp1() throws Exception {
+		sp = new SimpleGraph<Integer>();
 	}
 
 	void setUp2() throws Exception {
-		SimpleGraph<Integer> sp = new SimpleGraph<Integer>();
+		sp = new SimpleGraph<Integer>();
 		sp.addVertex(1);
 	}
 
 	void setUp3() throws Exception {
-		SimpleGraph<Integer> sp = new SimpleGraph<Integer>();
+		sp = new SimpleGraph<Integer>();
 		sp.addVertex(1);
 		sp.addVertex(2);
 		sp.addVertex(3);
@@ -42,30 +45,74 @@ class SimpleGraphTest {
 	}
 	
 	@Test
-	void testAddVertex() {
-		fail("Not yet implemented");
+	void testAddVertex() throws Exception {
+		
+		setUp1();
+		sp.addVertex(1);
+		assertEquals(sp.getVertices().size(), 1);
+		
+		setUp2();
+		sp.addVertex(3);
+		assertEquals(sp.getVertices().size(), 2);
+		assertTrue(sp.getVertices().get(1).getValue()==3);
+		
+		setUp3();
+		sp.addVertex(5);
+		assertEquals(sp.getVertices().size(), 5);
+		assertTrue(sp.getVertices().get(4).getValue()==5);
+	}
+
+	@Test
+	void testDeleteVertex() throws Exception {
+		setUp1();
+		
+		setUp2();
+		sp.deleteVertex(sp.getVertices().get(0));
+		assertTrue(sp.getVertices().isEmpty());
+		
+		setUp3();
+		sp.deleteVertex(sp.getVertices().get(3));
+		assertTrue(sp.getVertices().size() == 3);
 	}
 	
-	@Test
-	void testDeleteVertex() {
-		fail("Not yet implemented");
-	}
 	
 	@Test
-	void testAddEdge() {
-		fail("Not yet implemented");
+	void testAddEdge() throws Exception {		
+		setUp2();
+		
+		setUp3();
+		sp.addEdge(sp.getVertices().get(0), sp.getVertices().get(1), 10);
+		assertTrue(true);
 	}
 	
+	
 	@Test
-	void testBFS() {
-		fail("Not yet implemented");
+	void testBFS() throws Exception {
+		setUp2();
+		sp.breadthFirstSearch(sp.getVertices().get(0));
+		assertEquals(sp.getVertices().get(0).getDistance(), 0);
+		
+		
+		setUp3();
+		sp.breadthFirstSearch(sp.getVertices().get(1));
+		assertEquals(sp.getVertices().get(0).getDistance(), 1);
+		assertEquals(sp.getVertices().get(1).getDistance(), 0);
+		assertEquals(sp.getVertices().get(2).getDistance(), 1);
+		assertEquals(sp.getVertices().get(3).getDistance(), 1);
+		
+		assertEquals(sp.getVertices().get(0).getPredecessor(), sp.getVertices().get(1));
+		assertEquals(sp.getVertices().get(1).getPredecessor(), null);
+		assertEquals(sp.getVertices().get(2).getPredecessor(), sp.getVertices().get(1));
+		assertEquals(sp.getVertices().get(3).getPredecessor(), sp.getVertices().get(1));		
 	}
+	
 	
 	@Test
 	void testDFS() {
 		fail("Not yet implemented");
 	}
 	
+	/*
 	@Test
 	void testDijkstra() {
 		fail("Not yet implemented");
@@ -90,5 +137,5 @@ class SimpleGraphTest {
 	void testDegreeOf() {
 		fail("Not yet implemented");
 	}
-	
+	*/
 }
