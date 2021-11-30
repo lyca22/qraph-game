@@ -11,6 +11,7 @@ public class Box {
 	private String category;
 	private Path imageNormal;
 	private Path imageBFS;
+	private BoxType type;
 	
 	public Box(int posX, int posY) {
 		this.posX = posX;
