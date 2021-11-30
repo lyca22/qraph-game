@@ -73,14 +73,6 @@ public class Controller {
 		this.winner = winner;
 	}
 
-	public ArrayList<Button> getButtons() {
-		return buttons;
-	}
-
-	public void setButtons(ArrayList<Button> buttons) {
-		this.buttons = buttons;
-	}
-
 	public static int getQuestionTime() {
 		return QUESTION_TIME;
 	}
