@@ -8,11 +8,13 @@ public class Board {
 
 	private Graph<Box> graph;
 	private ArrayList<Player> players;
+	private ArrayList<Path> paths;
 	//private Path image;		PENDING: ADD TO CONSTRUSTOR
 	
-	public Board(Graph<Box> graph, ArrayList<Player> players) {
+	public Board(Graph<Box> graph, ArrayList<Player> players, ArrayList<Path> paths) {
 		this.graph = graph;
 		this.players = players;
+		this.setPaths(paths);
 	}
 
 	public Graph<Box> getGraph() {
@@ -29,6 +31,14 @@ public class Board {
 
 	public void setPlayers(ArrayList<Player> players) {
 		this.players = players;
+	}
+
+	public ArrayList<Path> getPaths() {
+		return paths;
+	}
+
+	public void setPaths(ArrayList<Path> paths) {
+		this.paths = paths;
 	}
 	
 }
