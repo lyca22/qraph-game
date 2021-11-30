@@ -1,5 +1,6 @@
 package model;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class Box {
@@ -7,14 +8,14 @@ public class Box {
 	private int posX;
 	private int posY;
 	private ArrayList<Player> players;
-	private String category;			//CHECK
-	//private Path imageNormal;
-	//private Path imageBFS;
+	private int category;
+	private Path imageNormal;
+	private Path imageBFS;
+	private BoxType type;
 	
-	public Box(int posX, int posY, String category) {
+	public Box(int posX, int posY) {
 		this.posX = posX;
 		this.posY = posY;
-		this.category = category;
 		players = new ArrayList<Player>();
 		//Assign image according to category
 	}
@@ -43,12 +44,36 @@ public class Box {
 		this.players = players;
 	}
 
-	public String getCategory() {
+	public int getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(int category) {
 		this.category = category;
+	}
+
+	public Path getImageNormal() {
+		return imageNormal;
+	}
+
+	public void setImageNormal(Path imageNormal) {
+		this.imageNormal = imageNormal;
+	}
+
+	public Path getImageBFS() {
+		return imageBFS;
+	}
+
+	public void setImageBFS(Path imageBFS) {
+		this.imageBFS = imageBFS;
+	}
+
+	public BoxType getType() {
+		return type;
+	}
+
+	public void setType(BoxType type) {
+		this.type = type;
 	}
 	
 }

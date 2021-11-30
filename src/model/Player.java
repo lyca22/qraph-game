@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.nio.file.Path;
 
 public class Player {
 
@@ -10,7 +11,7 @@ public class Player {
 	private String nickname;
 	private int coins;
 	private int crowns;
-	//private Path avatar;   PENDING TO ADD IN CONSTRUCTOR
+	private Path avatar;
 	private ArrayList<Box> previousBoxes;
 	private int costPreviousPath;
 	private int speed;
@@ -92,6 +93,14 @@ public class Player {
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
+	}
+
+	public Path getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(Path avatar) {
+		this.avatar = avatar;
 	}
 	
 }
