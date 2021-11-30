@@ -1,16 +1,18 @@
 package ui;
-
+	
 import java.util.ArrayList;
 
 import datastr.SimpleGraph;
 import datastr.Vertex;
+import processing.core.PApplet;
 
-public class Main {
+public class Main extends PApplet{
 
 	public static void main(String[] args) {
 		exampleThree();
+		PApplet.main("ui.Main");
 	}
-
+	
 	public static void exampleOne() {
 		SimpleGraph<Integer> sg = new SimpleGraph<Integer>();
 		sg.addVertex(1);
@@ -121,4 +123,15 @@ public class Main {
 		sg.deleteVertex(new Vertex<Integer>(10, 0));
 	}
 	
+	public void settings() {
+		size(1080, 720);
+	}
+	
+	public void setup() {
+		
+	}
+	
+	public void draw() {
+		background(80);
+	}
 }
