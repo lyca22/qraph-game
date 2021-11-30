@@ -11,6 +11,8 @@ import datastr.SimpleGraph;
 public class Controller {
 
 	public static final int QUESTION_TIME = 15;		//Time per question in seconds
+	public static final int RECHARGED_MONEY = 5;
+	public static final int SPECIAL_BOX_WEIGHT = 5;
 
 	private int numRounds;
 	private boolean isSimpleGraph;
@@ -79,7 +81,7 @@ public class Controller {
 			ArrayList<Integer> b1List = ((SimpleGraph<Box>) graph).getEdges().get(boost1Pos);
 			ArrayList<Integer> b2List = ((SimpleGraph<Box>) graph).getEdges().get(boost2Pos);
 			ArrayList<Integer> b3List = ((SimpleGraph<Box>) graph).getEdges().get(boost3Pos);
-			
+
 			simpleSpecialEdge(crownList, crownPos);
 			simpleSpecialEdge(crocodileList, crocodilePos);
 			simpleSpecialEdge(b1List, boost1Pos);
@@ -91,7 +93,7 @@ public class Controller {
 			ArrayList<ListEdge<Box>> b1Edges = ((ListGraph<Box>) graph).getAdjList().get(boost1Pos).getEdges();
 			ArrayList<ListEdge<Box>> b2Edges = ((ListGraph<Box>) graph).getAdjList().get(boost2Pos).getEdges();
 			ArrayList<ListEdge<Box>> b3Edges = ((ListGraph<Box>) graph).getAdjList().get(boost3Pos).getEdges();
-			
+
 			listSpecialEdge(crownEdges);
 			listSpecialEdge(crocodileEdges);
 			listSpecialEdge(b1Edges);
@@ -112,7 +114,7 @@ public class Controller {
 	private void simpleSpecialEdge(ArrayList<Integer> list, int pos) {
 		for(int i = 0; i < currentBoard.getBoxes().size(); i++) {
 			if(i != pos || list.get(i) != Integer.MAX_VALUE) {
-				list.set(i, list.get(i) + 5);
+				list.set(i, list.get(i) + SPECIAL_BOX_WEIGHT);
 			}
 		}
 	}
@@ -122,7 +124,7 @@ public class Controller {
 			list.get(i).setWeight(list.get(i).getWeight() + 5);
 			ArrayList<ListEdge<Box>> endEdges = list.get(i).getEnd().getEdges();
 			for(int j = 0; j < endEdges.size(); j++) {
-				endEdges.get(j).setWeight(endEdges.get(j).getWeight() + 5);
+				endEdges.get(j).setWeight(endEdges.get(j).getWeight() + SPECIAL_BOX_WEIGHT);
 			}
 		}
 	}
@@ -138,6 +140,60 @@ public class Controller {
 		}
 	}
 
+	public void movePlayer(Box finish) {
+		currentPlayer.getCurrentBox().getPlayers().remove(currentPlayer);
+		currentPlayer.setCurrentBox(finish);
+	}
+
+	public Question getQuestion() {
+		int number;
+		switch(currentPlayer.getCurrentBox().getCategory()) {
+		case 1:
+			number = randomNumberWithRange(0, questionsDB.get(1).size()-1);
+			return questionsDB.get(1).get(number);
+		case 2:
+			number = randomNumberWithRange(0, questionsDB.get(2).size()-1);
+			return questionsDB.get(2).get(number);
+		case 3:
+			number = randomNumberWithRange(0, questionsDB.get(3).size()-1);
+			return questionsDB.get(3).get(number);
+		case 4:
+			number = randomNumberWithRange(0, questionsDB.get(4).size()-1);
+			return questionsDB.get(4).get(number);
+		}
+		return null;
+	}
+
+	public void rechargeCoins() {
+		for(int i = 0; i < players.size(); i++) {
+			players.get(i).setCoins(players.get(i).getCoins() + RECHARGED_MONEY);
+		}
+	}
+
+	public void duplicateCoins() {
+
+	}
+
+	public void stealCoins() {
+
+	}
+
+	public void stealCrowns() {
+
+	}
+
+	public void triggerCrownEvent() {
+
+	}
+
+	public void triggerCrocodileEvent() {
+
+	}
+
+	public void findWinner() {
+		
+	}
+	
 	public int getNumRounds() {
 		return numRounds;
 	}
