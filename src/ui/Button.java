@@ -1,16 +1,16 @@
-package model;
+package ui;
+
+import java.nio.file.Path;
 
 public class Button {
-	
-	//MOVE TO UI.
-	
+
 	private int posX;
 	private int posY;
 	private int height;
 	private int width;
 	private boolean state;
 	private ButtonIdentifier identifier;
-	//private Path image;		PENDING TO ADD IN CONSTRUCTOR
+	private Path image;
 	
 	public Button(int posX, int posY, int height, int width, boolean state, ButtonIdentifier identifier) {
 		this.posX = posX;
@@ -67,6 +67,14 @@ public class Button {
 
 	public void setIdentifier(ButtonIdentifier identifier) {
 		this.identifier = identifier;
+	}
+
+	public Path getImage() {
+		return image;
+	}
+
+	public void setImage(Path image) {
+		this.image = image;
 	}
 	
 }

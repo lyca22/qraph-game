@@ -1,5 +1,6 @@
 package model;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 import datastr.Graph;
@@ -7,16 +8,14 @@ import datastr.Graph;
 public class Board {
 
 	private Graph<Box> graph;
-	private ArrayList<Player> players; //Move this to controller.
 	private ArrayList<Box> boxes;
-	private ArrayList<Path> paths;
-	//private Path image;		PENDING: ADD TO CONSTRUSTOR
+	private ArrayList<Road> roads;
+	private Path image;
 	
-	public Board(Graph<Box> graph, ArrayList<Box> boxes, ArrayList<Player> players, ArrayList<Path> paths) {
+	public Board(Graph<Box> graph, ArrayList<Box> boxes, ArrayList<Road> roads) {
 		this.graph = graph;
 		this.setBoxes(boxes);
-		this.players = players;
-		this.setPaths(paths);
+		this.setRoads(roads);
 	}
 
 	public Graph<Box> getGraph() {
@@ -27,20 +26,12 @@ public class Board {
 		this.graph = graph;
 	}
 
-	public ArrayList<Player> getPlayers() {
-		return players;
+	public ArrayList<Road> getRoads() {
+		return roads;
 	}
 
-	public void setPlayers(ArrayList<Player> players) {
-		this.players = players;
-	}
-
-	public ArrayList<Path> getPaths() {
-		return paths;
-	}
-
-	public void setPaths(ArrayList<Path> paths) {
-		this.paths = paths;
+	public void setRoads(ArrayList<Road> roads) {
+		this.roads = roads;
 	}
 
 	public ArrayList<Box> getBoxes() {
@@ -49,6 +40,14 @@ public class Board {
 
 	public void setBoxes(ArrayList<Box> boxes) {
 		this.boxes = boxes;
+	}
+
+	public Path getImage() {
+		return image;
+	}
+
+	public void setImage(Path image) {
+		this.image = image;
 	}
 	
 }

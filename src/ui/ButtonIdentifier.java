@@ -1,9 +1,6 @@
-package model;
+package ui;
 
 public enum ButtonIdentifier {
-
-	//MOVE TO UI.
-	
 	END_GAME,
 	PLAY,
 	START,

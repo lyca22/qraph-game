@@ -1,5 +1,6 @@
 package model;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class Box {
@@ -7,7 +8,7 @@ public class Box {
 	private int posX;
 	private int posY;
 	private ArrayList<Player> players;
-	private String category;			//CHECK
+	private String category;
 	private Path imageNormal;
 	private Path imageBFS;
 	

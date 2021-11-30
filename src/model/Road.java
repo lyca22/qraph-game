@@ -1,25 +1,27 @@
 package model;
 
+import java.nio.file.Path;
+
 import datastr.Edge;
 import datastr.ListEdge;
 
-public class Path {
+public class Road {
 	
 	private int posX;
 	private int posY;
 	private Edge<Box> simpleEdge;
 	private ListEdge<Box> listEdge;
 	private double angle;
-	//private Path image;
+	private Path image;
 	
-	public Path(int posX, int posY, Edge<Box> simpleEdge) {
+	public Road(int posX, int posY, Edge<Box> simpleEdge) {
 		this.posX = posX;
 		this.posY = posY;
 		this.simpleEdge = simpleEdge;
 		calculateAngle();
 	}
 	
-	public Path(int posX, int posY, ListEdge<Box> listEdge) {
+	public Road(int posX, int posY, ListEdge<Box> listEdge) {
 		this.posX = posX;
 		this.posY = posY;
 		this.listEdge = listEdge;
@@ -68,5 +70,13 @@ public class Path {
 
 	public void setAngle(double angle) {
 		this.angle = angle;
+	}
+
+	public java.nio.file.Path getImage() {
+		return image;
+	}
+
+	public void setImage(java.nio.file.Path image) {
+		this.image = image;
 	}
 }

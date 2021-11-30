@@ -14,7 +14,6 @@ public class Controller {
 	private ArrayList<Player> players;
 	private ArrayList<Box> posibleMoves; //Used to display.
 	private Player winner; //Used to display.
-	private ArrayList<Button> buttons; //Delete. Move to UI. Check Button and ButtonIdentifier.
 	private HashMap<Integer, ArrayList<Question>> questionsDB; //Create 4 lists, each one with each type of question given a category. Or do it with HashMap I dunno Julian.
 	private ArrayList<String> categoriesNames;
 	
