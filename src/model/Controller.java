@@ -32,13 +32,18 @@ public class Controller {
 	}
 	
 	public void start() {
+		setupBoxes();
+		setupPlayers();
 		shufflePlayersPositions();
-		
+	}
+
+	private void setupBoxes() {
+	}
+
+	private void setupPlayers() {
 	}
 
 	private void shufflePlayersPositions() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public int getNumRounds() {
