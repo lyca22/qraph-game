@@ -8,13 +8,12 @@ public class Box {
 	private int posY;
 	private ArrayList<Player> players;
 	private String category;			//CHECK
-	//private Path imageNormal;
-	//private Path imageBFS;
+	private Path imageNormal;
+	private Path imageBFS;
 	
-	public Box(int posX, int posY, String category) {
+	public Box(int posX, int posY) {
 		this.posX = posX;
 		this.posY = posY;
-		this.category = category;
 		players = new ArrayList<Player>();
 		//Assign image according to category
 	}
@@ -49,6 +48,22 @@ public class Box {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public Path getImageNormal() {
+		return imageNormal;
+	}
+
+	public void setImageNormal(Path imageNormal) {
+		this.imageNormal = imageNormal;
+	}
+
+	public Path getImageBFS() {
+		return imageBFS;
+	}
+
+	public void setImageBFS(Path imageBFS) {
+		this.imageBFS = imageBFS;
 	}
 	
 }

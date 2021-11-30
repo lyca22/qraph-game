@@ -20,11 +20,12 @@ public class Controller {
 	private Player winner;
 	private ArrayList<Button> buttons;
 	private HashMap<String, Question> questionsDB;
-	
+	private ArrayList<String> currentCategories;
 	
 	public Controller() {
 		boards = new ArrayList<Board>();
 		graph = new SimpleGraph<Box>();
+		currentCategories = new ArrayList<String>();
 		setQuestionsDB(new HashMap<String, Question>());
 		addBoards();
 		addDeafultQuestions();
@@ -59,6 +60,12 @@ public class Controller {
 	}
 	
 	public void start() {
+		shufflePlayersPositions();
+		
+	}
+
+	private void shufflePlayersPositions() {
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -145,6 +152,14 @@ public class Controller {
 
 	public void setQuestionsDB(HashMap<String, Question> questionsDB) {
 		this.questionsDB = questionsDB;
+	}
+
+	public ArrayList<String> getCurrentCategories() {
+		return currentCategories;
+	}
+
+	public void setCurrentCategories(ArrayList<String> currentCategories) {
+		this.currentCategories = currentCategories;
 	}
 	
 }
