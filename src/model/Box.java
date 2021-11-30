@@ -8,7 +8,7 @@ public class Box {
 	private int posX;
 	private int posY;
 	private ArrayList<Player> players;
-	private String category;
+	private int category;
 	private Path imageNormal;
 	private Path imageBFS;
 	private BoxType type;
@@ -44,11 +44,11 @@ public class Box {
 		this.players = players;
 	}
 
-	public String getCategory() {
+	public int getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(int category) {
 		this.category = category;
 	}
 
