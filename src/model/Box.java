@@ -67,5 +67,13 @@ public class Box {
 	public void setImageBFS(Path imageBFS) {
 		this.imageBFS = imageBFS;
 	}
+
+	public BoxType getType() {
+		return type;
+	}
+
+	public void setType(BoxType type) {
+		this.type = type;
+	}
 	
 }
