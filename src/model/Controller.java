@@ -6,7 +6,9 @@ import java.util.HashMap;
 import datastr.Graph;
 import datastr.ListEdge;
 import datastr.ListGraph;
+import datastr.ListVertex;
 import datastr.SimpleGraph;
+import datastr.Vertex;
 
 public class Controller {
 
@@ -231,6 +233,332 @@ public class Controller {
 	}
 
 	public void findWinner() {
+		
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void createBoard1() {
+		Graph<Box> graph;
+		if(isSimpleGraph) {
+			graph = new SimpleGraph<Box>();
+		}else {
+			graph = new ListGraph<Box>();
+		}
+		//addAllBoxes(graph);
+		if(graph instanceof SimpleGraph) {
+			addAllEdges((SimpleGraph<Box>) graph, ((SimpleGraph<Box>) graph).getVertices());
+		}else if(graph instanceof ListGraph){
+			addAllEdges((ListGraph<Box>)graph, ((ListGraph<Box>) graph).getAdjList());
+		}
+		currentBoard = new Board(graph, new ArrayList<Box>(), new ArrayList<Road>());
+	}
+	
+	/*
+	public void addAllBoxes(Graph<Box> graph){
+		Box box;
+
+		//1
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//2
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//3
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//4
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//5
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//6
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//7
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//8
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//9
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//10
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//11
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//12
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//13
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//14
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//15
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//16
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//17
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//18
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//19
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//20
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//21
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//22
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//23
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//24
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+
+		//25
+		box = new Box(posX, posY);
+		graph.addVertex(box);
+	}*/
+	
+	public void addAllEdges(SimpleGraph<Box> graph, ArrayList<Vertex<Box>> vertices){
+		//Edge 1 to 2
+		graph.addEdge(vertices.get(1), vertices.get(2), 3);
+
+		//Edge 1 to 8
+		graph.addEdge(vertices.get(1), vertices.get(8), 4);
+
+		//Edge 2 to 3
+		graph.addEdge(vertices.get(2), vertices.get(3), 3);
+
+		//Edge 2 to 9
+		graph.addEdge(vertices.get(2), vertices.get(9), 7);
+
+		//Edge 3 to 4
+		graph.addEdge(vertices.get(3), vertices.get(4), 1);
+
+		//Edge 4 to 5
+		graph.addEdge(vertices.get(4), vertices.get(5), 6);
+
+		//Edge 4 to 11
+		graph.addEdge(vertices.get(4), vertices.get(11), 7);
+
+		//Edge 4 to 10
+		graph.addEdge(vertices.get(4), vertices.get(10), 15);
+
+		//Edge 5 to 6
+		graph.addEdge(vertices.get(5), vertices.get(6), 4);
+
+		//Edge 5 to 7
+		graph.addEdge(vertices.get(5), vertices.get(7), 9);
+
+		//Edge 6 to 7
+		graph.addEdge(vertices.get(6), vertices.get(7), 1);
+
+		//Edge 6 to 12
+		graph.addEdge(vertices.get(6), vertices.get(12), 7);
+
+		//Edge 7 to 12
+		graph.addEdge(vertices.get(7), vertices.get(12), 4);
+
+		//Edge 8 to 13
+		graph.addEdge(vertices.get(8), vertices.get(13), 5);
+
+		//Edge 9 to 10
+		graph.addEdge(vertices.get(9), vertices.get(10), 1);
+
+		//Edge 9 to 14
+		graph.addEdge(vertices.get(9), vertices.get(14), 3);
+
+		//Edge 10 to 15
+		graph.addEdge(vertices.get(10), vertices.get(15), 3);
+
+		//Edge 11 to 16
+		graph.addEdge(vertices.get(11), vertices.get(16), 3);
+
+		//Edge 12 to 21
+		graph.addEdge(vertices.get(12), vertices.get(21), 10);	
+
+		//Edge 13 to 14
+		graph.addEdge(vertices.get(13), vertices.get(14), 4);
+
+		//Edge 13 to 17
+		graph.addEdge(vertices.get(13), vertices.get(17), 6);	
+
+		//Edge 14 to 18
+		graph.addEdge(vertices.get(14), vertices.get(18), 2);
+
+		//Edge 15 to 19
+		graph.addEdge(vertices.get(15), vertices.get(19), 8);
+
+		//Edge 16 to 20
+		graph.addEdge(vertices.get(16), vertices.get(20), 2);
+		
+		//Edge 17 to 18
+		graph.addEdge(vertices.get(17), vertices.get(18), 7);
+
+		//Edge 18 to 22
+		graph.addEdge(vertices.get(18), vertices.get(22), 12);	
+
+		//Edge 19 to 20
+		graph.addEdge(vertices.get(19), vertices.get(20), 7);	
+
+		//Edge 20 to 21
+		graph.addEdge(vertices.get(20), vertices.get(21), 6);
+
+		//Edge 20 to 24
+		graph.addEdge(vertices.get(20), vertices.get(24), 3);
+
+		//Edge 21 to 25
+		graph.addEdge(vertices.get(21), vertices.get(25), 2);
+
+		//Edge 22 to 23
+		graph.addEdge(vertices.get(22), vertices.get(23), 10);
+
+		//Edge 23 to 24
+		graph.addEdge(vertices.get(23), vertices.get(24), 6);	
+
+		//Edge 24 to 25
+		graph.addEdge(vertices.get(24), vertices.get(25), 8);
+		
+	}
+	
+	public void addAllEdges(ListGraph<Box> graph, ArrayList<ListVertex<Box>> vertices){
+		//Edge 1 to 2
+		graph.addEdge(vertices.get(1), vertices.get(2), 3);
+
+		//Edge 1 to 8
+		graph.addEdge(vertices.get(1), vertices.get(8), 4);
+
+		//Edge 2 to 3
+		graph.addEdge(vertices.get(2), vertices.get(3), 3);
+
+		//Edge 2 to 9
+		graph.addEdge(vertices.get(2), vertices.get(9), 7);
+
+		//Edge 3 to 4
+		graph.addEdge(vertices.get(3), vertices.get(4), 1);
+
+		//Edge 4 to 5
+		graph.addEdge(vertices.get(4), vertices.get(5), 6);
+
+		//Edge 4 to 11
+		graph.addEdge(vertices.get(4), vertices.get(11), 7);
+
+		//Edge 4 to 10
+		graph.addEdge(vertices.get(4), vertices.get(10), 15);
+
+		//Edge 5 to 6
+		graph.addEdge(vertices.get(5), vertices.get(6), 4);
+
+		//Edge 5 to 7
+		graph.addEdge(vertices.get(5), vertices.get(7), 9);
+
+		//Edge 6 to 7
+		graph.addEdge(vertices.get(6), vertices.get(7), 1);
+
+		//Edge 6 to 12
+		graph.addEdge(vertices.get(6), vertices.get(12), 7);
+
+		//Edge 7 to 12
+		graph.addEdge(vertices.get(7), vertices.get(12), 4);
+
+		//Edge 8 to 13
+		graph.addEdge(vertices.get(8), vertices.get(13), 5);
+
+		//Edge 9 to 10
+		graph.addEdge(vertices.get(9), vertices.get(10), 1);
+
+		//Edge 9 to 14
+		graph.addEdge(vertices.get(9), vertices.get(14), 3);
+
+		//Edge 10 to 15
+		graph.addEdge(vertices.get(10), vertices.get(15), 3);
+
+		//Edge 11 to 16
+		graph.addEdge(vertices.get(11), vertices.get(16), 3);
+
+		//Edge 12 to 21
+		graph.addEdge(vertices.get(12), vertices.get(21), 10);	
+
+		//Edge 13 to 14
+		graph.addEdge(vertices.get(13), vertices.get(14), 4);
+
+		//Edge 13 to 17
+		graph.addEdge(vertices.get(13), vertices.get(17), 6);	
+
+		//Edge 14 to 18
+		graph.addEdge(vertices.get(14), vertices.get(18), 2);
+
+		//Edge 15 to 19
+		graph.addEdge(vertices.get(15), vertices.get(19), 8);
+
+		//Edge 16 to 20
+		graph.addEdge(vertices.get(16), vertices.get(20), 2);
+		
+		//Edge 17 to 18
+		graph.addEdge(vertices.get(17), vertices.get(18), 7);
+
+		//Edge 18 to 22
+		graph.addEdge(vertices.get(18), vertices.get(22), 12);	
+
+		//Edge 19 to 20
+		graph.addEdge(vertices.get(19), vertices.get(20), 7);	
+
+		//Edge 20 to 21
+		graph.addEdge(vertices.get(20), vertices.get(21), 6);
+
+		//Edge 20 to 24
+		graph.addEdge(vertices.get(20), vertices.get(24), 3);
+
+		//Edge 21 to 25
+		graph.addEdge(vertices.get(21), vertices.get(25), 2);
+
+		//Edge 22 to 23
+		graph.addEdge(vertices.get(22), vertices.get(23), 10);
+
+		//Edge 23 to 24
+		graph.addEdge(vertices.get(23), vertices.get(24), 6);	
+
+		//Edge 24 to 25
+		graph.addEdge(vertices.get(24), vertices.get(25), 8);
 		
 	}
 	
