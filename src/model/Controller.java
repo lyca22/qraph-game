@@ -13,6 +13,8 @@ public class Controller {
 	public static final int QUESTION_TIME = 15;		//Time per question in seconds
 	public static final int RECHARGED_MONEY = 5;
 	public static final int SPECIAL_BOX_WEIGHT = 5;
+	public static final int STOLEN_COINS = 5;
+	public static final int STOLEN_CROWNS = 1;
 
 	private int numRounds;
 	private boolean isSimpleGraph;
@@ -81,12 +83,12 @@ public class Controller {
 			ArrayList<Integer> b1List = ((SimpleGraph<Box>) graph).getEdges().get(boost1Pos);
 			ArrayList<Integer> b2List = ((SimpleGraph<Box>) graph).getEdges().get(boost2Pos);
 			ArrayList<Integer> b3List = ((SimpleGraph<Box>) graph).getEdges().get(boost3Pos);
-
-			simpleSpecialEdge(crownList, crownPos);
-			simpleSpecialEdge(crocodileList, crocodilePos);
-			simpleSpecialEdge(b1List, boost1Pos);
-			simpleSpecialEdge(b2List, boost1Pos);
-			simpleSpecialEdge(b3List, boost1Pos);
+			
+			simpleSpecialEdge(crownList, crownPos, true);
+			simpleSpecialEdge(crocodileList, crocodilePos, true);
+			simpleSpecialEdge(b1List, boost1Pos, true);
+			simpleSpecialEdge(b2List, boost1Pos, true);
+			simpleSpecialEdge(b3List, boost1Pos, true);
 		}else if(graph instanceof ListGraph){
 			ArrayList<ListEdge<Box>> crownEdges = ((ListGraph<Box>) graph).getAdjList().get(crownPos).getEdges();
 			ArrayList<ListEdge<Box>> crocodileEdges = ((ListGraph<Box>) graph).getAdjList().get(crocodilePos).getEdges();
@@ -94,11 +96,11 @@ public class Controller {
 			ArrayList<ListEdge<Box>> b2Edges = ((ListGraph<Box>) graph).getAdjList().get(boost2Pos).getEdges();
 			ArrayList<ListEdge<Box>> b3Edges = ((ListGraph<Box>) graph).getAdjList().get(boost3Pos).getEdges();
 
-			listSpecialEdge(crownEdges);
-			listSpecialEdge(crocodileEdges);
-			listSpecialEdge(b1Edges);
-			listSpecialEdge(b2Edges);
-			listSpecialEdge(b3Edges);
+			listSpecialEdge(crownEdges, true);
+			listSpecialEdge(crocodileEdges, true);
+			listSpecialEdge(b1Edges, true);
+			listSpecialEdge(b2Edges, true);
+			listSpecialEdge(b3Edges, true);
 		}
 		for(int i = 0; i < currentBoard.getBoxes().size(); i++) {
 			int number = randomNumberWithRange(1, 4);
@@ -111,20 +113,22 @@ public class Controller {
 		return (int)(Math.random() * range) + min;
 	}
 
-	private void simpleSpecialEdge(ArrayList<Integer> list, int pos) {
+	private void simpleSpecialEdge(ArrayList<Integer> list, int pos, boolean isAdding) {
+		int value = isAdding ? 1 : -1;
 		for(int i = 0; i < currentBoard.getBoxes().size(); i++) {
 			if(i != pos || list.get(i) != Integer.MAX_VALUE) {
-				list.set(i, list.get(i) + SPECIAL_BOX_WEIGHT);
+				list.set(i, list.get(i) + (SPECIAL_BOX_WEIGHT * value));
 			}
 		}
 	}
 
-	private void listSpecialEdge(ArrayList<ListEdge<Box>> list) {
+	private void listSpecialEdge(ArrayList<ListEdge<Box>> list, boolean isAdding) {
+		int value = isAdding ? 1 : -1;
 		for(int i = 0; i < list.size(); i++) {
 			list.get(i).setWeight(list.get(i).getWeight() + 5);
 			ArrayList<ListEdge<Box>> endEdges = list.get(i).getEnd().getEdges();
 			for(int j = 0; j < endEdges.size(); j++) {
-				endEdges.get(j).setWeight(endEdges.get(j).getWeight() + SPECIAL_BOX_WEIGHT);
+				endEdges.get(j).setWeight(endEdges.get(j).getWeight() + (SPECIAL_BOX_WEIGHT * value));
 			}
 		}
 	}
@@ -134,7 +138,7 @@ public class Controller {
 			int number;
 			do {
 				number = randomNumberWithRange(0, currentBoard.getBoxes().size() - 1);
-			}while(!currentBoard.getBoxes().get(number).getType().equals(BoxType.NORMAL));
+			}while(currentBoard.getBoxes().get(number).getType() != BoxType.NORMAL);
 			players.get(i).setCurrentBox(currentBoard.getBoxes().get(number));
 			currentBoard.getBoxes().get(number).getPlayers().add(players.get(i));
 		}
@@ -171,23 +175,59 @@ public class Controller {
 	}
 
 	public void duplicateCoins() {
-
+		currentPlayer.setCoins(currentPlayer.getCoins()*2);
 	}
 
-	public void stealCoins() {
-
+	public void stealCoins(Player player) {
+		currentPlayer.setCoins(currentPlayer.getCoins() + STOLEN_COINS);
+		player.setCoins(player.getCoins() - STOLEN_COINS);
 	}
 
-	public void stealCrowns() {
-
+	public void stealCrowns(Player player) {
+		currentPlayer.setCrowns(currentPlayer.getCrowns() + STOLEN_CROWNS);
+		player.setCrowns(player.getCrowns() - STOLEN_CROWNS);
 	}
 
 	public void triggerCrownEvent() {
-
+		currentPlayer.setCrowns(currentPlayer.getCrowns() + STOLEN_CROWNS);
+		currentPlayer.getCurrentBox().setType(BoxType.NORMAL);
+		Graph<Box> graph = currentBoard.getGraph();
+		int crownPos = currentBoard.getBoxes().indexOf(currentPlayer.getCurrentBox());
+		
+		if(graph instanceof SimpleGraph) {
+			ArrayList<Integer> crownList = ((SimpleGraph<Box>) graph).getEdges().get(crownPos);
+			simpleSpecialEdge(crownList, crownPos, false);
+		}else if(graph instanceof ListGraph){
+			ArrayList<ListEdge<Box>> crownEdges = ((ListGraph<Box>) graph).getAdjList().get(crownPos).getEdges();
+			listSpecialEdge(crownEdges, false);
+		}
+		
+		int number;
+		BoxType type;
+		
+		do {
+			number = randomNumberWithRange(0, currentBoard.getBoxes().size() - 1);
+			type = currentBoard.getBoxes().get(number).getType();
+		}while(type != BoxType.NORMAL);
+		
+		currentBoard.getBoxes().get(number).setType(BoxType.CROWN);
+		crownPos = currentBoard.getBoxes().indexOf(currentBoard.getBoxes().get(number));
+		
+		if(graph instanceof SimpleGraph) {
+			ArrayList<Integer> crownList = ((SimpleGraph<Box>) graph).getEdges().get(crownPos);
+			simpleSpecialEdge(crownList, crownPos, true);
+		}else if(graph instanceof ListGraph){
+			ArrayList<ListEdge<Box>> crownEdges = ((ListGraph<Box>) graph).getAdjList().get(crownPos).getEdges();
+			listSpecialEdge(crownEdges, true);
+		}
 	}
 
+	public void triggerBoostEvent() {
+		
+	}
+	
 	public void triggerCrocodileEvent() {
-
+		
 	}
 
 	public void findWinner() {
