@@ -3,61 +3,33 @@ package model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import datastr.Graph;
-import datastr.SimpleGraph;
-
 public class Controller {
 
 	public static final int QUESTION_TIME = 15;		//Time per question in seconds
 	
 	private int numRounds;
-	private Graph<Box> graph; //Booleano del tipo. Simple o no.
-	private ArrayList<Board> boards; //Delete.
+	private boolean isSimpleGraph;
 	private Board currentBoard;
 	private Player currentPlayer;
-	//Have a playerList here instead of Board.
+	private ArrayList<Player> players;
 	private ArrayList<Box> posibleMoves; //Used to display.
-	private boolean isCorrectAnswer; //Delete this one. We are gonna use a method.
 	private Player winner; //Used to display.
 	private ArrayList<Button> buttons; //Delete. Move to UI. Check Button and ButtonIdentifier.
-	private HashMap<String, Question> questionsDB; //Create 4 lists, each one with each type of question given a category. Or do it with HashMap I dunno Julian.
-	private ArrayList<String> currentCategories;
+	private HashMap<Integer, ArrayList<Question>> questionsDB; //Create 4 lists, each one with each type of question given a category. Or do it with HashMap I dunno Julian.
+	private ArrayList<String> categoriesNames;
 	
 	public Controller() {
-		boards = new ArrayList<Board>();
-		graph = new SimpleGraph<Box>();
-		currentCategories = new ArrayList<String>();
-		setQuestionsDB(new HashMap<String, Question>());
-		addBoards();
-		addDeafultQuestions();
-	}
-
-	private void addBoards() {
-		addBoard1();
-		addBoard2();
-	}
-
-	private void addBoard1() {
-		//TODO: Create the graph for board 1
-		if(graph instanceof SimpleGraph) {
-			
-		}else {
-			
-		}
+		setSimpleGraph(true);
+		categoriesNames = new ArrayList<String>();
+		setQuestionsDB(new HashMap<Integer, ArrayList<Question>>());
+		setupDeafultCategories();
 	}
 	
-	private void addBoard2() {
-		//TODO: Create the graph for board 2
-		if(graph instanceof SimpleGraph) {
-			
-		}else {
-			
-		}
-	}
-	
-	private void addDeafultQuestions() {
-		// TODO Auto-generated method stub
-		
+	public void setupDeafultCategories() {
+		questionsDB.put(1, new ArrayList<Question>());
+		questionsDB.put(2, new ArrayList<Question>());
+		questionsDB.put(3, new ArrayList<Question>());
+		questionsDB.put(4, new ArrayList<Question>());
 	}
 	
 	public void start() {
@@ -78,23 +50,6 @@ public class Controller {
 		this.numRounds = numRounds;
 	}
 
-	public Graph<Box> getGraph() {
-		return graph;
-	}
-
-	public void setGraph(Graph<Box> graph) {
-		this.graph = graph;
-		addBoards();
-	}
-
-	public ArrayList<Board> getBoards() {
-		return boards;
-	}
-
-	public void setBoards(ArrayList<Board> boards) {
-		this.boards = boards;
-	}
-
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
@@ -109,14 +64,6 @@ public class Controller {
 
 	public void setPosibleMoves(ArrayList<Box> posibleMoves) {
 		this.posibleMoves = posibleMoves;
-	}
-
-	public boolean isCorrectAnswer() {
-		return isCorrectAnswer;
-	}
-
-	public void setCorrectAnswer(boolean isCorrectAnswer) {
-		this.isCorrectAnswer = isCorrectAnswer;
 	}
 
 	public Player getWinner() {
@@ -147,20 +94,36 @@ public class Controller {
 		this.currentBoard = currentBoard;
 	}
 
-	public HashMap<String, Question> getQuestionsDB() {
+	public HashMap<Integer, ArrayList<Question>> getQuestionsDB() {
 		return questionsDB;
 	}
 
-	public void setQuestionsDB(HashMap<String, Question> questionsDB) {
+	public void setQuestionsDB(HashMap<Integer, ArrayList<Question>> questionsDB) {
 		this.questionsDB = questionsDB;
 	}
 
-	public ArrayList<String> getCurrentCategories() {
-		return currentCategories;
+	public ArrayList<String> getCategoriesNames() {
+		return categoriesNames;
 	}
 
-	public void setCurrentCategories(ArrayList<String> currentCategories) {
-		this.currentCategories = currentCategories;
+	public void setCategoriesNames(ArrayList<String> categoriesNames) {
+		this.categoriesNames = categoriesNames;
+	}
+
+	public boolean isSimpleGraph() {
+		return isSimpleGraph;
+	}
+
+	public void setSimpleGraph(boolean isSimpleGraph) {
+		this.isSimpleGraph = isSimpleGraph;
+	}
+
+	public ArrayList<Player> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(ArrayList<Player> players) {
+		this.players = players;
 	}
 	
 }
