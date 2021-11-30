@@ -11,15 +11,16 @@ public class Controller {
 	public static final int QUESTION_TIME = 15;		//Time per question in seconds
 	
 	private int numRounds;
-	private Graph<Box> graph;
-	private ArrayList<Board> boards;
+	private Graph<Box> graph; //Booleano del tipo. Simple o no.
+	private ArrayList<Board> boards; //Delete.
 	private Board currentBoard;
 	private Player currentPlayer;
-	private ArrayList<Box> posibleMoves;
-	private boolean isCorrectAnswer;
-	private Player winner;
-	private ArrayList<Button> buttons;
-	private HashMap<String, Question> questionsDB;
+	//Have a playerList here instead of Board.
+	private ArrayList<Box> posibleMoves; //Used to display.
+	private boolean isCorrectAnswer; //Delete this one. We are gonna use a method.
+	private Player winner; //Used to display.
+	private ArrayList<Button> buttons; //Delete. Move to UI. Check Button and ButtonIdentifier.
+	private HashMap<String, Question> questionsDB; //Create 4 lists, each one with each type of question given a category. Or do it with HashMap I dunno Julian.
 	private ArrayList<String> currentCategories;
 	
 	public Controller() {

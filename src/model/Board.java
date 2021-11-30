@@ -7,7 +7,7 @@ import datastr.Graph;
 public class Board {
 
 	private Graph<Box> graph;
-	private ArrayList<Player> players;
+	private ArrayList<Player> players; //Move this to controller.
 	private ArrayList<Box> boxes;
 	private ArrayList<Path> paths;
 	//private Path image;		PENDING: ADD TO CONSTRUSTOR

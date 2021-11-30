@@ -2,6 +2,8 @@ package model;
 
 public class Button {
 	
+	//MOVE TO UI.
+	
 	private int posX;
 	private int posY;
 	private int height;
