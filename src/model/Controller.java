@@ -223,9 +223,23 @@ public class Controller {
 			listSpecialEdge(crownEdges, true);
 		}
 	}
-
-	public void triggerBoostEvent() {
-		
+	
+	public void triggerBoostEventStoleCoins(Player stoledPlayer) {
+		if(stoledPlayer.getCoins() - STOLEN_COINS >= 0) {
+			stoledPlayer.setCoins(stoledPlayer.getCoins() - STOLEN_COINS);
+			currentPlayer.setCoins(currentPlayer.getCoins() + STOLEN_COINS);
+		}
+	}
+	
+	public void triggerBoostEventStoleCrown(Player stoledPlayer) {
+		if(stoledPlayer.getCrowns() - STOLEN_CROWNS >= 0) {
+			stoledPlayer.setCrowns(stoledPlayer.getCrowns() - STOLEN_CROWNS);
+			currentPlayer.setCoins(currentPlayer.getCoins() + STOLEN_COINS);
+		}
+	}
+	
+	public void triggerBoostEventDuplicateCoins() {
+		currentPlayer.setCoins(currentPlayer.getCoins() * 2);
 	}
 	
 	public void triggerCrocodileEvent() {
