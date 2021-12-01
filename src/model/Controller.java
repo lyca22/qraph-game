@@ -312,7 +312,7 @@ public class Controller {
 		}else {
 			graph = new ListGraph<Box>();
 		}
-		//addAllBoxes(graph);
+		addAllBoxes(graph);
 		if(graph instanceof SimpleGraph) {
 			addAllEdges((SimpleGraph<Box>) graph, ((SimpleGraph<Box>) graph).getVertices());
 		}else if(graph instanceof ListGraph){
@@ -321,10 +321,10 @@ public class Controller {
 		currentBoard = new Board(graph, new ArrayList<Box>(), new ArrayList<Road>());
 	}
 	
-	/*
+
 	public void addAllBoxes(Graph<Box> graph){
 		Box box;
-
+		/*
 		//1
 		box = new Box(posX, posY);
 		graph.addVertex(box);
@@ -423,8 +423,8 @@ public class Controller {
 
 		//25
 		box = new Box(posX, posY);
-		graph.addVertex(box);
-	}*/
+		graph.addVertex(box);*/
+	}
 	
 	public void addAllEdges(SimpleGraph<Box> graph, ArrayList<Vertex<Box>> vertices){
 		//Edge 1 to 2
