@@ -331,6 +331,7 @@ public class Controller {
 			Question question = new Question(statement, options, answer);
 			questionsDB.get(category).add(question);
 		}
+		br.close();
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
