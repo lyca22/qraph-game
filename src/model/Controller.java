@@ -243,7 +243,9 @@ public class Controller {
 	}
 	
 	public void triggerCrocodileEvent() {
-		
+		createBoard1();
+		setupBoxes();
+		shufflePlayersPositions();
 	}
 
 	public void findWinner() {
