@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import datastr.Graph;
 import datastr.ListGraph;
 import datastr.ListVertex;
 import datastr.SimpleGraph;
@@ -309,13 +310,84 @@ class ControllerTest {
 
 	@Test
 	void testTriggerCrownEvent() {
-		fail("Not yet implemented");
+		ArrayList<Player> p;
+		boolean found;
+		Box b;
+		Graph<Box> graph;
+		int crownPos;
+		ArrayList<Integer> crownList = null;
+		ArrayList<Integer> edges1;
+		
+		p = setup1();
+		c.start(p);
+		found = false;
+		b = null;
+		graph = c.getCurrentBoard().getGraph();
+		edges1 = new ArrayList<Integer>();
+		for(int i = 0; i < c.getCurrentBoard().getBoxes().size() && !found; i++) {
+			if(c.getCurrentBoard().getBoxes().get(i).getType() == BoxType.CROWN) {
+				found = true;
+				b = c.getCurrentBoard().getBoxes().get(i);
+			}
+		}
+		c.movePlayer(b);
+		crownPos = c.getCurrentBoard().getBoxes().indexOf(c.getCurrentPlayer().getCurrentBox());
+		if(graph instanceof SimpleGraph) {
+			crownList = ((SimpleGraph<Box>) graph).getEdges().get(crownPos);
+			for(int i = 0; i < c.getCurrentBoard().getBoxes().size(); i++) {
+				edges1.add(crownList.get(i));
+			}
+		}
+		c.triggerCrownEvent();
+		if(graph instanceof SimpleGraph) {
+			for(int i = 0; i < c.getCurrentBoard().getBoxes().size(); i++) {
+				if(i != crownPos || crownList.get(i) != Integer.MAX_VALUE) {
+					assertTrue(crownList.get(i) == edges1.get(i) - Controller.SPECIAL_BOX_WEIGHT);
+				}
+			}
+		}
+		assertTrue(c.getCurrentPlayer().getCrowns() == Controller.GOTTEN_CROWNS);
+		assertTrue(c.getCurrentPlayer().getCurrentBox().getType() == BoxType.NORMAL);
+		
+		p = setup2();
+		c.start(p);
+		found = false;
+		b = null;
+		graph = c.getCurrentBoard().getGraph();
+		edges1 = new ArrayList<Integer>();
+		for(int i = 0; i < c.getCurrentBoard().getBoxes().size() && !found; i++) {
+			if(c.getCurrentBoard().getBoxes().get(i).getType() == BoxType.CROWN) {
+				found = true;
+				b = c.getCurrentBoard().getBoxes().get(i);
+			}
+		}
+		c.movePlayer(b);
+		crownPos = c.getCurrentBoard().getBoxes().indexOf(c.getCurrentPlayer().getCurrentBox());
+		if(graph instanceof SimpleGraph) {
+			crownList = ((SimpleGraph<Box>) graph).getEdges().get(crownPos);
+			for(int i = 0; i < c.getCurrentBoard().getBoxes().size(); i++) {
+				edges1.add(crownList.get(i));
+			}
+		}
+		c.triggerCrownEvent();
+		if(graph instanceof SimpleGraph) {
+			for(int i = 0; i < c.getCurrentBoard().getBoxes().size(); i++) {
+				if(i != crownPos || crownList.get(i) != Integer.MAX_VALUE) {
+					assertTrue(crownList.get(i) == edges1.get(i) - Controller.SPECIAL_BOX_WEIGHT);
+				}
+			}
+		}
+		assertTrue(c.getCurrentPlayer().getCrowns() == Controller.GOTTEN_CROWNS);
+		assertTrue(c.getCurrentPlayer().getCurrentBox().getType() == BoxType.NORMAL);
 	}
 
-	@Test
+	/*@Test
 	void testTriggerCrocodileEvent() {
+	
+	Implement if we decide to change how this method works.
+	
 		fail("Not yet implemented");
-	}
+	}*/
 
 	@Test
 	void testFindWinner() {
