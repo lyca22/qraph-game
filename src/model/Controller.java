@@ -186,20 +186,6 @@ public class Controller {
 		}
 	}
 
-	public void duplicateCoins() {
-		currentPlayer.setCoins(currentPlayer.getCoins()*2);
-	}
-
-	public void stealCoins(Player player) {
-		currentPlayer.setCoins(currentPlayer.getCoins() + STOLEN_COINS);
-		player.setCoins(player.getCoins() - STOLEN_COINS);
-	}
-
-	public void stealCrowns(Player player) {
-		currentPlayer.setCrowns(currentPlayer.getCrowns() + STOLEN_CROWNS);
-		player.setCrowns(player.getCrowns() - STOLEN_CROWNS);
-	}
-
 	public void triggerCrownEvent() {
 		currentPlayer.setCrowns(currentPlayer.getCrowns() + STOLEN_CROWNS);
 		currentPlayer.getCurrentBox().setType(BoxType.NORMAL);
@@ -234,21 +220,21 @@ public class Controller {
 		}
 	}
 	
-	public void triggerBoostEventStoleCoins(Player stoledPlayer) {
-		if(stoledPlayer.getCoins() - STOLEN_COINS >= 0) {
-			stoledPlayer.setCoins(stoledPlayer.getCoins() - STOLEN_COINS);
+	public void stealCoins(Player stolenPlayer) {
+		if(stolenPlayer.getCoins() - STOLEN_COINS >= 0) {
+			stolenPlayer.setCoins(stolenPlayer.getCoins() - STOLEN_COINS);
 			currentPlayer.setCoins(currentPlayer.getCoins() + STOLEN_COINS);
 		}
 	}
 	
-	public void triggerBoostEventStoleCrown(Player stoledPlayer) {
-		if(stoledPlayer.getCrowns() - STOLEN_CROWNS >= 0) {
-			stoledPlayer.setCrowns(stoledPlayer.getCrowns() - STOLEN_CROWNS);
-			currentPlayer.setCoins(currentPlayer.getCoins() + STOLEN_COINS);
+	public void stealCrowns(Player stolenPlayer) {
+		if(stolenPlayer.getCrowns() - STOLEN_CROWNS >= 0) {
+			stolenPlayer.setCrowns(stolenPlayer.getCrowns() - STOLEN_CROWNS);
+			currentPlayer.setCrowns(currentPlayer.getCrowns() + STOLEN_CROWNS);
 		}
 	}
 	
-	public void triggerBoostEventDuplicateCoins() {
+	public void duplicateCoins() {
 		currentPlayer.setCoins(currentPlayer.getCoins() * 2);
 	}
 	
