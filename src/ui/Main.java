@@ -226,15 +226,15 @@ public class Main extends PApplet{
 						break;
 					case DELETE_PLAYER2:
 						deletePLayer(8);
-						scManager.getPlayersUi().remove(1);
+						scManager.getPlayersUi().remove(0);
 						break;
 					case DELETE_PLAYER3:
 						deletePLayer(9);
-						scManager.getPlayersUi().remove(2);
+						scManager.getPlayersUi().remove(0);
 						break;
 					case DELETE_PLAYER4:
 						deletePLayer(10);
-						scManager.getPlayersUi().remove(3);
+						scManager.getPlayersUi().remove(0);
 						break;
 					case CHANGE_GRAPH:
 						scManager.getControler().setSimpleGraph(!scManager.getControler().isSimpleGraph());
