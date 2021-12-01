@@ -263,6 +263,47 @@ public class Controller {
 		}
 	}
 	
+	public void calculatePossibleMoves(Box box, int distance) {
+		ArrayList<Box> temp = new ArrayList<Box>();
+		if(currentBoard.getGraph() instanceof SimpleGraph) {
+			boolean found = false;
+			Vertex<Box> vertex = null;
+			for (int i = 0; i < ((SimpleGraph<Box>) currentBoard.getGraph()).getVertices().size() && !found; i++) {
+				if(((SimpleGraph<Box>) currentBoard.getGraph()).getVertices().get(i).getValue().equals(box)) {
+					vertex = ((SimpleGraph<Box>) currentBoard.getGraph()).getVertices().get(i);
+					found = true;
+				}
+			}
+			((SimpleGraph<Box>) currentBoard.getGraph()).breadthFirstSearch(vertex);
+			
+			for (Vertex<Box> tempVertex : ((SimpleGraph<Box>) currentBoard.getGraph()).getVertices()) {
+				if(tempVertex.getDistance() == distance) {
+					temp.add(tempVertex.getValue());
+				}
+			}
+			
+			
+		}else if(currentBoard.getGraph() instanceof ListGraph) {
+			boolean found = false;
+			ListVertex<Box> vertex = null;
+			for (int i = 0; i < ((ListGraph<Box>) currentBoard.getGraph()).getAdjList().size() && !found; i++) {
+				if(((ListGraph<Box>) currentBoard.getGraph()).getAdjList().get(i).getValue().equals(box)) {
+					vertex = ((ListGraph<Box>) currentBoard.getGraph()).getAdjList().get(i);
+					found = true;
+				}
+			}
+			((ListGraph<Box>) currentBoard.getGraph()).breadthFirstSearch(vertex);
+			
+			for (ListVertex<Box> tempVertex : ((ListGraph<Box>) currentBoard.getGraph()).getAdjList()) {
+				if(tempVertex.getDistance() == distance) {
+					temp.add(tempVertex.getValue());
+				}
+			}
+		}
+		
+		posibleMoves = temp;
+	}
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void createBoard1() {
 		Graph<Box> graph;
