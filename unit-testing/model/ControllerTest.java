@@ -14,7 +14,7 @@ import datastr.Vertex;
 class ControllerTest {
 
 	public Controller c;
-	
+
 	ArrayList<Player> setup1() {
 		ArrayList<Player> players = new ArrayList<Player>();
 		Player p = new Player(0, 0);
@@ -34,7 +34,7 @@ class ControllerTest {
 		Vertex<Box> v4 = sg.getVertices().get(3);
 		Vertex<Box> v5 = sg.getVertices().get(4);
 		Vertex<Box> v6 = sg.getVertices().get(5);
-		
+
 		sg.addEdge(v1, v2, 3);
 		sg.addEdge(v1, v4, 4);
 		sg.addEdge(v2, v3, 1);
@@ -44,7 +44,7 @@ class ControllerTest {
 		sg.addEdge(v4, v5, 5);
 		sg.addEdge(v4, v6, 2);
 		sg.addEdge(v5, v6, 4);
-		
+
 		c.setCurrentPlayer(p);
 		Question q1 = new Question("Q1", new ArrayList<String>(), 0);
 		Question q2 = new Question("Q2", new ArrayList<String>(), 1);
@@ -56,12 +56,12 @@ class ControllerTest {
 		c.getQuestionsDB().get(4).add(q4);
 		return players;
 	}
-	
+
 	ArrayList<Player> setup2() {
 		ArrayList<Player> players = new ArrayList<Player>();
 		Player p = new Player(0, 0);
 		players.add(p);
-		Controller c = new Controller();
+		c = new Controller();
 		ListGraph<Box> lg = new ListGraph<Box>();
 		Board b = new Board(lg);
 		c.setCurrentBoard(b);
@@ -76,7 +76,7 @@ class ControllerTest {
 		ListVertex<Box> v4 = lg.getAdjList().get(3);
 		ListVertex<Box> v5 = lg.getAdjList().get(4);
 		ListVertex<Box> v6 = lg.getAdjList().get(5);
-		
+
 		lg.addEdge(v1, v2, 3);
 		lg.addEdge(v1, v4, 4);
 		lg.addEdge(v2, v3, 1);
@@ -86,7 +86,7 @@ class ControllerTest {
 		lg.addEdge(v4, v5, 5);
 		lg.addEdge(v4, v6, 2);
 		lg.addEdge(v5, v6, 4);
-		
+
 		c.setCurrentPlayer(p);
 		Question q1 = new Question("Q1", new ArrayList<String>(), 0);
 		Question q2 = new Question("Q2", new ArrayList<String>(), 1);
@@ -98,17 +98,17 @@ class ControllerTest {
 		c.getQuestionsDB().get(4).add(q4);
 		return players;
 	}
-	
+
 	@Test
 	void testStart() {
-		
+
 		ArrayList<Player> players;
 		int crownCount;
 		int crocodileCount;
 		int boostCount;
 		int normalCount;
 		int playerCount;
-		
+
 		players = setup1();
 		c.start(players);
 		crownCount = 0;
@@ -133,7 +133,7 @@ class ControllerTest {
 		assertTrue(boostCount == 3);
 		assertTrue(normalCount == 1);
 		assertTrue(playerCount == 1);
-		
+
 		players = setup2();
 		c.start(players);
 		crownCount = 0;
@@ -159,15 +159,15 @@ class ControllerTest {
 		assertTrue(normalCount == 1);
 		assertTrue(playerCount == 1);
 	}
-	
+
 	@Test
 	void testMovePlayer() {
-		
+
 		ArrayList<Player> p;
 		boolean found;
 		Box b;
 		Box cb;
-		
+
 		p = setup1();
 		c.start(p);
 		found = false;
@@ -178,14 +178,14 @@ class ControllerTest {
 				b = c.getCurrentBoard().getBoxes().get(i);
 			}
 		}
-		
+
 		cb = c.getCurrentPlayer().getCurrentBox();
 		c.movePlayer(b);
-		
+
 		assertTrue(cb.getPlayers().isEmpty());
 		assertTrue(c.getCurrentPlayer().getCurrentBox() == b);
 		assertTrue(c.getCurrentPlayer().getCurrentBox().getPlayers().contains(c.getCurrentPlayer()));
-		
+
 		p = setup2();
 		c.start(p);
 		found = false;
@@ -196,22 +196,37 @@ class ControllerTest {
 				b = c.getCurrentBoard().getBoxes().get(i);
 			}
 		}
-		
+
 		cb = c.getCurrentPlayer().getCurrentBox();
 		c.movePlayer(b);
-		
+
 		assertTrue(cb.getPlayers().isEmpty());
 		assertTrue(c.getCurrentPlayer().getCurrentBox() == b);
 		assertTrue(c.getCurrentPlayer().getCurrentBox().getPlayers().contains(c.getCurrentPlayer()));
-		
+
 	}
-	
+
 	@Test
 	void testGetQuestion() {
 		ArrayList<Player> p;
+		Question q;
+		
 		p = setup1();
 		c.start(p);
-		Question q = c.getQuestion();
+		q = c.getQuestion();
+		if(c.getCurrentPlayer().getCurrentBox().getCategory() == 1) {
+			assertTrue(c.getQuestionsDB().get(1).contains(q));
+		}else if(c.getCurrentPlayer().getCurrentBox().getCategory() == 2) {
+			assertTrue(c.getQuestionsDB().get(2).contains(q));
+		}else if(c.getCurrentPlayer().getCurrentBox().getCategory() == 3) {
+			assertTrue(c.getQuestionsDB().get(3).contains(q));
+		}else if(c.getCurrentPlayer().getCurrentBox().getCategory() == 4) {
+			assertTrue(c.getQuestionsDB().get(4).contains(q));
+		}
+		
+		p = setup2();
+		c.start(p);
+		q = c.getQuestion();
 		if(c.getCurrentPlayer().getCurrentBox().getCategory() == 1) {
 			assertTrue(c.getQuestionsDB().get(1).contains(q));
 		}else if(c.getCurrentPlayer().getCurrentBox().getCategory() == 2) {
@@ -222,40 +237,144 @@ class ControllerTest {
 			assertTrue(c.getQuestionsDB().get(4).contains(q));
 		}
 	}
-	
+
 	@Test
-	void testRechargeCoins() {
-		fail("Not yet implemented");
+	void testRechargeAndDuplicateCoins() {
+		ArrayList<Player> p;
+		
+		p = setup1();
+		c.start(p);
+		c.rechargeCoins();
+		assertTrue(c.getCurrentPlayer().getCoins() == Controller.RECHARGED_MONEY);
+		c.duplicateCoins();
+		assertTrue(c.getCurrentPlayer().getCoins() == Controller.RECHARGED_MONEY*2);
+		
+		p = setup2();
+		c.start(p);
+		c.rechargeCoins();
+		assertTrue(c.getCurrentPlayer().getCoins() == Controller.RECHARGED_MONEY);
+		c.duplicateCoins();
+		assertTrue(c.getCurrentPlayer().getCoins() == Controller.RECHARGED_MONEY*2);
 	}
-	
-	@Test
-	void testDuplicateCoins() {
-		fail("Not yet implemented");
-	}
-	
+
 	@Test
 	void testStealCoins() {
-		fail("Not yet implemented");
+		ArrayList<Player> p;
+		Player player;
+		int coins;
+		
+		p = setup1();
+		c.start(p);
+		player = new Player(0, 0);
+		coins = 10;
+		player.setCoins(coins);
+		c.stealCoins(player);
+		assertTrue(c.getCurrentPlayer().getCoins() == Controller.STOLEN_COINS);
+		assertTrue(player.getCoins() == coins - Controller.STOLEN_COINS);
+		
+		p = setup2();
+		c.start(p);
+		player = new Player(0, 0);
+		coins = 10;
+		player.setCoins(coins);
+		c.stealCoins(player);
+		assertTrue(c.getCurrentPlayer().getCoins() == Controller.STOLEN_COINS);
+		assertTrue(player.getCoins() == coins - Controller.STOLEN_COINS);
 	}
-	
+
 	@Test
 	void testStealCrowns() {
-		fail("Not yet implemented");
+		ArrayList<Player> p;
+		Player player;
+		int crowns;
+		
+		p = setup1();
+		c.start(p);
+		player = new Player(0, 0);
+		crowns = 1;
+		player.setCrowns(crowns);
+		c.stealCrowns(player);
+		assertTrue(c.getCurrentPlayer().getCrowns() == Controller.STOLEN_CROWNS);
+		assertTrue(player.getCrowns() == crowns - Controller.STOLEN_CROWNS);
+		
+		p = setup2();
+		c.start(p);
+		player = new Player(0, 0);
+		crowns = 1;
+		player.setCrowns(crowns);
+		c.stealCrowns(player);
+		assertTrue(c.getCurrentPlayer().getCrowns() == Controller.STOLEN_CROWNS);
+		assertTrue(player.getCrowns() == crowns - Controller.STOLEN_CROWNS);
 	}
 
 	@Test
 	void testTriggerCrownEvent() {
 		fail("Not yet implemented");
 	}
-	
+
 	@Test
 	void testTriggerCrocodileEvent() {
 		fail("Not yet implemented");
 	}
-	
+
 	@Test
 	void testFindWinner() {
-		fail("Not yet implemented");
+		testFindWinner1();
+		testFindWinner2();
+	}
+	
+	void testFindWinner1() {
+		ArrayList<Player> p;
+		Player player;
+		
+		p = setup1();
+		player = new Player(0, 0);
+		player.setCrowns(1);
+		player.setCoins(10);
+		p.add(player);
+		c.start(p);
+		c.getCurrentPlayer().setCrowns(2);
+		c.getCurrentPlayer().setCoins(10);
+		c.findWinner();
+		assertTrue(c.getWinner().equals(c.getCurrentPlayer()));
+		
+		p = setup2();
+		player = new Player(0, 0);
+		player.setCrowns(1);
+		player.setCoins(10);
+		p.add(player);
+		c.start(p);
+		c.getCurrentPlayer().setCrowns(2);
+		c.getCurrentPlayer().setCoins(10);
+		c.findWinner();
+		assertTrue(c.getWinner().equals(c.getCurrentPlayer()));
+	}
+	
+	void testFindWinner2() {
+		ArrayList<Player> p;
+		Player player;
+		
+		p = setup1();
+		player = new Player(0, 0);
+		player.setCrowns(2);
+		player.setCoins(10);
+		p.add(player);
+		c.start(p);
+		c.getCurrentPlayer().setCrowns(2);
+		c.getCurrentPlayer().setCoins(20);
+		c.findWinner();
+		assertTrue(c.getWinner().equals(c.getCurrentPlayer()));
+		
+		p = setup2();
+		player = new Player(0, 0);
+		player.setCrowns(2);
+		player.setCoins(10);
+		p.add(player);
+		c.start(p);
+		c.getCurrentPlayer().setCrowns(2);
+		c.getCurrentPlayer().setCoins(20);
+		c.findWinner();
+		assertTrue(c.getWinner().equals(c.getCurrentPlayer()));
 	}
 
 }
