@@ -270,7 +270,7 @@ public class Controller {
 		}
 	}
 	
-	public ArrayList<Integer> getMovementCost(Box startBox){
+	/*public ArrayList<Integer> getMovementCost(Box startBox){
 		int index = currentBoard.getBoxes().indexOf(startBox);
 		if(currentBoard.getGraph() instanceof SimpleGraph) {
 			SimpleGraph<Box> sg = (SimpleGraph<Box>) currentBoard.getGraph();
@@ -279,11 +279,14 @@ public class Controller {
 			ListGraph<Box> sg = (ListGraph<Box>) currentBoard.getGraph();
 			return sg.dijkstra(sg.getAdjList().get(index));
 		}
-	}
+	}*/
 	
 	//Changed needed.
-	public void calculatePossibleMoves(Box box, int distance) {
+	public ArrayList<Integer> calculatePossibleMoves(Box box, int distance) {
 		ArrayList<Box> temp = new ArrayList<Box>();
+		ArrayList<Vertex<Box>> tempSimple = new ArrayList<Vertex<Box>>();
+		ArrayList<ListVertex<Box>> tempList = new ArrayList<ListVertex<Box>>();
+		ArrayList<Integer> dijkstraOutput = new ArrayList<Integer>();
 		if(currentBoard.getGraph() instanceof SimpleGraph) {
 			boolean found = false;
 			Vertex<Box> vertex = null;
@@ -294,14 +297,16 @@ public class Controller {
 				}
 			}
 			((SimpleGraph<Box>) currentBoard.getGraph()).breadthFirstSearch(vertex);
-			
 			for (Vertex<Box> tempVertex : ((SimpleGraph<Box>) currentBoard.getGraph()).getVertices()) {
-				if(tempVertex.getDistance() == distance) {
+				if(tempVertex.getDistance() <= distance) {
 					temp.add(tempVertex.getValue());
+					tempSimple.add(tempVertex);
 				}
 			}
-			
-			
+			SimpleGraph<Box> graphCopy = new SimpleGraph<Box>();
+			graphCopy.setVertices(tempSimple);
+			graphCopy.setEdges(((SimpleGraph<Box>)currentBoard.getGraph()).getEdges());
+			dijkstraOutput = graphCopy.dijkstra(vertex);
 		}else if(currentBoard.getGraph() instanceof ListGraph) {
 			boolean found = false;
 			ListVertex<Box> vertex = null;
@@ -312,15 +317,18 @@ public class Controller {
 				}
 			}
 			((ListGraph<Box>) currentBoard.getGraph()).breadthFirstSearch(vertex);
-			
 			for (ListVertex<Box> tempVertex : ((ListGraph<Box>) currentBoard.getGraph()).getAdjList()) {
-				if(tempVertex.getDistance() == distance) {
+				if(tempVertex.getDistance() <= distance) {
 					temp.add(tempVertex.getValue());
+					tempList.add(tempVertex);
 				}
 			}
+			ListGraph<Box> graphCopy = new ListGraph<Box>();
+			graphCopy.setAdjList(tempList);
+			dijkstraOutput = graphCopy.dijkstra(vertex);
 		}
-		
 		posibleMoves = temp;
+		return dijkstraOutput;
 	}
 	
 	public void readDB(String fileName) throws IOException {
