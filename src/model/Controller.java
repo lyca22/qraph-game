@@ -267,6 +267,18 @@ public class Controller {
 		}
 	}
 	
+	public ArrayList<Integer> getMovementCost(Box startBox){
+		int index = currentBoard.getBoxes().indexOf(startBox);
+		if(currentBoard.getGraph() instanceof SimpleGraph) {
+			SimpleGraph<Box> sg = (SimpleGraph<Box>) currentBoard.getGraph();
+			return sg.dijkstra(sg.getVertices().get(index));
+		}else {
+			ListGraph<Box> sg = (ListGraph<Box>) currentBoard.getGraph();
+			return sg.dijkstra(sg.getAdjList().get(index));
+		}
+	}
+	
+	//Changed needed.
 	public void calculatePossibleMoves(Box box, int distance) {
 		ArrayList<Box> temp = new ArrayList<Box>();
 		if(currentBoard.getGraph() instanceof SimpleGraph) {
