@@ -14,14 +14,19 @@ public class ScreenManager {
 	private Controller controler;
 	
 	private ArrayList<Button> uiButtons;
-	private ArrayList<PImage> mainScreenImages;
+	private ArrayList<PImage> screenImages;
 	private ArrayList<Player> playersUi;
 	
+	private PImage mainBg;
+	private PImage textMain;
+	private PImage playBtn;
+	private PImage aboutBtn;
+	private PImage exitBtn;
 	
 	public ScreenManager(PApplet app) {
 		
 		this.app = app;
-		mainScreenImages = new ArrayList<>();
+		screenImages = new ArrayList<>();
 		uiButtons = new ArrayList<>();
 		playersUi = new ArrayList<>();
 		screenId = ScreenIdentifier.MAIN_SCREEN;
@@ -30,6 +35,15 @@ public class ScreenManager {
 		
 		//Initialization
 		loadMainScreen();
+		loadImages();
+	}
+
+	private void loadImages() {
+		mainBg = app.loadImage("data/imgs/MainMenuBgBlue.png");
+		textMain = app.loadImage("data/imgs/TituloMSBGv2-03.png");
+		playBtn = app.loadImage("data/imgs/playBtn.png");
+		aboutBtn = app.loadImage("data/imgs/aboutBtn.png");
+		exitBtn = app.loadImage("data/imgs/quitGameBtn.png");
 	}
 
 	private void loadMainScreen() {
@@ -65,10 +79,15 @@ public class ScreenManager {
 	
 	//RENDERS
 	public void renderMainScreen() {
+		app.image(mainBg, 0, 0);
+		app.image(textMain, 50, 50 );
+		app.image(playBtn, uiButtons.get(0).getPosX(), uiButtons.get(0).getPosY());
+		app.image(aboutBtn, uiButtons.get(1).getPosX(), uiButtons.get(1).getPosY());
+		app.image(exitBtn, uiButtons.get(2).getPosX(), uiButtons.get(2).getPosY());
 		app.fill(20);
-		app.rect(uiButtons.get(0).getPosX(), uiButtons.get(0).getPosY(), uiButtons.get(0).getWidth(), uiButtons.get(0).getHeight());	
-		app.rect(uiButtons.get(1).getPosX(), uiButtons.get(1).getPosY(), uiButtons.get(1).getWidth(), uiButtons.get(1).getHeight());		
-		app.rect(uiButtons.get(2).getPosX(), uiButtons.get(2).getPosY(), uiButtons.get(2).getWidth(), uiButtons.get(2).getHeight());		
+		//app.rect(uiButtons.get(0).getPosX(), uiButtons.get(0).getPosY(), uiButtons.get(0).getWidth(), uiButtons.get(0).getHeight());	
+		//app.rect(uiButtons.get(1).getPosX(), uiButtons.get(1).getPosY(), uiButtons.get(1).getWidth(), uiButtons.get(1).getHeight());		
+		//app.rect(uiButtons.get(2).getPosX(), uiButtons.get(2).getPosY(), uiButtons.get(2).getWidth(), uiButtons.get(2).getHeight());		
 	}
 	
 	public void renderConfiguratoinScreen() {
@@ -142,8 +161,8 @@ public class ScreenManager {
 		return uiButtons;
 	}
 
-	public ArrayList<PImage> getMainScreenImages() {
-		return mainScreenImages;
+	public ArrayList<PImage> getScreenImages() {
+		return screenImages;
 	}
 	public ScreenManager() {
 		// TODO Auto-generated constructor stub

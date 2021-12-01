@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import datastr.SimpleGraph;
 import datastr.Vertex;
-import model.Box;
 import model.Player;
 import processing.core.PApplet;
 
@@ -170,7 +169,7 @@ public class Main extends PApplet{
 						System.out.println("EXIT");
 						break;
 					case ABOUT:
-						System.out.println("ABOUT");
+						scManager.setScreenId(ScreenIdentifier.ABOUT_SCREEN);
 						break;
 					default:
 						break;
@@ -240,8 +239,11 @@ public class Main extends PApplet{
 						scManager.getControler().setSimpleGraph(!scManager.getControler().isSimpleGraph());
 						break;
 					case START:
-						scManager.setScreenId(ScreenIdentifier.GAME_SCREEN);
-						scManager.getControler().start(scManager.getPlayersUi());
+						if(scManager.getPlayersUi().size() > 1) {
+							scManager.setScreenId(ScreenIdentifier.GAME_SCREEN);
+							scManager.getControler().createBoard1();
+						}
+						//scManager.getControler().start(scManager.getPlayersUi());
 						break;
 					default:
 						break;

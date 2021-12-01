@@ -360,106 +360,106 @@ public class Controller {
 
 	public void addAllBoxes(Graph<Box> graph){
 		Box box;
-		/*
+		
 		//1
-		box = new Box(posX, posY);
+		box = new Box(216, 163);
 		graph.addVertex(box);
 
 		//2
-		box = new Box(posX, posY);
+		box = new Box(370, 105);
 		graph.addVertex(box);
 
 		//3
-		box = new Box(posX, posY);
+		box = new Box(479, 154);
 		graph.addVertex(box);
 
 		//4
-		box = new Box(posX, posY);
+		box = new Box(534, 252);
 		graph.addVertex(box);
 
 		//5
-		box = new Box(posX, posY);
+		box = new Box(626, 139);
 		graph.addVertex(box);
 
 		//6
-		box = new Box(posX, posY);
+		box = new Box(760, 217);
 		graph.addVertex(box);
 
 		//7
-		box = new Box(posX, posY);
+		box = new Box(785, 121);
 		graph.addVertex(box);
 
 		//8
-		box = new Box(posX, posY);
+		box = new Box(144, 303);
 		graph.addVertex(box);
 
 		//9
-		box = new Box(posX, posY);
+		box = new Box(301, 255);
 		graph.addVertex(box);
 
 		//10
-		box = new Box(posX, posY);
+		box = new Box(423, 304);
 		graph.addVertex(box);
 
 		//11
-		box = new Box(posX, posY);
+		box = new Box(626, 306);
 		graph.addVertex(box);
 
 		//12
-		box = new Box(posX, posY);
+		box = new Box(888, 312);
 		graph.addVertex(box);
 
 		//13
-		box = new Box(posX, posY);
+		box = new Box(198, 443);
 		graph.addVertex(box);
 
 		//14
-		box = new Box(posX, posY);
+		box = new Box(323, 421);
 		graph.addVertex(box);
 
 		//15
-		box = new Box(posX, posY);
+		box = new Box(463, 397);
 		graph.addVertex(box);
 
 		//16
-		box = new Box(posX, posY);
+		box = new Box(759, 343);
 		graph.addVertex(box);
 
 		//17
-		box = new Box(posX, posY);
+		box = new Box(220, 540);
 		graph.addVertex(box);
 
 		//18
-		box = new Box(posX, posY);
+		box = new Box(337, 591);
 		graph.addVertex(box);
 
 		//19
-		box = new Box(posX, posY);
+		box = new Box(539, 473);
 		graph.addVertex(box);
 
 		//20
-		box = new Box(posX, posY);
+		box = new Box(687, 431);
 		graph.addVertex(box);
 
 		//21
-		box = new Box(posX, posY);
+		box = new Box(833, 463);
 		graph.addVertex(box);
 
 		//22
-		box = new Box(posX, posY);
+		box = new Box(449, 532);
 		graph.addVertex(box);
 
 		//23
-		box = new Box(posX, posY);
+		box = new Box(597, 602);
 		graph.addVertex(box);
 
 		//24
-		box = new Box(posX, posY);
+		box = new Box(689, 543);
 		graph.addVertex(box);
 
 		//25
-		box = new Box(posX, posY);
-		graph.addVertex(box);*/
+		box = new Box(786, 597);
+		graph.addVertex(box);
 	}
 	
 	public void addAllEdges(SimpleGraph<Box> graph, ArrayList<Vertex<Box>> vertices){
