@@ -1,17 +1,10 @@
-package model;
+package datastr;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
-
-import datastr.Edge;
-import datastr.ListEdge;
-import datastr.ListGraph;
-import datastr.ListVertex;
-import datastr.Pair;
-import datastr.Vertex;
 
 class ListGraphTest {
 

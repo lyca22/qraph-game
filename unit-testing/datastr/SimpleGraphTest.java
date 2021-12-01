@@ -1,15 +1,9 @@
-package model;
+package datastr;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
 import org.junit.jupiter.api.Test;
-
-import datastr.Edge;
-import datastr.SimpleGraph;
-import datastr.Vertex;
 
 class SimpleGraphTest {
 
