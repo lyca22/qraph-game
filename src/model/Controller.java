@@ -450,206 +450,205 @@ public class Controller {
 	
 	public void addAllEdges(SimpleGraph<Box> graph, ArrayList<Vertex<Box>> vertices){
 		//Edge 1 to 2
-		graph.addEdge(vertices.get(1), vertices.get(2), 3);
+		graph.addEdge(vertices.get(1-1), vertices.get(2-1), 3);
 
 		//Edge 1 to 8
-		graph.addEdge(vertices.get(1), vertices.get(8), 4);
+		graph.addEdge(vertices.get(1-1), vertices.get(8-1), 4);
 
 		//Edge 2 to 3
-		graph.addEdge(vertices.get(2), vertices.get(3), 3);
+		graph.addEdge(vertices.get(2-1), vertices.get(3-1), 3);
 
 		//Edge 2 to 9
-		graph.addEdge(vertices.get(2), vertices.get(9), 7);
+		graph.addEdge(vertices.get(2-1), vertices.get(9-1), 7);
 
 		//Edge 3 to 4
-		graph.addEdge(vertices.get(3), vertices.get(4), 1);
+		graph.addEdge(vertices.get(3-1), vertices.get(4-1), 1);
 
 		//Edge 4 to 5
-		graph.addEdge(vertices.get(4), vertices.get(5), 6);
+		graph.addEdge(vertices.get(4-1), vertices.get(5-1), 6);
 
 		//Edge 4 to 11
-		graph.addEdge(vertices.get(4), vertices.get(11), 7);
+		graph.addEdge(vertices.get(4-1), vertices.get(11-1), 7);
 
 		//Edge 4 to 10
-		graph.addEdge(vertices.get(4), vertices.get(10), 15);
+		graph.addEdge(vertices.get(4-1), vertices.get(10-1), 15);
 
 		//Edge 5 to 6
-		graph.addEdge(vertices.get(5), vertices.get(6), 4);
+		graph.addEdge(vertices.get(5-1), vertices.get(6-1), 4);
 
 		//Edge 5 to 7
-		graph.addEdge(vertices.get(5), vertices.get(7), 9);
+		graph.addEdge(vertices.get(5-1), vertices.get(7-1), 9);
 
 		//Edge 6 to 7
-		graph.addEdge(vertices.get(6), vertices.get(7), 1);
+		graph.addEdge(vertices.get(6-1), vertices.get(7-1), 1);
 
 		//Edge 6 to 12
-		graph.addEdge(vertices.get(6), vertices.get(12), 7);
+		graph.addEdge(vertices.get(6-1), vertices.get(12-1), 7);
 
 		//Edge 7 to 12
-		graph.addEdge(vertices.get(7), vertices.get(12), 4);
+		graph.addEdge(vertices.get(7-1), vertices.get(12-1), 4);
 
 		//Edge 8 to 13
-		graph.addEdge(vertices.get(8), vertices.get(13), 5);
+		graph.addEdge(vertices.get(8-1), vertices.get(13-1), 5);
 
 		//Edge 9 to 10
-		graph.addEdge(vertices.get(9), vertices.get(10), 1);
+		graph.addEdge(vertices.get(9-1), vertices.get(10-1), 1);
 
 		//Edge 9 to 14
-		graph.addEdge(vertices.get(9), vertices.get(14), 3);
+		graph.addEdge(vertices.get(9-1), vertices.get(14-1), 3);
 
 		//Edge 10 to 15
-		graph.addEdge(vertices.get(10), vertices.get(15), 3);
+		graph.addEdge(vertices.get(10-1), vertices.get(15-1), 3);
 
 		//Edge 11 to 16
-		graph.addEdge(vertices.get(11), vertices.get(16), 3);
+		graph.addEdge(vertices.get(11-1), vertices.get(16-1), 3);
 
 		//Edge 12 to 21
-		graph.addEdge(vertices.get(12), vertices.get(21), 10);	
+		graph.addEdge(vertices.get(12-1), vertices.get(21-1), 10);	
 
 		//Edge 13 to 14
-		graph.addEdge(vertices.get(13), vertices.get(14), 4);
+		graph.addEdge(vertices.get(13-1), vertices.get(14-1), 4);
 
 		//Edge 13 to 17
-		graph.addEdge(vertices.get(13), vertices.get(17), 6);	
+		graph.addEdge(vertices.get(13-1), vertices.get(17-1), 6);	
 
 		//Edge 14 to 18
-		graph.addEdge(vertices.get(14), vertices.get(18), 2);
+		graph.addEdge(vertices.get(14-1), vertices.get(18-1), 2);
 
 		//Edge 15 to 19
-		graph.addEdge(vertices.get(15), vertices.get(19), 8);
+		graph.addEdge(vertices.get(15-1), vertices.get(19-1), 8);
 
 		//Edge 16 to 20
-		graph.addEdge(vertices.get(16), vertices.get(20), 2);
+		graph.addEdge(vertices.get(16-1), vertices.get(20-1), 2);
 		
 		//Edge 17 to 18
-		graph.addEdge(vertices.get(17), vertices.get(18), 7);
+		graph.addEdge(vertices.get(17-1), vertices.get(18-1), 7);
 
 		//Edge 18 to 22
-		graph.addEdge(vertices.get(18), vertices.get(22), 12);	
+		graph.addEdge(vertices.get(18-1), vertices.get(22-1), 12);	
 
 		//Edge 19 to 20
-		graph.addEdge(vertices.get(19), vertices.get(20), 7);	
+		graph.addEdge(vertices.get(19-1), vertices.get(20-1), 7);	
 
 		//Edge 20 to 21
-		graph.addEdge(vertices.get(20), vertices.get(21), 6);
+		graph.addEdge(vertices.get(20-1), vertices.get(21-1), 6);
 
 		//Edge 20 to 24
-		graph.addEdge(vertices.get(20), vertices.get(24), 3);
+		graph.addEdge(vertices.get(20-1), vertices.get(24-1), 3);
 
 		//Edge 21 to 25
-		graph.addEdge(vertices.get(21), vertices.get(25), 2);
+		graph.addEdge(vertices.get(21-1), vertices.get(25-1), 2);
 
 		//Edge 22 to 23
-		graph.addEdge(vertices.get(22), vertices.get(23), 10);
+		graph.addEdge(vertices.get(22-1), vertices.get(23-1), 10);
 
 		//Edge 23 to 24
-		graph.addEdge(vertices.get(23), vertices.get(24), 6);	
+		graph.addEdge(vertices.get(23-1), vertices.get(24-1), 6);	
 
 		//Edge 24 to 25
-		graph.addEdge(vertices.get(24), vertices.get(25), 8);
+		graph.addEdge(vertices.get(24-1), vertices.get(25-1), 8);
 		
 	}
 	
 	public void addAllEdges(ListGraph<Box> graph, ArrayList<ListVertex<Box>> vertices){
 		//Edge 1 to 2
-		graph.addEdge(vertices.get(1), vertices.get(2), 3);
+		graph.addEdge(vertices.get(1-1), vertices.get(2-1), 3);
 
 		//Edge 1 to 8
-		graph.addEdge(vertices.get(1), vertices.get(8), 4);
+		graph.addEdge(vertices.get(1-1), vertices.get(8-1), 4);
 
 		//Edge 2 to 3
-		graph.addEdge(vertices.get(2), vertices.get(3), 3);
+		graph.addEdge(vertices.get(2-1), vertices.get(3-1), 3);
 
 		//Edge 2 to 9
-		graph.addEdge(vertices.get(2), vertices.get(9), 7);
+		graph.addEdge(vertices.get(2-1), vertices.get(9-1), 7);
 
 		//Edge 3 to 4
-		graph.addEdge(vertices.get(3), vertices.get(4), 1);
+		graph.addEdge(vertices.get(3-1), vertices.get(4-1), 1);
 
 		//Edge 4 to 5
-		graph.addEdge(vertices.get(4), vertices.get(5), 6);
+		graph.addEdge(vertices.get(4-1), vertices.get(5-1), 6);
 
 		//Edge 4 to 11
-		graph.addEdge(vertices.get(4), vertices.get(11), 7);
+		graph.addEdge(vertices.get(4-1), vertices.get(11-1), 7);
 
 		//Edge 4 to 10
-		graph.addEdge(vertices.get(4), vertices.get(10), 15);
+		graph.addEdge(vertices.get(4-1), vertices.get(10-1), 15);
 
 		//Edge 5 to 6
-		graph.addEdge(vertices.get(5), vertices.get(6), 4);
+		graph.addEdge(vertices.get(5-1), vertices.get(6-1), 4);
 
 		//Edge 5 to 7
-		graph.addEdge(vertices.get(5), vertices.get(7), 9);
+		graph.addEdge(vertices.get(5-1), vertices.get(7-1), 9);
 
 		//Edge 6 to 7
-		graph.addEdge(vertices.get(6), vertices.get(7), 1);
+		graph.addEdge(vertices.get(6-1), vertices.get(7-1), 1);
 
 		//Edge 6 to 12
-		graph.addEdge(vertices.get(6), vertices.get(12), 7);
+		graph.addEdge(vertices.get(6-1), vertices.get(12-1), 7);
 
 		//Edge 7 to 12
-		graph.addEdge(vertices.get(7), vertices.get(12), 4);
+		graph.addEdge(vertices.get(7-1), vertices.get(12-1), 4);
 
 		//Edge 8 to 13
-		graph.addEdge(vertices.get(8), vertices.get(13), 5);
+		graph.addEdge(vertices.get(8-1), vertices.get(13-1), 5);
 
 		//Edge 9 to 10
-		graph.addEdge(vertices.get(9), vertices.get(10), 1);
+		graph.addEdge(vertices.get(9-1), vertices.get(10-1), 1);
 
 		//Edge 9 to 14
-		graph.addEdge(vertices.get(9), vertices.get(14), 3);
+		graph.addEdge(vertices.get(9-1), vertices.get(14-1), 3);
 
 		//Edge 10 to 15
-		graph.addEdge(vertices.get(10), vertices.get(15), 3);
+		graph.addEdge(vertices.get(10-1), vertices.get(15-1), 3);
 
 		//Edge 11 to 16
-		graph.addEdge(vertices.get(11), vertices.get(16), 3);
+		graph.addEdge(vertices.get(11-1), vertices.get(16-1), 3);
 
 		//Edge 12 to 21
-		graph.addEdge(vertices.get(12), vertices.get(21), 10);	
+		graph.addEdge(vertices.get(12-1), vertices.get(21-1), 10);	
 
 		//Edge 13 to 14
-		graph.addEdge(vertices.get(13), vertices.get(14), 4);
+		graph.addEdge(vertices.get(13-1), vertices.get(14-1), 4);
 
 		//Edge 13 to 17
-		graph.addEdge(vertices.get(13), vertices.get(17), 6);	
+		graph.addEdge(vertices.get(13-1), vertices.get(17-1), 6);	
 
 		//Edge 14 to 18
-		graph.addEdge(vertices.get(14), vertices.get(18), 2);
+		graph.addEdge(vertices.get(14-1), vertices.get(18-1), 2);
 
 		//Edge 15 to 19
-		graph.addEdge(vertices.get(15), vertices.get(19), 8);
+		graph.addEdge(vertices.get(15-1), vertices.get(19-1), 8);
 
 		//Edge 16 to 20
-		graph.addEdge(vertices.get(16), vertices.get(20), 2);
+		graph.addEdge(vertices.get(16-1), vertices.get(20-1), 2);
 		
 		//Edge 17 to 18
-		graph.addEdge(vertices.get(17), vertices.get(18), 7);
+		graph.addEdge(vertices.get(17-1), vertices.get(18-1), 7);
 
 		//Edge 18 to 22
-		graph.addEdge(vertices.get(18), vertices.get(22), 12);	
+		graph.addEdge(vertices.get(18-1), vertices.get(22-1), 12);	
 
 		//Edge 19 to 20
-		graph.addEdge(vertices.get(19), vertices.get(20), 7);	
+		graph.addEdge(vertices.get(19-1), vertices.get(20-1), 7);	
 
 		//Edge 20 to 21
-		graph.addEdge(vertices.get(20), vertices.get(21), 6);
+		graph.addEdge(vertices.get(20-1), vertices.get(21-1), 6);
 
 		//Edge 20 to 24
-		graph.addEdge(vertices.get(20), vertices.get(24), 3);
+		graph.addEdge(vertices.get(20-1), vertices.get(24-1), 3);
 
 		//Edge 21 to 25
-		graph.addEdge(vertices.get(21), vertices.get(25), 2);
+		graph.addEdge(vertices.get(21-1), vertices.get(25-1), 2);
 
 		//Edge 22 to 23
-		graph.addEdge(vertices.get(22), vertices.get(23), 10);
+		graph.addEdge(vertices.get(22-1), vertices.get(23-1), 10);
 
 		//Edge 23 to 24
-		graph.addEdge(vertices.get(23), vertices.get(24), 6);	
+		graph.addEdge(vertices.get(23-1), vertices.get(24-1), 6);	
 
 		//Edge 24 to 25
-		graph.addEdge(vertices.get(24), vertices.get(25), 8);
-		
+		graph.addEdge(vertices.get(24-1), vertices.get(25-1), 8);		
 	}
 	
 	public int getNumRounds() {
