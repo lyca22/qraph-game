@@ -206,19 +206,19 @@ public class Main extends PApplet{
 						break;
 					case ADD_PLAYER:
 						addPlayer(pressedBtn);
-						scManager.getPlayersUi().add(new Player(0, 0, new Box(0, 0), 1));
+						scManager.getPlayersUi().add(new Player(0, 0));
 						break;
 					case ADD_PLAYER2:
 						addPlayer(pressedBtn);
-						scManager.getPlayersUi().add(new Player(0, 0, new Box(0, 0), 1));
+						scManager.getPlayersUi().add(new Player(0, 0));
 						break;
 					case ADD_PLAYER3:
 						addPlayer(pressedBtn);
-						scManager.getPlayersUi().add(new Player(0, 0, new Box(0, 0), 1));
+						scManager.getPlayersUi().add(new Player(0, 0));
 						break;
 					case ADD_PLAYER4:
 						addPlayer(pressedBtn);
-						scManager.getPlayersUi().add(new Player(0, 0, new Box(0, 0), 1));
+						scManager.getPlayersUi().add(new Player(0, 0));
 						break;
 					case DELETE_PLAYER:
 						deletePLayer(7);
