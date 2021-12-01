@@ -249,7 +249,18 @@ public class Controller {
 	}
 
 	public void findWinner() {
-		
+		int winnerCoins = 0;
+		int winnerCrowns = 0;
+		for (Player player : players) {
+			if(player.getCrowns() > winnerCrowns) {
+				winnerCrowns = player.getCrowns();
+				winnerCoins = player.getCoins();
+				winner = player;
+			}else if(player.getCrowns() == winnerCrowns && player.getCoins() > winnerCoins) {
+				winnerCoins = player.getCoins();
+				winner = player;
+			}
+		}
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
