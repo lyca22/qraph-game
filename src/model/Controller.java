@@ -46,6 +46,7 @@ public class Controller {
 		setupBoxes();
 		setPlayers(players);
 		shufflePlayersPositions();
+		createBoard1();
 	}
 
 	private void setupBoxes() {
