@@ -279,7 +279,7 @@ public class ScreenManager {
 	public void renderGameScreen() {
 		app.image(gameBg, 0, 0);	
 		app.fill(252, 158, 189);
-		app.text("ROUND: "+controler.getNumRounds() , 485, 80);
+		app.text("ROUND: "+controler.getCurrentRound()+"/"+controler.getNumRounds() , 470, 80);
 		
 		for (int i = 0; i < controler.getCurrentBoard().getRoads().size(); i++) {
 			app.stroke(10);
@@ -466,9 +466,48 @@ public class ScreenManager {
 			app.popMatrix();
 			}
 			
-		}		*/
+		}*/
 		controler.getCurrentPlayer().setPosX(controler.getCurrentPlayer().getCurrentBox().getPosX());
 		controler.getCurrentPlayer().setPosY(controler.getCurrentPlayer().getCurrentBox().getPosY());
+		
+		if(controler.getCurrentPlayer().getCurrentBox().getType().equals(BoxType.CROWN)) {
+			controler.triggerCrownEvent();
+		}else if(controler.getCurrentPlayer().getCurrentBox().getType().equals(BoxType.CROCODILE)) {
+			controler.triggerCrocodileEvent();
+		}else if(controler.getCurrentPlayer().getCurrentBox().getType().equals(BoxType.BOOST)) {
+			int boost = (int) (Math.random()*3);
+			if(boost==0) {
+				
+				int indexSteal = (int) (Math.random()*controler.getPlayers().size());
+				
+				for (int i = 0; i <getControler().getPlayers().size(); i++) {
+					while(getControler().getPlayers().get(i).equals(getControler().getPlayers().get(indexSteal))){
+						indexSteal = (int) (Math.random()*controler.getPlayers().size());
+					}
+				}
+				
+				controler.stealCrowns(getControler().getPlayers().get(indexSteal));
+				
+			}else if(boost==1) {
+				
+				
+				int indexSteal = (int) (Math.random()*controler.getPlayers().size());
+				
+				for (int i = 0; i <getControler().getPlayers().size(); i++) {
+					while(getControler().getPlayers().get(i).equals(getControler().getPlayers().get(indexSteal))){
+						indexSteal = (int) (Math.random()*controler.getPlayers().size());
+					}
+				}
+				
+				controler.stealCoins(getControler().getPlayers().get(indexSteal));
+			}else{
+				
+				controler.duplicateCoins();
+			}
+		}
+		
+		
+		
 	}
 	
 	
@@ -490,6 +529,10 @@ public class ScreenManager {
 		
 		if(controler.getCurrentPlayer().equals(controler.getInitialPlayer())) {
 			controler.setCurrentRound(controler.getCurrentRound()+1);
+			if(controler.getCurrentRound() > controler.getNumRounds()) {
+				controler.findWinner();
+				screenId = ScreenIdentifier.END_SCREEN;
+			}
 		}
 	}
 	

@@ -286,6 +286,7 @@ public class Controller {
 		}
 	}*/
 	
+	
 	//Changed needed.
 	public ArrayList<Integer> calculatePossibleMoves(Box box, int distance) {
 		ArrayList<Box> temp = new ArrayList<Box>();
