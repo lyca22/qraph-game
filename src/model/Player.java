@@ -1,11 +1,11 @@
 package model;
 
 import java.util.ArrayList;
-import java.nio.file.Path;
 
 public class Player {
 
 	public static final int DEFAULT_SPEED = 1;
+	public static final int DEFAULT_COINS = 15;
 	
 	private int posX;
 	private int posY;
@@ -21,7 +21,7 @@ public class Player {
 	public Player(int posX, int posY) {
 		this.posX = posX;
 		this.posY = posY;
-		coins = 15;
+		coins = DEFAULT_COINS;
 		this.speed = DEFAULT_SPEED;
 	}
 

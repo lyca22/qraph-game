@@ -39,7 +39,7 @@ public class Controller {
 		setSimpleGraph(true);
 		categoriesNames = new ArrayList<String>();
 		setQuestionsDB(new HashMap<Integer, ArrayList<Question>>());
-		posibleMoves = new ArrayList();
+		posibleMoves = new ArrayList<Box>();
 		setupDeafultCategories();
 	}
 
