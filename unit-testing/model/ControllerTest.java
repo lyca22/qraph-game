@@ -452,10 +452,31 @@ class ControllerTest {
 	@Test
 	void testCalculatePossibleMoves() {
 		ArrayList<Player> p;
+		int index;
 		
 		p = setup1();
 		c.start(p);
 		c.calculatePossibleMoves(c.getCurrentPlayer().getCurrentBox(), 1);
+		for(int i = 0; i < c.getPosibleMoves().size(); i++) {
+			if(c.getCurrentBoard().getBoxes().contains(c.getPosibleMoves().get(i))) {
+				index = c.getCurrentBoard().getBoxes().indexOf(c.getPosibleMoves().get(i));
+				if(((SimpleGraph<Box>)c.getCurrentBoard().getGraph()).getVertices().get(index).getDistance() > 1) {
+					fail();
+				}
+			}
+		}
+		
+		p = setup2();
+		c.start(p);
+		c.calculatePossibleMoves(c.getCurrentPlayer().getCurrentBox(), 1);
+		for(int i = 0; i < c.getPosibleMoves().size(); i++) {
+			if(c.getCurrentBoard().getBoxes().contains(c.getPosibleMoves().get(i))) {
+				index = c.getCurrentBoard().getBoxes().indexOf(c.getPosibleMoves().get(i));
+				if(((ListGraph<Box>)c.getCurrentBoard().getGraph()).getAdjList().get(index).getDistance() > 1) {
+					fail();
+				}
+			}
+		}
 	}
 	
 }

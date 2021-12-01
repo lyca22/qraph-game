@@ -338,7 +338,14 @@ public class Controller {
 				}
 			}
 			ListGraph<Box> graphCopy = new ListGraph<Box>();
-			graphCopy.setAdjList(tempList);
+			for(int i = 0; i < tempList.size(); i++) {
+				graphCopy.addVertex(tempList.get(i).getValue());
+				for(int j = 0; j < tempList.get(i).getEdges().size(); j++) {
+					if(tempList.contains(tempList.get(i).getEdges().get(j).getEnd())) {
+						graphCopy.addEdge(tempList.get(i), tempList.get(i).getEdges().get(j).getEnd(), tempList.get(i).getEdges().get(j).getWeight());
+					}
+				}
+			}
 			dijkstraOutput = graphCopy.dijkstra(vertex);
 		}
 		posibleMoves = temp;
