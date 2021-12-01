@@ -381,10 +381,13 @@ class ControllerTest {
 		assertTrue(c.getCurrentPlayer().getCurrentBox().getType() == BoxType.NORMAL);
 	}
 
-	@Test
+	/*@Test
 	void testTriggerCrocodileEvent() {
+	
+	Implement if we decide to change how this method works.
+	
 		fail("Not yet implemented");
-	}
+	}*/
 
 	@Test
 	void testFindWinner() {
