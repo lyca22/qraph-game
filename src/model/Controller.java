@@ -1,5 +1,9 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -303,6 +307,31 @@ public class Controller {
 		}
 		
 		posibleMoves = temp;
+	}
+	
+	public void readDB(String fileName) throws IOException {
+		
+		BufferedReader br = new BufferedReader(new FileReader(fileName));
+		br.readLine();	//Read header
+		String line = br.readLine();
+		while(line != null) {
+			String[] fields = line.split(";");
+			Integer category = Integer.valueOf(fields[0]);
+			String statement = fields[1];
+			String op1 = fields[2];
+			String op2 = fields[3];
+			String op3 = fields[4];
+			String op4 = fields[5];
+			int answer = Integer.valueOf(fields[6]);
+			ArrayList<String> options = new ArrayList<String>();
+			options.add(op1);
+			options.add(op2);
+			options.add(op3);
+			options.add(op4);
+			
+			Question question = new Question(statement, options, answer);
+			questionsDB.get(category).add(question);
+		}
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
