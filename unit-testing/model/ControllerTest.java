@@ -246,16 +246,16 @@ class ControllerTest {
 		p = setup1();
 		c.start(p);
 		c.rechargeCoins();
-		assertTrue(c.getCurrentPlayer().getCoins() == Controller.RECHARGED_MONEY);
+		assertTrue(c.getCurrentPlayer().getCoins() == Controller.RECHARGED_MONEY + Player.DEFAULT_COINS);
 		c.duplicateCoins();
-		assertTrue(c.getCurrentPlayer().getCoins() == Controller.RECHARGED_MONEY*2);
+		assertTrue(c.getCurrentPlayer().getCoins() == (Controller.RECHARGED_MONEY + Player.DEFAULT_COINS)*2);
 		
 		p = setup2();
 		c.start(p);
 		c.rechargeCoins();
-		assertTrue(c.getCurrentPlayer().getCoins() == Controller.RECHARGED_MONEY);
+		assertTrue(c.getCurrentPlayer().getCoins() == Controller.RECHARGED_MONEY + Player.DEFAULT_COINS);
 		c.duplicateCoins();
-		assertTrue(c.getCurrentPlayer().getCoins() == Controller.RECHARGED_MONEY*2);
+		assertTrue(c.getCurrentPlayer().getCoins() == (Controller.RECHARGED_MONEY + Player.DEFAULT_COINS)*2);
 	}
 
 	@Test
@@ -270,7 +270,7 @@ class ControllerTest {
 		coins = 10;
 		player.setCoins(coins);
 		c.stealCoins(player);
-		assertTrue(c.getCurrentPlayer().getCoins() == Controller.STOLEN_COINS);
+		assertTrue(c.getCurrentPlayer().getCoins() == Controller.STOLEN_COINS + Player.DEFAULT_COINS);
 		assertTrue(player.getCoins() == coins - Controller.STOLEN_COINS);
 		
 		p = setup2();
@@ -279,7 +279,7 @@ class ControllerTest {
 		coins = 10;
 		player.setCoins(coins);
 		c.stealCoins(player);
-		assertTrue(c.getCurrentPlayer().getCoins() == Controller.STOLEN_COINS);
+		assertTrue(c.getCurrentPlayer().getCoins() == Controller.STOLEN_COINS + Player.DEFAULT_COINS);
 		assertTrue(player.getCoins() == coins - Controller.STOLEN_COINS);
 	}
 
