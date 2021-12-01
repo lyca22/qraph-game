@@ -156,151 +156,150 @@ public class Main extends PApplet{
 	
 	public void mousePressed() {
 		Button pressedBtn = pressesSensibleArea();
-		if(pressedBtn!=null) {
-			ButtonIdentifier identifier = pressedBtn.getIdentifier();
-			
+		
+		
 			//Verifies in which screen the user is currently located (to not activate buttons in other screens)
 			switch (scManager.getScreenId()) {
 			case MAIN_SCREEN:
-				if(identifier!=null) {
-					
-					switch (identifier) {
-					case PLAY:
-						scManager.loadConfigurationScreen();
-						scManager.setScreenId(ScreenIdentifier.CONFIGURATION_SCREEN);
-						break;
-					case EXIT:
-						System.out.println("EXIT");
-						break;
-					case ABOUT:
-						scManager.setScreenId(ScreenIdentifier.ABOUT_SCREEN);
-						break;
-					default:
-						break;
-					}
-				}				
+				if(pressedBtn!=null) {
+					ButtonIdentifier identifier = pressedBtn.getIdentifier();
+					if(identifier!=null) {
+						
+						switch (identifier) {
+						case PLAY:
+							scManager.loadConfigurationScreen();
+							scManager.setScreenId(ScreenIdentifier.CONFIGURATION_SCREEN);
+							break;
+						case EXIT:
+							System.out.println("EXIT");
+							break;
+						case ABOUT:
+							scManager.setScreenId(ScreenIdentifier.ABOUT_SCREEN);
+							break;
+						default:
+							break;
+						}
+					}		
+				}
 			case CONFIGURATION_SCREEN:
-				if(identifier!=null) {
+				if(pressedBtn!=null) {
+					ButtonIdentifier identifier = pressedBtn.getIdentifier();
 					
-					switch (identifier) {
-					case INCREASE_ROUNDS:
-						if(scManager.getControler().getNumRounds() < 50) {
-							scManager.getControler().setNumRounds(scManager.getControler().getNumRounds()+1);
-						}					
-						break;
-					case INCREASE_ROUNDS_BY_10:
-						if(scManager.getControler().getNumRounds() <= 40) {
-							scManager.getControler().setNumRounds(scManager.getControler().getNumRounds()+10);
-						}else {
-							scManager.getControler().setNumRounds(50);
+					if(identifier!=null) {
+						
+						switch (identifier) {
+						case INCREASE_ROUNDS:
+							if(scManager.getControler().getNumRounds() < 50) {
+								scManager.getControler().setNumRounds(scManager.getControler().getNumRounds()+1);
+							}					
+							break;
+						case INCREASE_ROUNDS_BY_10:
+							if(scManager.getControler().getNumRounds() <= 40) {
+								scManager.getControler().setNumRounds(scManager.getControler().getNumRounds()+10);
+							}else {
+								scManager.getControler().setNumRounds(50);
+							}
+							break;
+						case DECREASE_ROUNDS:
+							if(scManager.getControler().getNumRounds() > 10) {
+								scManager.getControler().setNumRounds(scManager.getControler().getNumRounds()-1);
+							}
+							break;
+						case DECREASE_ROUNDS_BY_10:
+							if(scManager.getControler().getNumRounds() >= 20) {
+								scManager.getControler().setNumRounds(scManager.getControler().getNumRounds()-10);
+							}else {
+								scManager.getControler().setNumRounds(10);
+							}
+							break;
+						case ADD_PLAYER:
+							addPlayer(pressedBtn);
+							Player p1 = new Player(0, 0);
+							p1.setAvatar(1);
+							scManager.getPlayersUi().add(p1);
+							break;
+						case ADD_PLAYER2:
+							addPlayer(pressedBtn);
+							Player p2 = new Player(0, 0);
+							p2.setAvatar(2);
+							scManager.getPlayersUi().add(p2);
+							break;
+						case ADD_PLAYER3:
+							addPlayer(pressedBtn);
+							Player p3 = new Player(0, 0);
+							p3.setAvatar(3);
+							scManager.getPlayersUi().add(p3);
+							break;
+						case ADD_PLAYER4:
+							addPlayer(pressedBtn);
+							Player p4 = new Player(0, 0);
+							p4.setAvatar(4);
+							scManager.getPlayersUi().add(p4);
+							break;
+						case DELETE_PLAYER:
+							deletePLayer(7);
+							scManager.getPlayersUi().remove(0);
+							break;
+						case DELETE_PLAYER2:
+							deletePLayer(8);
+							scManager.getPlayersUi().remove(0);
+							break;
+						case DELETE_PLAYER3:
+							deletePLayer(9);
+							scManager.getPlayersUi().remove(0);
+							break;
+						case DELETE_PLAYER4:
+							deletePLayer(10);
+							scManager.getPlayersUi().remove(0);
+							break;
+						case CHANGE_GRAPH:
+							scManager.getControler().setSimpleGraph(!scManager.getControler().isSimpleGraph());
+							break;
+						case START:
+							if(scManager.getPlayersUi().size() > 1) {
+								scManager.setScreenId(ScreenIdentifier.GAME_SCREEN);
+								scManager.getControler().createBoard1();
+								scManager.getControler().start(scManager.getPlayersUi());
+								scManager.loadGameScreen();
+								int playerFirst = (int)(Math.random()*scManager.getControler().getPlayers().size()-1);
+								scManager.getControler().setCurrentPlayer(scManager.getControler().getPlayers().get(playerFirst));;
+							}
+							//scManager.getControler().start(scManager.getPlayersUi());
+							break;
+						default:
+							break;
 						}
-						break;
-					case DECREASE_ROUNDS:
-						if(scManager.getControler().getNumRounds() > 10) {
-							scManager.getControler().setNumRounds(scManager.getControler().getNumRounds()-1);
-						}
-						break;
-					case DECREASE_ROUNDS_BY_10:
-						if(scManager.getControler().getNumRounds() >= 20) {
-							scManager.getControler().setNumRounds(scManager.getControler().getNumRounds()-10);
-						}else {
-							scManager.getControler().setNumRounds(10);
-						}
-						break;
-					case ADD_PLAYER:
-						addPlayer(pressedBtn);
-						Player p1 = new Player(0, 0);
-						p1.setAvatar(1);
-						scManager.getPlayersUi().add(p1);
-						break;
-					case ADD_PLAYER2:
-						addPlayer(pressedBtn);
-						Player p2 = new Player(0, 0);
-						p2.setAvatar(2);
-						scManager.getPlayersUi().add(p2);
-						break;
-					case ADD_PLAYER3:
-						addPlayer(pressedBtn);
-						Player p3 = new Player(0, 0);
-						p3.setAvatar(3);
-						scManager.getPlayersUi().add(p3);
-						break;
-					case ADD_PLAYER4:
-						addPlayer(pressedBtn);
-						Player p4 = new Player(0, 0);
-						p4.setAvatar(4);
-						scManager.getPlayersUi().add(p4);
-						break;
-					case DELETE_PLAYER:
-						deletePLayer(7);
-						scManager.getPlayersUi().remove(0);
-						break;
-					case DELETE_PLAYER2:
-						deletePLayer(8);
-						scManager.getPlayersUi().remove(0);
-						break;
-					case DELETE_PLAYER3:
-						deletePLayer(9);
-						scManager.getPlayersUi().remove(0);
-						break;
-					case DELETE_PLAYER4:
-						deletePLayer(10);
-						scManager.getPlayersUi().remove(0);
-						break;
-					case CHANGE_GRAPH:
-						scManager.getControler().setSimpleGraph(!scManager.getControler().isSimpleGraph());
-						break;
-					case START:
-						if(scManager.getPlayersUi().size() > 1) {
-							scManager.setScreenId(ScreenIdentifier.GAME_SCREEN);
-							scManager.getControler().createBoard1();
-							scManager.getControler().start(scManager.getPlayersUi());
-							scManager.loadGameScreen();
-							int playerFirst = (int)(Math.random()*scManager.getControler().getPlayers().size()-1);
-							scManager.getControler().setCurrentPlayer(scManager.getControler().getPlayers().get(playerFirst));;
-						}
-						//scManager.getControler().start(scManager.getPlayersUi());
-						break;
-					default:
-						break;
 					}
 				}
 				break;
 			case GAME_SCREEN:
-				
-				if(identifier!=null) {
-					switch(identifier) {
-					case THROW_DICE:
-						if(pressedBtn.isActive()) {
+				if(pressedBtn!=null) {
+					ButtonIdentifier identifier = pressedBtn.getIdentifier();
+					if(identifier.equals(ButtonIdentifier.THROW_DICE)) {
+						if(scManager.getUiButtons().get(17).isActive()) {
 							int diceNum = (int)(Math.random()*3)+1;
 							System.out.println(diceNum);
 							scManager.getControler().calculatePossibleMoves(scManager.getControler().getCurrentPlayer().getCurrentBox(), diceNum);
-							System.out.println("OG: "+scManager.getControler().getCurrentPlayer().getCurrentBox().getPosX());
-							for(int i = 0; i < scManager.getControler().getPosibleMoves().size(); i++) {
-								System.out.println(scManager.getControler().getPosibleMoves().get(i).getPosX()+", "+scManager.getControler().getPosibleMoves().get(i).getPosY());
-							}
-							pressedBtn.setActive(false);
-						}
-						break;
-						
-					default:
-						break;
-					}
-					
-					if(!scManager.getUiButtons().get(17).isActive()) {
-						Box selectedBox = scManager.verifySelection(mouseX, mouseY);
-						if(selectedBox!= null) {
-							System.out.println(scManager.getControler().getCurrentPlayer().getCurrentBox().getPosX());
-							System.out.println(scManager.getControler().getCurrentPlayer().getCurrentBox().getPosY());
+							scManager.getUiButtons().get(17).setActive(false);
 						}
 					}
 				}
+				//
+					
+				if(!scManager.getUiButtons().get(17).isActive()) {
+					System.out.println("PRESSING");
+					Box selectedBox = scManager.verifySelection(mouseX, mouseY);
+					if(selectedBox!= null) {
+						scManager.getControler().movePlayer(selectedBox);
+					}
+				}
+				
 				break;
 			default:
 				break;
+			
 			}
 		}
-	}
 
 	public Button pressesSensibleArea() {
 		Button pressed = null;

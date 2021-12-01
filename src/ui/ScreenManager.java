@@ -73,6 +73,8 @@ public class ScreenManager {
 	private PImage gameBg;
 	private PImage canSelect;
 	
+	private PImage thumb;
+	
 	
 	public ScreenManager(PApplet app) {
 		
@@ -142,6 +144,8 @@ public class ScreenManager {
 		//
 		gameBg = app.loadImage("data/imgs/gameBG.png");
 		canSelect = app.loadImage("data/imgs/canSelect-09.png");
+		
+		thumb = app.loadImage("data/imgs/maprhumb-09.png");
 	}
 
 	private void loadMainScreen() {
@@ -240,7 +244,8 @@ public class ScreenManager {
 		//app.rect(uiButtons.get(9).getPosX(), uiButtons.get(9).getPosY(), uiButtons.get(9).getWidth(), uiButtons.get(9).getHeight());
 		//app.rect(uiButtons.get(10).getPosX(), uiButtons.get(10).getPosY(), uiButtons.get(10).getWidth(), uiButtons.get(10).getHeight());	
 		//GRAPH
-		app.rect(uiButtons.get(15).getPosX(), uiButtons.get(15).getPosY(), uiButtons.get(15).getWidth(), uiButtons.get(15).getHeight());
+		app.image(thumb, 290, 480,135,105);
+		//zapp.rect(uiButtons.get(15).getPosX(), uiButtons.get(15).getPosY(), uiButtons.get(15).getWidth(), uiButtons.get(15).getHeight());
 		//START
 		app.rect(uiButtons.get(16).getPosX(), uiButtons.get(16).getPosY(), uiButtons.get(16).getWidth(), uiButtons.get(16).getHeight());
 		
@@ -268,7 +273,9 @@ public class ScreenManager {
 	}
 	
 	public void renderGameScreen() {
-		app.image(gameBg, 0, 0);		
+		app.image(gameBg, 0, 0);	
+		app.fill(252, 158, 189);
+		app.text("ROUND: "+controler.getNumRounds() , 485, 80);
 		
 		for (int i = 0; i < controler.getCurrentBoard().getRoads().size(); i++) {
 			app.stroke(10);
@@ -277,6 +284,9 @@ public class ScreenManager {
 					controler.getCurrentBoard().getRoads().get(i).getSimpleEdge().getInitial().getValue().getPosY(), 
 					controler.getCurrentBoard().getRoads().get(i).getSimpleEdge().getEnd().getValue().getPosX(),
 					controler.getCurrentBoard().getRoads().get(i).getSimpleEdge().getEnd().getValue().getPosY());
+			app.fill(255);
+			app.text(controler.getCurrentBoard().getRoads().get(i).getSimpleEdge().getWeight()+"", (controler.getCurrentBoard().getRoads().get(i).getSimpleEdge().getInitial().getValue().getPosX()+controler.getCurrentBoard().getRoads().get(i).getSimpleEdge().getEnd().getValue().getPosX())/2,
+					(controler.getCurrentBoard().getRoads().get(i).getSimpleEdge().getInitial().getValue().getPosY()+controler.getCurrentBoard().getRoads().get(i).getSimpleEdge().getEnd().getValue().getPosY())/2);
 		}
 		
 		for (int i = 0; i < controler.getCurrentBoard().getBoxes().size(); i++) {

@@ -24,6 +24,7 @@ public class Controller {
 	public static final int STOLEN_CROWNS = 1;
 
 	private int numRounds;
+	private int currentRound;
 	private boolean isSimpleGraph;
 	private Board currentBoard;
 	private Player currentPlayer;
@@ -35,6 +36,7 @@ public class Controller {
 
 	public Controller() {
 		numRounds = 10;
+		currentRound = 0;
 		isSimpleGraph = true;
 		setSimpleGraph(true);
 		categoriesNames = new ArrayList<String>();
@@ -164,6 +166,7 @@ public class Controller {
 	}
 
 	public void movePlayer(Box finish) {
+		
 		currentPlayer.getCurrentBox().getPlayers().remove(currentPlayer);
 		finish.getPlayers().add(currentPlayer);
 		currentPlayer.setCurrentBox(finish);
@@ -974,4 +977,11 @@ public class Controller {
 		this.players = players;
 	}
 
+	public int getCurrentRound() {
+		return currentRound;
+	}
+
+	public void setCurrentRound(int currentRound) {
+		this.currentRound = currentRound;
+	}
 }
