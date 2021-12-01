@@ -13,7 +13,7 @@ UI only supports English.
 
 You can download this software from [this link.](https://github.com/lyca22/qraph-game)
 
-You can access the project's documentation from [this link](https://github.com/lyca22/qraph-game/raw/master/docs/Documentaci%C3%B3n%20TI3%20v.2.pdf) (Only available in Spanish).
+You can access the project's documentation from [this link](https://github.com/lyca22/qraph-game/raw/master/docs/Documentaci%C3%B3n%20TI3%20V.Final.pdf) (Only available in Spanish).
 
 ## **About**
 QRAPH is a board game which allows up to 4 players. Answer questions, collect crowns and coins to become the winner of the game!
