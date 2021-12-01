@@ -245,16 +245,16 @@ class ControllerTest {
 		p = setup1();
 		c.start(p);
 		c.rechargeCoins();
-		assertTrue(c.getCurrentPlayer().getCoins() == 5);
+		assertTrue(c.getCurrentPlayer().getCoins() == Controller.RECHARGED_MONEY);
 		c.duplicateCoins();
-		assertTrue(c.getCurrentPlayer().getCoins() == 10);
+		assertTrue(c.getCurrentPlayer().getCoins() == Controller.RECHARGED_MONEY*2);
 		
 		p = setup2();
 		c.start(p);
 		c.rechargeCoins();
-		assertTrue(c.getCurrentPlayer().getCoins() == 5);
+		assertTrue(c.getCurrentPlayer().getCoins() == Controller.RECHARGED_MONEY);
 		c.duplicateCoins();
-		assertTrue(c.getCurrentPlayer().getCoins() == 10);
+		assertTrue(c.getCurrentPlayer().getCoins() == Controller.RECHARGED_MONEY*2);
 	}
 
 	@Test
