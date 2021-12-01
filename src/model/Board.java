@@ -12,10 +12,10 @@ public class Board {
 	private ArrayList<Road> roads;
 	private Path image;
 	
-	public Board(Graph<Box> graph, ArrayList<Box> boxes, ArrayList<Road> roads) {
+	public Board(Graph<Box> graph) {
 		this.graph = graph;
-		this.setBoxes(boxes);
-		this.setRoads(roads);
+		boxes = new ArrayList<Box>();
+		roads = new ArrayList<Road>();
 	}
 
 	public Graph<Box> getGraph() {

@@ -5,6 +5,8 @@ import java.nio.file.Path;
 
 public class Player {
 
+	public static final int DEFAULT_SPEED = 1;
+	
 	private int posX;
 	private int posY;
 	private Box currentBox;
@@ -16,11 +18,10 @@ public class Player {
 	private int costPreviousPath;
 	private int speed;
 	
-	public Player(int posX, int posY, Box currentBox, int speed) {
+	public Player(int posX, int posY) {
 		this.posX = posX;
 		this.posY = posY;
-		this.currentBox = currentBox;
-		this.speed = speed;
+		this.speed = DEFAULT_SPEED;
 	}
 
 	public int getPosX() {
