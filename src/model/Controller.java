@@ -1,7 +1,6 @@
 package model;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,6 +18,7 @@ public class Controller {
 	public static final int QUESTION_TIME = 15;		//Time per question in seconds
 	public static final int RECHARGED_MONEY = 5;
 	public static final int SPECIAL_BOX_WEIGHT = 5;
+	public static final int GOTTEN_CROWNS = 1;
 	public static final int STOLEN_COINS = 5;
 	public static final int STOLEN_CROWNS = 1;
 
@@ -187,8 +187,7 @@ public class Controller {
 	}
 
 	public void triggerCrownEvent() {
-		currentPlayer.setCrowns(currentPlayer.getCrowns() + STOLEN_CROWNS);
-		currentPlayer.getCurrentBox().setType(BoxType.NORMAL);
+		currentPlayer.setCrowns(currentPlayer.getCrowns() + GOTTEN_CROWNS);
 		Graph<Box> graph = currentBoard.getGraph();
 		int crownPos = currentBoard.getBoxes().indexOf(currentPlayer.getCurrentBox());
 		
@@ -218,6 +217,7 @@ public class Controller {
 			ArrayList<ListEdge<Box>> crownEdges = ((ListGraph<Box>) graph).getAdjList().get(crownPos).getEdges();
 			listSpecialEdge(crownEdges, true);
 		}
+		currentPlayer.getCurrentBox().setType(BoxType.NORMAL);
 	}
 	
 	public void stealCoins(Player stolenPlayer) {
@@ -326,7 +326,6 @@ public class Controller {
 		br.close();
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void createBoard1() {
 		Graph<Box> graph;
 		if(isSimpleGraph) {
@@ -345,8 +344,12 @@ public class Controller {
 	
 
 	public void addAllBoxes(Graph<Box> graph){
+<<<<<<< HEAD
 		Box box;
 		
+=======
+		/*Box box;
+>>>>>>> 8d13e99 (Implemented crownEvent test)
 		//1
 		box = new Box(216, 163);
 		graph.addVertex(box);
