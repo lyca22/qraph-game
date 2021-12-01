@@ -25,9 +25,6 @@ public class Player {
 		this.speed = DEFAULT_SPEED;
 	}
 
-	public void move(int objX, int objY, double angle) {
-		
-	}
 	
 	public int getPosX() {
 		return posX;

@@ -923,8 +923,8 @@ public class Controller {
 		return roads;
 	}
 	
-	public void movePlayerVisually(ArrayList<Integer> indexes) {
-		/*ArrayList<ArrayList<Integer>> coordinates = new ArrayList();
+	public ArrayList<ArrayList<Integer>> movePlayerVisually(ArrayList<Integer> indexes) {
+		ArrayList<ArrayList<Integer>> coordinates = new ArrayList();
 		for (int i = 0; i < currentBoard.getBoxes().size(); i++) {
 			for (int j = 0; j < indexes.size(); j++) {
 				if(i==indexes.get(j)) {
@@ -934,7 +934,9 @@ public class Controller {
 					coordinates.add(coordinatesF);
 				}
 			}
-		}*/
+		}
+		return coordinates;
+		
 		
 		//currentPlayer.setPosX(currentPlayer.getCurrentBox().getPosX());
 		//currentPlayer.setPosY(currentPlayer.getCurrentBox().getPosY());

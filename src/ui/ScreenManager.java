@@ -1,6 +1,7 @@
 package ui;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import model.Box;
 import model.BoxType;
@@ -447,6 +448,24 @@ public class ScreenManager {
 		
 	}
 	
+	public void movePLayer(ArrayList<ArrayList<Integer>> coordinates) {
+		for (int i = 0; i < coordinates.size(); i++) {
+			int currentX = controler.getCurrentPlayer().getPosX();
+			int currentY = controler.getCurrentPlayer().getPosY();
+			int x = coordinates.get(i).get(0);
+			int y = coordinates.get(i).get(1);
+			app.pushMatrix();
+			app.rotate(30);
+			int h = (int) Math.abs((Math.pow(x-currentX, 2))+(Math.pow(y-currentY, 2)));
+			System.out.println(h);
+			while(1==1) {
+			//controler.getCurrentPlayer().setPosX(x);
+			app.popMatrix();
+			}
+			
+		}		
+	}
+	
 	//GETTERS AND SETTERS
 	
 	//To change and detect current screen
@@ -481,6 +500,8 @@ public class ScreenManager {
 	public void setPlayersUi(ArrayList<Player> playersUi) {
 		this.playersUi = playersUi;
 	}
+
+	
 
 	
 

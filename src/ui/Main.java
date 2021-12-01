@@ -273,13 +273,20 @@ public class Main extends PApplet{
 				}
 				break;
 			case GAME_SCREEN:
+				ArrayList<Integer> indexes = new ArrayList();
+				
 				if(pressedBtn!=null) {
 					ButtonIdentifier identifier = pressedBtn.getIdentifier();
 					if(identifier.equals(ButtonIdentifier.THROW_DICE)) {
 						if(scManager.getUiButtons().get(17).isActive()) {
 							int diceNum = (int)(Math.random()*3)+1;
 							System.out.println(diceNum);
-							scManager.getControler().calculatePossibleMoves(scManager.getControler().getCurrentPlayer().getCurrentBox(), diceNum);
+							indexes = scManager.getControler().calculatePossibleMoves(scManager.getControler().getCurrentPlayer().getCurrentBox(), diceNum);
+							
+							for(int i =0; i < scManager.getControler().getPosibleMoves().size();i++) {
+								System.out.println(i);
+							}
+							
 							scManager.getUiButtons().get(17).setActive(false);
 						}
 					}
@@ -290,12 +297,11 @@ public class Main extends PApplet{
 					System.out.println("PRESSING");
 					Box selectedBox = scManager.verifySelection(mouseX, mouseY);
 					if(selectedBox!= null) {
-						ArrayList<Integer> indexes = scManager.getControler().getMovementCost(scManager.getControler().getCurrentPlayer().getCurrentBox());
 						scManager.getControler().movePlayer(selectedBox);
-						
-						scManager.getControler().movePlayerVisually(indexes);
 						scManager.getControler().setCanMove(false);
-						scManager.showQuestion(scManager.getControler().getQuestion());
+						ArrayList<ArrayList<Integer>> coordinates =scManager.getControler().movePlayerVisually(indexes);
+						scManager.movePLayer(coordinates);
+						//scManager.showQuestion(scManager.getControler().getQuestion());
 					}
 				}
 				
