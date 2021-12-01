@@ -35,6 +35,27 @@ public class ScreenManager {
 	private PImage plusSmall;
 	private PImage lessSmall;
 	
+	//boxes
+	private PImage norm1;
+	private PImage norm2;
+	private PImage norm3;
+	private PImage norm4;
+	//
+	private PImage var1;
+	private PImage var2;
+	private PImage var3;
+	private PImage var4;
+	//
+	private PImage crown;
+	private PImage coins;
+	private PImage bag;
+	private PImage croco;
+	//
+	private PImage player1;
+	private PImage player2;
+	private PImage player3;
+	private PImage player4;
+	
 	public ScreenManager(PApplet app) {
 		
 		this.app = app;
@@ -67,8 +88,28 @@ public class ScreenManager {
 		menos10 = app.loadImage("data/imgs/menos10-06.png");
 		plusP = app.loadImage("data/imgs/plusPlayer-07.png");
 		plusSmall = app.loadImage("data/imgs/plusSmall-08.png");
-		lessSmall = app.loadImage("data/imgs/lessSmall-08.png")
-;	}
+		lessSmall = app.loadImage("data/imgs/lessSmall-08.png");
+		//	
+		norm1 = app.loadImage("data/imgs/norm1-09.png");
+		norm2 = app.loadImage("data/imgs/norm2-09.png");
+		norm3 = app.loadImage("data/imgs/norm3-09.png");
+		norm4 = app.loadImage("data/imgs/norm4-09.png");
+		//
+		var1 = app.loadImage("data/imgs/var1-09.png");
+		var2 = app.loadImage("data/imgs/var2-09.png");
+		var3 = app.loadImage("data/imgs/var3-09.png");
+		var4 = app.loadImage("data/imgs/var4-09.png");
+		//
+		crown = app.loadImage("data/imgs/crown-10.png");
+		coins = app.loadImage("data/imgs/coin-10.png");
+		bag = app.loadImage("data/imgs/bag-10.png");
+		croco = app.loadImage("data/imgs/croco-10.png");
+		//
+		player1 = app.loadImage("data/imgs/Player1-11.png");
+		player2 = app.loadImage("data/imgs/Player2-11.png");
+		player3 = app.loadImage("data/imgs/Player3-11.png");
+		player4 = app.loadImage("data/imgs/Player4-11.png");
+	}
 
 	private void loadMainScreen() {
 		uiButtons.add(new Button(50,359,70,250, false, ButtonIdentifier.PLAY));
@@ -190,6 +231,34 @@ public class ScreenManager {
 		}
 	}
 	
+	public void renderGameScreen() {
+		
+		for (int i = 0; i < controler.getCurrentBoard().getRoads().size(); i++) {
+			app.stroke(10);
+			app.strokeWeight(5);
+			app.line(controler.getCurrentBoard().getRoads().get(i).getSimpleEdge().getInitial().getValue().getPosX(), 
+					controler.getCurrentBoard().getRoads().get(i).getSimpleEdge().getInitial().getValue().getPosY(), 
+					controler.getCurrentBoard().getRoads().get(i).getSimpleEdge().getEnd().getValue().getPosX(),
+					controler.getCurrentBoard().getRoads().get(i).getSimpleEdge().getEnd().getValue().getPosY());
+		}
+		
+		for (int i = 0; i < controler.getCurrentBoard().getBoxes().size(); i++) {
+			if(controler.getCurrentBoard().getBoxes().get(i).getCategory()==1) {
+				app.image(norm1, controler.getCurrentBoard().getBoxes().get(i).getPosX()-40, controler.getCurrentBoard().getBoxes().get(i).getPosY()-30, 90, 75);
+			}else if(controler.getCurrentBoard().getBoxes().get(i).getCategory()==2){
+				app.image(norm2, controler.getCurrentBoard().getBoxes().get(i).getPosX()-40, controler.getCurrentBoard().getBoxes().get(i).getPosY()-30, 90, 75);
+			}else if(controler.getCurrentBoard().getBoxes().get(i).getCategory()==3){
+				app.image(norm3, controler.getCurrentBoard().getBoxes().get(i).getPosX()-40, controler.getCurrentBoard().getBoxes().get(i).getPosY()-30, 90, 75);
+			}else {
+				app.image(norm4, controler.getCurrentBoard().getBoxes().get(i).getPosX()-40, controler.getCurrentBoard().getBoxes().get(i).getPosY()-30, 90, 75);
+			}
+		} 
+		
+		for (int i = 0; i < controler.getPlayers().size(); i++) {
+			app.image(player1, controler.getPlayers().get(i).getPosX(),  controler.getPlayers().get(i).getPosY());
+		}
+	}
+	
 	//GETTERS AND SETTERS
 	
 	//To change and detect current screen
@@ -224,6 +293,8 @@ public class ScreenManager {
 	public void setPlayersUi(ArrayList<Player> playersUi) {
 		this.playersUi = playersUi;
 	}
+
+	
 	
 	
 }

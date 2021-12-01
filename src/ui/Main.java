@@ -144,6 +144,9 @@ public class Main extends PApplet{
 		case CONFIGURATION_SCREEN:
 			scManager.renderConfiguratoinScreen();
 			break;
+		case GAME_SCREEN:
+			scManager.renderGameScreen();
+			break;
 		default:
 			break;
 		}
