@@ -9,11 +9,13 @@ public class Button {
 	private int height;
 	private int width;
 	private boolean state;
+	private boolean active;
 	private ButtonIdentifier identifier;
 	private Path image;
 	
 	public Button(int posX, int posY, int height, int width, boolean state, ButtonIdentifier identifier) {
 		this.posX = posX;
+		active = true;
 		this.posY = posY;
 		this.height = height;
 		this.width = width;
@@ -76,5 +78,14 @@ public class Button {
 	public void setImage(Path image) {
 		this.image = image;
 	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+	
 	
 }
