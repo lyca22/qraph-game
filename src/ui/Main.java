@@ -242,6 +242,7 @@ public class Main extends PApplet{
 						if(scManager.getPlayersUi().size() > 1) {
 							scManager.setScreenId(ScreenIdentifier.GAME_SCREEN);
 							scManager.getControler().createBoard1();
+							scManager.getControler().start(scManager.getPlayersUi());
 						}
 						//scManager.getControler().start(scManager.getPlayersUi());
 						break;
