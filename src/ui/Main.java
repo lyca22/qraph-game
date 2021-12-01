@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import datastr.SimpleGraph;
 import datastr.Vertex;
+import model.Box;
 import model.Player;
 import processing.core.PApplet;
 
@@ -208,19 +209,27 @@ public class Main extends PApplet{
 						break;
 					case ADD_PLAYER:
 						addPlayer(pressedBtn);
-						scManager.getPlayersUi().add(new Player(0, 0));
+						Player p1 = new Player(0, 0);
+						p1.setAvatar(1);
+						scManager.getPlayersUi().add(p1);
 						break;
 					case ADD_PLAYER2:
 						addPlayer(pressedBtn);
-						scManager.getPlayersUi().add(new Player(0, 0));
+						Player p2 = new Player(0, 0);
+						p2.setAvatar(2);
+						scManager.getPlayersUi().add(p2);
 						break;
 					case ADD_PLAYER3:
 						addPlayer(pressedBtn);
-						scManager.getPlayersUi().add(new Player(0, 0));
+						Player p3 = new Player(0, 0);
+						p3.setAvatar(3);
+						scManager.getPlayersUi().add(p3);
 						break;
 					case ADD_PLAYER4:
 						addPlayer(pressedBtn);
-						scManager.getPlayersUi().add(new Player(0, 0));
+						Player p4 = new Player(0, 0);
+						p4.setAvatar(4);
+						scManager.getPlayersUi().add(p4);
 						break;
 					case DELETE_PLAYER:
 						deletePLayer(7);
@@ -246,11 +255,44 @@ public class Main extends PApplet{
 							scManager.setScreenId(ScreenIdentifier.GAME_SCREEN);
 							scManager.getControler().createBoard1();
 							scManager.getControler().start(scManager.getPlayersUi());
+							scManager.loadGameScreen();
+							int playerFirst = (int)(Math.random()*scManager.getControler().getPlayers().size()-1);
+							scManager.getControler().setCurrentPlayer(scManager.getControler().getPlayers().get(playerFirst));;
 						}
 						//scManager.getControler().start(scManager.getPlayersUi());
 						break;
 					default:
 						break;
+					}
+				}
+				break;
+			case GAME_SCREEN:
+				
+				if(identifier!=null) {
+					switch(identifier) {
+					case THROW_DICE:
+						if(pressedBtn.isActive()) {
+							int diceNum = (int)(Math.random()*3)+1;
+							System.out.println(diceNum);
+							scManager.getControler().calculatePossibleMoves(scManager.getControler().getCurrentPlayer().getCurrentBox(), diceNum);
+							System.out.println("OG: "+scManager.getControler().getCurrentPlayer().getCurrentBox().getPosX());
+							for(int i = 0; i < scManager.getControler().getPosibleMoves().size(); i++) {
+								System.out.println(scManager.getControler().getPosibleMoves().get(i).getPosX()+", "+scManager.getControler().getPosibleMoves().get(i).getPosY());
+							}
+							pressedBtn.setActive(false);
+						}
+						break;
+						
+					default:
+						break;
+					}
+					
+					if(!scManager.getUiButtons().get(17).isActive()) {
+						Box selectedBox = scManager.verifySelection(mouseX, mouseY);
+						if(selectedBox!= null) {
+							System.out.println(scManager.getControler().getCurrentPlayer().getCurrentBox().getPosX());
+							System.out.println(scManager.getControler().getCurrentPlayer().getCurrentBox().getPosY());
+						}
 					}
 				}
 				break;

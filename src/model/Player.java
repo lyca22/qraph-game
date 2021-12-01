@@ -13,7 +13,7 @@ public class Player {
 	private String nickname;
 	private int coins;
 	private int crowns;
-	private Path avatar;
+	private int avatar;
 	private ArrayList<Box> previousBoxes;
 	private int costPreviousPath;
 	private int speed;
@@ -21,6 +21,7 @@ public class Player {
 	public Player(int posX, int posY) {
 		this.posX = posX;
 		this.posY = posY;
+		coins = 15;
 		this.speed = DEFAULT_SPEED;
 	}
 
@@ -96,11 +97,11 @@ public class Player {
 		this.speed = speed;
 	}
 
-	public Path getAvatar() {
+	public int getAvatar() {
 		return avatar;
 	}
 
-	public void setAvatar(Path avatar) {
+	public void setAvatar(int avatar) {
 		this.avatar = avatar;
 	}
 	

@@ -34,9 +34,12 @@ public class Controller {
 	private ArrayList<String> categoriesNames;
 
 	public Controller() {
+		numRounds = 10;
+		isSimpleGraph = true;
 		setSimpleGraph(true);
 		categoriesNames = new ArrayList<String>();
 		setQuestionsDB(new HashMap<Integer, ArrayList<Question>>());
+		posibleMoves = new ArrayList();
 		setupDeafultCategories();
 	}
 
@@ -51,6 +54,10 @@ public class Controller {
 		setupBoxes();
 		setPlayers(players);
 		shufflePlayersPositions();
+		for(int i = 0; i < players.size(); i++) {
+			players.get(i).setPosX(players.get(i).getCurrentBox().getPosX()-40);
+			players.get(i).setPosY(players.get(i).getCurrentBox().getPosY()-30);
+		}
 	}
 
 	private void setupBoxes() {
