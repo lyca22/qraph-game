@@ -20,6 +20,7 @@ public enum ButtonIdentifier {
 	DECREASE_ROUNDS_BY_10,
 	CHANGE_GRAPH,
 	THROW_DICE,
-	EXIT
+	EXIT,
+	BACK
 	
 }

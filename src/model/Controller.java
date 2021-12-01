@@ -943,11 +943,14 @@ public class Controller {
 		return roads;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public ArrayList<ArrayList<Integer>> movePlayerVisually(ArrayList<Integer> indexes) {
+		@SuppressWarnings("rawtypes")
 		ArrayList<ArrayList<Integer>> coordinates = new ArrayList();
 		for (int i = 0; i < currentBoard.getBoxes().size(); i++) {
 			for (int j = 0; j < indexes.size(); j++) {
 				if(i==indexes.get(j)) {
+					@SuppressWarnings("rawtypes")
 					ArrayList<Integer> coordinatesF = new ArrayList();
 					coordinatesF.add(currentBoard.getBoxes().get(i).getPosX());
 					coordinatesF.add(currentBoard.getBoxes().get(i).getPosY());
@@ -960,6 +963,17 @@ public class Controller {
 		
 		//currentPlayer.setPosX(currentPlayer.getCurrentBox().getPosX());
 		//currentPlayer.setPosY(currentPlayer.getCurrentBox().getPosY());
+	}
+	
+
+	public void removeCoins() {
+		int coins = (int) (Math.random()*8);
+		
+		if(currentPlayer.getCoins() >= coins) {
+			currentPlayer.setCoins(currentPlayer.getCoins()-coins);
+		}else {
+			currentPlayer.setCoins(0);
+		}
 	}
 	
 	public int getNumRounds() {
@@ -1061,6 +1075,7 @@ public class Controller {
 	public void setInitialPlayer(Player initialPlayer) {
 		this.initialPlayer = initialPlayer;
 	}
+
 
 	
 	

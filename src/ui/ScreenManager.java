@@ -78,6 +78,7 @@ public class ScreenManager {
 	private PImage canSelect;
 	
 	private PImage thumb;
+	private PImage backBtn;
 	
 	
 	public ScreenManager(PApplet app) {
@@ -150,6 +151,8 @@ public class ScreenManager {
 		canSelect = app.loadImage("data/imgs/canSelect-09.png");
 		
 		thumb = app.loadImage("data/imgs/maprhumb-09.png");
+		
+		backBtn = app.loadImage("data/imgs/backBtn-13.png");
 	}
 
 	private void loadMainScreen() {
@@ -184,6 +187,10 @@ public class ScreenManager {
 	
 	public void loadGameScreen() {
 		uiButtons.add(new Button(1010,550,50,50, false, ButtonIdentifier.THROW_DICE));
+	}
+	
+	public void loadEndScreen() {
+		uiButtons.add(new Button(500,500,105,40, false, ButtonIdentifier.BACK));
 	}
 
 	//RENDERS
@@ -225,7 +232,9 @@ public class ScreenManager {
 		app.textSize(22);
 		app.fill(230);
 		app.text("Select question categories", 690, 140);
-		
+		app.textSize(15);
+		app.text("Please select at least 2 players", 710, 350);
+		app.textSize(22);
 		app.text(controler.isSimpleGraph()+"", 330, 510);
 		//BUTTONS
 		//rpunds
@@ -251,8 +260,9 @@ public class ScreenManager {
 		app.image(thumb, 290, 480,135,105);
 		//zapp.rect(uiButtons.get(15).getPosX(), uiButtons.get(15).getPosY(), uiButtons.get(15).getWidth(), uiButtons.get(15).getHeight());
 		//START
-		app.rect(uiButtons.get(16).getPosX(), uiButtons.get(16).getPosY(), uiButtons.get(16).getWidth(), uiButtons.get(16).getHeight());
+		//app.rect(uiButtons.get(16).getPosX(), uiButtons.get(16).getPosY(), uiButtons.get(16).getWidth(), uiButtons.get(16).getHeight());
 		
+		app.image(playBtn, 824, 589,145,40);
 		//Remove players
 		for (int i = 7; i < 11; i++) {
 		
@@ -424,13 +434,37 @@ public class ScreenManager {
 		}else if(controler.getCurrentPlayer().getAvatar()==2) {
 			app.text("Kyle's turn", 490, 50);
 		}else if(controler.getCurrentPlayer().getAvatar()==3) {
-			app.text("Renas turn", 490, 50);
+			app.text("Rena's turn", 490, 50);
 		}else {
 			app.text("Tiko's turn", 490, 50);
 		}
 		
 		app.image(dice, uiButtons.get(17).getPosX(), uiButtons.get(17).getPosY());
 	}
+	
+	public void renderEndScreen() {
+		app.fill(63,11,96);	
+		app.rect(0, 0, 1080, 720);
+		app.fill(255);
+		app.text("WINNER", 500, 300);
+		switch(controler.getWinner().getAvatar()) {
+		case 1:
+			app.image(p1img, 480, 350);
+			break;
+		case 2:
+			app.image(p2img, 480, 350);
+			break;
+		case 3:
+			app.image(p3img, 480, 350);
+			break;
+		case 4:
+			app.image(p4img, 480, 350);
+			break;
+		}
+		
+		app.image(backBtn, uiButtons.get(18).getPosX()-15, uiButtons.get(18).getPosY());
+	}
+	
 	
 	public Box verifySelection(int mouseX, int mouseY) {
 		Box selected = null;
@@ -451,22 +485,7 @@ public class ScreenManager {
 	}
 	
 	public void movePLayer(ArrayList<ArrayList<Integer>> coordinates) {
-		/*System.out.println("SSSS "+coordinates.size());
-		for (int i = 0; i < coordinates.size(); i++) {
-			int currentX = controler.getCurrentPlayer().getPosX();
-			int currentY = controler.getCurrentPlayer().getPosY();
-			int x = coordinates.get(i).get(0);
-			int y = coordinates.get(i).get(1);
-			app.pushMatrix();
-			app.rotate(30);
-			int h = (int) Math.abs((Math.pow(x-currentX, 2))+(Math.pow(y-currentY, 2)));
-			System.out.println(h);
-			while(1==1) {
-			//controler.getCurrentPlayer().setPosX(x);
-			app.popMatrix();
-			}
-			
-		}*/
+		
 		controler.getCurrentPlayer().setPosX(controler.getCurrentPlayer().getCurrentBox().getPosX());
 		controler.getCurrentPlayer().setPosY(controler.getCurrentPlayer().getCurrentBox().getPosY());
 		
@@ -474,6 +493,10 @@ public class ScreenManager {
 			controler.triggerCrownEvent();
 		}else if(controler.getCurrentPlayer().getCurrentBox().getType().equals(BoxType.CROCODILE)) {
 			controler.triggerCrocodileEvent();
+			for (int i = 0; i < controler.getPlayers().size(); i++) {
+				controler.getPlayers().get(i).setPosX(controler.getPlayers().get(i).getCurrentBox().getPosX());
+				controler.getPlayers().get(i).setPosY(controler.getPlayers().get(i).getCurrentBox().getPosY());
+			}
 		}else if(controler.getCurrentPlayer().getCurrentBox().getType().equals(BoxType.BOOST)) {
 			int boost = (int) (Math.random()*3);
 			if(boost==0) {
@@ -504,10 +527,10 @@ public class ScreenManager {
 				
 				controler.duplicateCoins();
 			}
-		}
+		}		
 		
 		
-		
+		controler.removeCoins();
 	}
 	
 	
@@ -529,9 +552,11 @@ public class ScreenManager {
 		
 		if(controler.getCurrentPlayer().equals(controler.getInitialPlayer())) {
 			controler.setCurrentRound(controler.getCurrentRound()+1);
+			controler.rechargeCoins();
 			if(controler.getCurrentRound() > controler.getNumRounds()) {
 				controler.findWinner();
 				screenId = ScreenIdentifier.END_SCREEN;
+				loadEndScreen();
 			}
 		}
 	}
@@ -586,6 +611,7 @@ public class ScreenManager {
 	public void setPlayerIndex(int playerIndex) {
 		this.playerIndex = playerIndex;
 	}
+
 
 	
 
