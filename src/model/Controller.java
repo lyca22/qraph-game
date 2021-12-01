@@ -344,12 +344,7 @@ public class Controller {
 	
 
 	public void addAllBoxes(Graph<Box> graph){
-<<<<<<< HEAD
 		Box box;
-		
-=======
-		/*Box box;
->>>>>>> 8d13e99 (Implemented crownEvent test)
 		//1
 		box = new Box(216, 163);
 		graph.addVertex(box);
