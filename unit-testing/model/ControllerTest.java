@@ -449,4 +449,13 @@ class ControllerTest {
 		assertTrue(c.getWinner().equals(c.getCurrentPlayer()));
 	}
 
+	@Test
+	void testCalculatePossibleMoves() {
+		ArrayList<Player> p;
+		
+		p = setup1();
+		c.start(p);
+		c.calculatePossibleMoves(c.getCurrentPlayer().getCurrentBox(), 1);
+	}
+	
 }
