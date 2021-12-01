@@ -29,9 +29,12 @@ public class Road {
 	}
 	
 	private void calculateAngle() {
-		if(simpleEdge.getInitial().getValue().getPosX() < simpleEdge.getEnd().getValue().getPosX() && simpleEdge.getInitial().getValue().getPosY() < simpleEdge.getEnd().getValue().getPosY()) {
-			angle = Math.tan((simpleEdge.getEnd().getValue().getPosY()-simpleEdge.getInitial().getValue().getPosY())/(simpleEdge.getEnd().getValue().getPosX()-simpleEdge.getInitial().getValue().getPosX()));
+		if(simpleEdge != null) {
+			if(simpleEdge.getInitial().getValue().getPosX() < simpleEdge.getEnd().getValue().getPosX() && simpleEdge.getInitial().getValue().getPosY() < simpleEdge.getEnd().getValue().getPosY()) {
+				angle = Math.tan((simpleEdge.getEnd().getValue().getPosY()-simpleEdge.getInitial().getValue().getPosY())/(simpleEdge.getEnd().getValue().getPosX()-simpleEdge.getInitial().getValue().getPosX()));
+			}
 		}
+		
 	}
 
 	public int getPosX() {
