@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import datastr.Edge;
 import datastr.Graph;
 import datastr.ListEdge;
 import datastr.ListGraph;
@@ -334,321 +335,561 @@ public class Controller {
 		}else {
 			graph = new ListGraph<Box>();
 		}
-		addAllBoxes(graph);
+		
+		ArrayList<Box> boxes = addAllBoxes(graph);
+		ArrayList<Road> roads = new ArrayList<>();
 		if(graph instanceof SimpleGraph) {
-			addAllEdges((SimpleGraph<Box>) graph, ((SimpleGraph<Box>) graph).getVertices());
+			roads = addAllEdges((SimpleGraph<Box>) graph, ((SimpleGraph<Box>) graph).getVertices());
 		}else if(graph instanceof ListGraph){
-			addAllEdges((ListGraph<Box>)graph, ((ListGraph<Box>) graph).getAdjList());
+			roads = addAllEdges((ListGraph<Box>)graph, ((ListGraph<Box>) graph).getAdjList());
 		}
 		currentBoard = new Board(graph);
+		currentBoard.setBoxes(boxes);
+		currentBoard.setRoads(roads);
 	}
-	
 
-	public void addAllBoxes(Graph<Box> graph){
+	public ArrayList<Box> addAllBoxes(Graph<Box> graph){
 		Box box;
+		ArrayList<Box> boxes = new ArrayList<Box>();
 		
 		//1
 		box = new Box(216, 163);
 		graph.addVertex(box);
+		boxes.add(box);
 
 		//2
 		box = new Box(370, 105);
 		graph.addVertex(box);
+		boxes.add(box);
 
 		//3
 		box = new Box(479, 154);
 		graph.addVertex(box);
+		boxes.add(box);
 
 		//4
 		box = new Box(534, 252);
 		graph.addVertex(box);
-
+		boxes.add(box);
+		
 		//5
 		box = new Box(626, 139);
 		graph.addVertex(box);
-
+		boxes.add(box);
+		
 		//6
 		box = new Box(760, 217);
 		graph.addVertex(box);
-
+		boxes.add(box);
+		
 		//7
 		box = new Box(785, 121);
 		graph.addVertex(box);
-
+		boxes.add(box);
+		
 		//8
 		box = new Box(144, 303);
 		graph.addVertex(box);
-
+		boxes.add(box);
+		
 		//9
 		box = new Box(301, 255);
 		graph.addVertex(box);
-
+		boxes.add(box);
+		
 		//10
 		box = new Box(423, 304);
 		graph.addVertex(box);
-
+		boxes.add(box);
+		
 		//11
 		box = new Box(626, 306);
 		graph.addVertex(box);
-
+		boxes.add(box);
+		
 		//12
 		box = new Box(888, 312);
 		graph.addVertex(box);
+		boxes.add(box);
 
 		//13
 		box = new Box(198, 443);
 		graph.addVertex(box);
+		boxes.add(box);
 
 		//14
 		box = new Box(323, 421);
 		graph.addVertex(box);
+		boxes.add(box);
 
 		//15
 		box = new Box(463, 397);
 		graph.addVertex(box);
+		boxes.add(box);
 
 		//16
 		box = new Box(759, 343);
 		graph.addVertex(box);
+		boxes.add(box);
 
 		//17
 		box = new Box(220, 540);
 		graph.addVertex(box);
+		boxes.add(box);
 
 		//18
 		box = new Box(337, 591);
 		graph.addVertex(box);
+		boxes.add(box);
 
 		//19
 		box = new Box(539, 473);
 		graph.addVertex(box);
+		boxes.add(box);
 
 		//20
 		box = new Box(687, 431);
 		graph.addVertex(box);
+		boxes.add(box);
 
 		//21
 		box = new Box(833, 463);
 		graph.addVertex(box);
+		boxes.add(box);
 
 		//22
 		box = new Box(449, 532);
 		graph.addVertex(box);
+		boxes.add(box);
 
 		//23
 		box = new Box(597, 602);
 		graph.addVertex(box);
+		boxes.add(box);
 
 		//24
 		box = new Box(689, 543);
 		graph.addVertex(box);
+		boxes.add(box);
 
 		//25
 		box = new Box(786, 597);
 		graph.addVertex(box);
+		boxes.add(box);
+		
+		return boxes;
 	}
 	
-	public void addAllEdges(SimpleGraph<Box> graph, ArrayList<Vertex<Box>> vertices){
+	public ArrayList<Road> addAllEdges(SimpleGraph<Box> graph, ArrayList<Vertex<Box>> vertices){
+		ArrayList<Road> roads = new ArrayList<>();
+		Edge<Box> edge;
+		Road road;
+		
 		//Edge 1 to 2
 		graph.addEdge(vertices.get(1-1), vertices.get(2-1), 3);
+		edge = new Edge<Box>(vertices.get(1-1), vertices.get(2-1), 3);
+		road = new Road(0, 0, edge);
+		roads.add(road);
 
 		//Edge 1 to 8
 		graph.addEdge(vertices.get(1-1), vertices.get(8-1), 4);
+		edge = new Edge<Box>(vertices.get(1-1), vertices.get(8-1), 4);
+		road = new Road(0, 0, edge);
+		roads.add(road);
 
 		//Edge 2 to 3
 		graph.addEdge(vertices.get(2-1), vertices.get(3-1), 3);
+		edge = new Edge<Box>(vertices.get(2-1), vertices.get(3-1), 3);
+		road = new Road(0, 0, edge);
+		roads.add(road);
 
 		//Edge 2 to 9
 		graph.addEdge(vertices.get(2-1), vertices.get(9-1), 7);
-
+		edge = new Edge<Box>(vertices.get(2-1), vertices.get(9-1), 7);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 3 to 4
 		graph.addEdge(vertices.get(3-1), vertices.get(4-1), 1);
-
+		edge = new Edge<Box>(vertices.get(3-1), vertices.get(4-1), 1);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 4 to 5
 		graph.addEdge(vertices.get(4-1), vertices.get(5-1), 6);
-
+		edge = new Edge<Box>(vertices.get(4-1), vertices.get(5-1), 6);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 4 to 11
 		graph.addEdge(vertices.get(4-1), vertices.get(11-1), 7);
-
+		edge = new Edge<Box>(vertices.get(4-1), vertices.get(11-1), 7);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 4 to 10
 		graph.addEdge(vertices.get(4-1), vertices.get(10-1), 15);
-
+		edge = new Edge<Box>(vertices.get(4-1), vertices.get(10-1), 15);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 5 to 6
 		graph.addEdge(vertices.get(5-1), vertices.get(6-1), 4);
-
+		edge = new Edge<Box>(vertices.get(5-1), vertices.get(6-1), 4);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 5 to 7
 		graph.addEdge(vertices.get(5-1), vertices.get(7-1), 9);
-
+		edge = new Edge<Box>(vertices.get(5-1), vertices.get(7-1), 9);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 6 to 7
 		graph.addEdge(vertices.get(6-1), vertices.get(7-1), 1);
-
+		edge = new Edge<Box>(vertices.get(6-1), vertices.get(7-1), 1);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 6 to 12
 		graph.addEdge(vertices.get(6-1), vertices.get(12-1), 7);
-
+		edge = new Edge<Box>(vertices.get(6-1), vertices.get(12-1), 7);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 7 to 12
 		graph.addEdge(vertices.get(7-1), vertices.get(12-1), 4);
-
+		edge = new Edge<Box>(vertices.get(7-1), vertices.get(12-1), 4);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 8 to 13
 		graph.addEdge(vertices.get(8-1), vertices.get(13-1), 5);
-
+		edge = new Edge<Box>(vertices.get(8-1), vertices.get(13-1), 5);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 9 to 10
 		graph.addEdge(vertices.get(9-1), vertices.get(10-1), 1);
-
+		edge = new Edge<Box>(vertices.get(9-1), vertices.get(10-1), 1);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 9 to 14
 		graph.addEdge(vertices.get(9-1), vertices.get(14-1), 3);
-
+		edge = new Edge<Box>(vertices.get(9-1), vertices.get(14-1), 3);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 10 to 15
 		graph.addEdge(vertices.get(10-1), vertices.get(15-1), 3);
-
+		edge = new Edge<Box>(vertices.get(10-1), vertices.get(15-1), 3);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 11 to 16
 		graph.addEdge(vertices.get(11-1), vertices.get(16-1), 3);
-
+		edge = new Edge<Box>(vertices.get(11-1), vertices.get(16-1), 3);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 12 to 21
 		graph.addEdge(vertices.get(12-1), vertices.get(21-1), 10);	
-
+		edge = new Edge<Box>(vertices.get(12-1), vertices.get(21-1), 10);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 13 to 14
 		graph.addEdge(vertices.get(13-1), vertices.get(14-1), 4);
-
+		edge = new Edge<Box>(vertices.get(13-1), vertices.get(14-1), 4);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 13 to 17
 		graph.addEdge(vertices.get(13-1), vertices.get(17-1), 6);	
-
+		edge = new Edge<Box>(vertices.get(13-1), vertices.get(17-1), 6);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 14 to 18
 		graph.addEdge(vertices.get(14-1), vertices.get(18-1), 2);
-
+		edge = new Edge<Box>(vertices.get(14-1), vertices.get(18-1), 2);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 15 to 19
 		graph.addEdge(vertices.get(15-1), vertices.get(19-1), 8);
-
+		edge = new Edge<Box>(vertices.get(15-1), vertices.get(19-1), 8);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 16 to 20
 		graph.addEdge(vertices.get(16-1), vertices.get(20-1), 2);
+		edge = new Edge<Box>(vertices.get(16-1), vertices.get(20-1), 2);
+		road = new Road(0, 0, edge);
+		roads.add(road);
 		
 		//Edge 17 to 18
 		graph.addEdge(vertices.get(17-1), vertices.get(18-1), 7);
-
+		edge = new Edge<Box>(vertices.get(17-1), vertices.get(18-1), 7);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 18 to 22
 		graph.addEdge(vertices.get(18-1), vertices.get(22-1), 12);	
-
+		edge = new Edge<Box>(vertices.get(18-1), vertices.get(22-1), 12);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 19 to 20
 		graph.addEdge(vertices.get(19-1), vertices.get(20-1), 7);	
-
+		edge = new Edge<Box>(vertices.get(19-1), vertices.get(20-1), 7);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 20 to 21
 		graph.addEdge(vertices.get(20-1), vertices.get(21-1), 6);
-
+		edge = new Edge<Box>(vertices.get(20-1), vertices.get(21-1), 6);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 20 to 24
 		graph.addEdge(vertices.get(20-1), vertices.get(24-1), 3);
-
+		edge = new Edge<Box>(vertices.get(20-1), vertices.get(24-1), 3);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 21 to 25
 		graph.addEdge(vertices.get(21-1), vertices.get(25-1), 2);
-
+		edge = new Edge<Box>(vertices.get(21-1), vertices.get(25-1), 2);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 22 to 23
 		graph.addEdge(vertices.get(22-1), vertices.get(23-1), 10);
-
+		edge = new Edge<Box>(vertices.get(22-1), vertices.get(23-1), 10);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 23 to 24
 		graph.addEdge(vertices.get(23-1), vertices.get(24-1), 6);	
-
+		edge = new Edge<Box>(vertices.get(23-1), vertices.get(24-1), 6);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 24 to 25
 		graph.addEdge(vertices.get(24-1), vertices.get(25-1), 8);
+		edge = new Edge<Box>(vertices.get(24-1), vertices.get(25-1), 8);
+		road = new Road(0, 0, edge);
+		roads.add(road);
 		
+		return roads;
 	}
 	
-	public void addAllEdges(ListGraph<Box> graph, ArrayList<ListVertex<Box>> vertices){
+	public ArrayList<Road> addAllEdges(ListGraph<Box> graph, ArrayList<ListVertex<Box>> vertices){
+		ArrayList<Road> roads = new ArrayList<>();
+		ListEdge<Box> edge;
+		Road road;
+		
 		//Edge 1 to 2
 		graph.addEdge(vertices.get(1-1), vertices.get(2-1), 3);
+		edge = new ListEdge<Box>(vertices.get(1-1), vertices.get(2-1), 3);
+		road = new Road(0, 0, edge);
+		roads.add(road);
 
 		//Edge 1 to 8
 		graph.addEdge(vertices.get(1-1), vertices.get(8-1), 4);
+		edge = new ListEdge<Box>(vertices.get(1-1), vertices.get(8-1), 4);
+		road = new Road(0, 0, edge);
+		roads.add(road);
 
 		//Edge 2 to 3
 		graph.addEdge(vertices.get(2-1), vertices.get(3-1), 3);
+		edge = new ListEdge<Box>(vertices.get(2-1), vertices.get(3-1), 3);
+		road = new Road(0, 0, edge);
+		roads.add(road);
 
 		//Edge 2 to 9
 		graph.addEdge(vertices.get(2-1), vertices.get(9-1), 7);
-
+		edge = new ListEdge<Box>(vertices.get(2-1), vertices.get(9-1), 7);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 3 to 4
 		graph.addEdge(vertices.get(3-1), vertices.get(4-1), 1);
-
+		edge = new ListEdge<Box>(vertices.get(3-1), vertices.get(4-1), 1);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 4 to 5
 		graph.addEdge(vertices.get(4-1), vertices.get(5-1), 6);
-
+		edge = new ListEdge<Box>(vertices.get(4-1), vertices.get(5-1), 6);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 4 to 11
 		graph.addEdge(vertices.get(4-1), vertices.get(11-1), 7);
-
+		edge = new ListEdge<Box>(vertices.get(4-1), vertices.get(11-1), 7);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 4 to 10
 		graph.addEdge(vertices.get(4-1), vertices.get(10-1), 15);
-
+		edge = new ListEdge<Box>(vertices.get(4-1), vertices.get(10-1), 15);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 5 to 6
 		graph.addEdge(vertices.get(5-1), vertices.get(6-1), 4);
-
+		edge = new ListEdge<Box>(vertices.get(5-1), vertices.get(6-1), 4);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 5 to 7
 		graph.addEdge(vertices.get(5-1), vertices.get(7-1), 9);
-
+		edge = new ListEdge<Box>(vertices.get(5-1), vertices.get(7-1), 9);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 6 to 7
 		graph.addEdge(vertices.get(6-1), vertices.get(7-1), 1);
-
+		edge = new ListEdge<Box>(vertices.get(6-1), vertices.get(7-1), 1);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 6 to 12
 		graph.addEdge(vertices.get(6-1), vertices.get(12-1), 7);
-
+		edge = new ListEdge<Box>(vertices.get(6-1), vertices.get(12-1), 7);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 7 to 12
 		graph.addEdge(vertices.get(7-1), vertices.get(12-1), 4);
-
+		edge = new ListEdge<Box>(vertices.get(7-1), vertices.get(12-1), 4);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 8 to 13
 		graph.addEdge(vertices.get(8-1), vertices.get(13-1), 5);
-
+		edge = new ListEdge<Box>(vertices.get(8-1), vertices.get(13-1), 5);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 9 to 10
 		graph.addEdge(vertices.get(9-1), vertices.get(10-1), 1);
-
+		edge = new ListEdge<Box>(vertices.get(9-1), vertices.get(10-1), 1);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 9 to 14
 		graph.addEdge(vertices.get(9-1), vertices.get(14-1), 3);
-
+		edge = new ListEdge<Box>(vertices.get(9-1), vertices.get(14-1), 3);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 10 to 15
 		graph.addEdge(vertices.get(10-1), vertices.get(15-1), 3);
-
+		edge = new ListEdge<Box>(vertices.get(10-1), vertices.get(15-1), 3);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 11 to 16
 		graph.addEdge(vertices.get(11-1), vertices.get(16-1), 3);
-
+		edge = new ListEdge<Box>(vertices.get(11-1), vertices.get(16-1), 3);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 12 to 21
 		graph.addEdge(vertices.get(12-1), vertices.get(21-1), 10);	
-
+		edge = new ListEdge<Box>(vertices.get(12-1), vertices.get(21-1), 10);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 13 to 14
 		graph.addEdge(vertices.get(13-1), vertices.get(14-1), 4);
-
+		edge = new ListEdge<Box>(vertices.get(13-1), vertices.get(14-1), 4);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 13 to 17
 		graph.addEdge(vertices.get(13-1), vertices.get(17-1), 6);	
-
+		edge = new ListEdge<Box>(vertices.get(13-1), vertices.get(17-1), 6);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 14 to 18
 		graph.addEdge(vertices.get(14-1), vertices.get(18-1), 2);
-
+		edge = new ListEdge<Box>(vertices.get(14-1), vertices.get(18-1), 2);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 15 to 19
 		graph.addEdge(vertices.get(15-1), vertices.get(19-1), 8);
-
+		edge = new ListEdge<Box>(vertices.get(15-1), vertices.get(19-1), 8);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 16 to 20
 		graph.addEdge(vertices.get(16-1), vertices.get(20-1), 2);
+		edge = new ListEdge<Box>(vertices.get(16-1), vertices.get(20-1), 2);
+		road = new Road(0, 0, edge);
+		roads.add(road);
 		
 		//Edge 17 to 18
 		graph.addEdge(vertices.get(17-1), vertices.get(18-1), 7);
-
+		edge = new ListEdge<Box>(vertices.get(17-1), vertices.get(18-1), 7);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 18 to 22
 		graph.addEdge(vertices.get(18-1), vertices.get(22-1), 12);	
-
+		edge = new ListEdge<Box>(vertices.get(18-1), vertices.get(22-1), 12);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 19 to 20
 		graph.addEdge(vertices.get(19-1), vertices.get(20-1), 7);	
-
+		edge = new ListEdge<Box>(vertices.get(19-1), vertices.get(20-1), 7);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 20 to 21
 		graph.addEdge(vertices.get(20-1), vertices.get(21-1), 6);
-
+		edge = new ListEdge<Box>(vertices.get(20-1), vertices.get(21-1), 6);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 20 to 24
 		graph.addEdge(vertices.get(20-1), vertices.get(24-1), 3);
-
+		edge = new ListEdge<Box>(vertices.get(20-1), vertices.get(24-1), 3);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 21 to 25
 		graph.addEdge(vertices.get(21-1), vertices.get(25-1), 2);
-
+		edge = new ListEdge<Box>(vertices.get(21-1), vertices.get(25-1), 2);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 22 to 23
 		graph.addEdge(vertices.get(22-1), vertices.get(23-1), 10);
-
+		edge = new ListEdge<Box>(vertices.get(22-1), vertices.get(23-1), 10);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 23 to 24
 		graph.addEdge(vertices.get(23-1), vertices.get(24-1), 6);	
-
+		edge = new ListEdge<Box>(vertices.get(23-1), vertices.get(24-1), 6);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
 		//Edge 24 to 25
-		graph.addEdge(vertices.get(24-1), vertices.get(25-1), 8);		
+		graph.addEdge(vertices.get(24-1), vertices.get(25-1), 8);
+		edge = new ListEdge<Box>(vertices.get(24-1), vertices.get(25-1), 8);
+		road = new Road(0, 0, edge);
+		roads.add(road);
+		
+		return roads;
 	}
 	
 	public int getNumRounds() {
