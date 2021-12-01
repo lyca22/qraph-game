@@ -209,9 +209,24 @@ class ControllerTest {
 	@Test
 	void testGetQuestion() {
 		ArrayList<Player> p;
+		Question q;
+		
 		p = setup1();
 		c.start(p);
-		Question q = c.getQuestion();
+		q = c.getQuestion();
+		if(c.getCurrentPlayer().getCurrentBox().getCategory() == 1) {
+			assertTrue(c.getQuestionsDB().get(1).contains(q));
+		}else if(c.getCurrentPlayer().getCurrentBox().getCategory() == 2) {
+			assertTrue(c.getQuestionsDB().get(2).contains(q));
+		}else if(c.getCurrentPlayer().getCurrentBox().getCategory() == 3) {
+			assertTrue(c.getQuestionsDB().get(3).contains(q));
+		}else if(c.getCurrentPlayer().getCurrentBox().getCategory() == 4) {
+			assertTrue(c.getQuestionsDB().get(4).contains(q));
+		}
+		
+		p = setup2();
+		c.start(p);
+		q = c.getQuestion();
 		if(c.getCurrentPlayer().getCurrentBox().getCategory() == 1) {
 			assertTrue(c.getQuestionsDB().get(1).contains(q));
 		}else if(c.getCurrentPlayer().getCurrentBox().getCategory() == 2) {
@@ -226,7 +241,15 @@ class ControllerTest {
 	@Test
 	void testRechargeAndDuplicateCoins() {
 		ArrayList<Player> p;
+		
 		p = setup1();
+		c.start(p);
+		c.rechargeCoins();
+		assertTrue(c.getCurrentPlayer().getCoins() == 5);
+		c.duplicateCoins();
+		assertTrue(c.getCurrentPlayer().getCoins() == 10);
+		
+		p = setup2();
 		c.start(p);
 		c.rechargeCoins();
 		assertTrue(c.getCurrentPlayer().getCoins() == 5);
@@ -237,10 +260,22 @@ class ControllerTest {
 	@Test
 	void testStealCoins() {
 		ArrayList<Player> p;
+		Player player;
+		int coins;
+		
 		p = setup1();
 		c.start(p);
-		Player player = new Player(0, 0);
-		int coins = 10;
+		player = new Player(0, 0);
+		coins = 10;
+		player.setCoins(coins);
+		c.stealCoins(player);
+		assertTrue(c.getCurrentPlayer().getCoins() == Controller.STOLEN_COINS);
+		assertTrue(player.getCoins() == coins - Controller.STOLEN_COINS);
+		
+		p = setup2();
+		c.start(p);
+		player = new Player(0, 0);
+		coins = 10;
 		player.setCoins(coins);
 		c.stealCoins(player);
 		assertTrue(c.getCurrentPlayer().getCoins() == Controller.STOLEN_COINS);
@@ -250,10 +285,22 @@ class ControllerTest {
 	@Test
 	void testStealCrowns() {
 		ArrayList<Player> p;
+		Player player;
+		int crowns;
+		
 		p = setup1();
 		c.start(p);
-		Player player = new Player(0, 0);
-		int crowns = 1;
+		player = new Player(0, 0);
+		crowns = 1;
+		player.setCrowns(crowns);
+		c.stealCrowns(player);
+		assertTrue(c.getCurrentPlayer().getCrowns() == Controller.STOLEN_CROWNS);
+		assertTrue(player.getCrowns() == crowns - Controller.STOLEN_CROWNS);
+		
+		p = setup2();
+		c.start(p);
+		player = new Player(0, 0);
+		crowns = 1;
 		player.setCrowns(crowns);
 		c.stealCrowns(player);
 		assertTrue(c.getCurrentPlayer().getCrowns() == Controller.STOLEN_CROWNS);
@@ -271,10 +318,28 @@ class ControllerTest {
 	}
 
 	@Test
+	void testFindWinner() {
+		testFindWinner1();
+		testFindWinner2();
+	}
+	
 	void testFindWinner1() {
 		ArrayList<Player> p;
+		Player player;
+		
 		p = setup1();
-		Player player = new Player(0, 0);
+		player = new Player(0, 0);
+		player.setCrowns(1);
+		player.setCoins(10);
+		p.add(player);
+		c.start(p);
+		c.getCurrentPlayer().setCrowns(2);
+		c.getCurrentPlayer().setCoins(10);
+		c.findWinner();
+		assertTrue(c.getWinner().equals(c.getCurrentPlayer()));
+		
+		p = setup2();
+		player = new Player(0, 0);
 		player.setCrowns(1);
 		player.setCoins(10);
 		p.add(player);
@@ -285,11 +350,23 @@ class ControllerTest {
 		assertTrue(c.getWinner().equals(c.getCurrentPlayer()));
 	}
 	
-	@Test
 	void testFindWinner2() {
 		ArrayList<Player> p;
+		Player player;
+		
 		p = setup1();
-		Player player = new Player(0, 0);
+		player = new Player(0, 0);
+		player.setCrowns(2);
+		player.setCoins(10);
+		p.add(player);
+		c.start(p);
+		c.getCurrentPlayer().setCrowns(2);
+		c.getCurrentPlayer().setCoins(20);
+		c.findWinner();
+		assertTrue(c.getWinner().equals(c.getCurrentPlayer()));
+		
+		p = setup2();
+		player = new Player(0, 0);
 		player.setCrowns(2);
 		player.setCoins(10);
 		p.add(player);
