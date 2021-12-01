@@ -53,6 +53,11 @@ public class Controller {
 	}
 
 	private void setupBoxes() {
+		
+		for(int i = 0; i < currentBoard.getBoxes().size(); i++) {
+			currentBoard.getBoxes().get(i).setType(BoxType.NORMAL);
+		}
+		
 		int crownPos = randomNumberWithRange(0, currentBoard.getBoxes().size() - 1);
 
 		int crocodilePos;
@@ -152,6 +157,7 @@ public class Controller {
 
 	public void movePlayer(Box finish) {
 		currentPlayer.getCurrentBox().getPlayers().remove(currentPlayer);
+		finish.getPlayers().add(currentPlayer);
 		currentPlayer.setCurrentBox(finish);
 	}
 
@@ -348,7 +354,7 @@ public class Controller {
 		}else if(graph instanceof ListGraph){
 			addAllEdges((ListGraph<Box>)graph, ((ListGraph<Box>) graph).getAdjList());
 		}
-		currentBoard = new Board(graph, new ArrayList<Box>(), new ArrayList<Road>());
+		currentBoard = new Board(graph);
 	}
 	
 
