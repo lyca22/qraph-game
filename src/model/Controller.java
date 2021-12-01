@@ -305,7 +305,14 @@ public class Controller {
 			}
 			SimpleGraph<Box> graphCopy = new SimpleGraph<Box>();
 			graphCopy.setVertices(tempSimple);
-			graphCopy.setEdges(((SimpleGraph<Box>)currentBoard.getGraph()).getEdges());
+			for(int i = 0; i < graphCopy.getVertices().size(); i++) {
+				ArrayList<Integer> integerList = ((SimpleGraph<Box>)currentBoard.getGraph()).getEdges().get(graphCopy.getVertices().get(i).getId());
+				ArrayList<Integer> finalList = new ArrayList<Integer>();
+				for(int j = 0; j < graphCopy.getVertices().size(); j++) {
+					finalList.add(integerList.get(graphCopy.getVertices().get(j).getId()));
+				}
+				graphCopy.getEdges().add(finalList);
+			}
 			dijkstraOutput = graphCopy.dijkstra(vertex);
 		}else if(currentBoard.getGraph() instanceof ListGraph) {
 			boolean found = false;
