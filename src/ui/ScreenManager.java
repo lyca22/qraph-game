@@ -6,6 +6,7 @@ import model.Box;
 import model.BoxType;
 import model.Controller;
 import model.Player;
+import model.Question;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -43,14 +44,14 @@ public class ScreenManager {
 	private PImage norm3;
 	private PImage norm4;
 	//
-	private PImage var1;
-	private PImage var2;
-	private PImage var3;
-	private PImage var4;
+	//private PImage var1;
+	//private PImage var2;
+	//private PImage var3;
+	//private PImage var4;
 	//
 	private PImage crown;
 	private PImage coins;
-	private PImage bag;
+	//private PImage bag;
 	private PImage croco;
 	//
 	private PImage player1;
@@ -63,10 +64,10 @@ public class ScreenManager {
 	private PImage card3;
 	private PImage card4;
 
-	private PImage card1S;
-	private PImage card2S;
-	private PImage card3S;
-	private PImage card4S;
+	//private PImage card1S;
+	//private PImage card2S;
+	//private PImage card3S;
+	//private PImage card4S;
 	//
 	private PImage dice;
 	//
@@ -115,14 +116,14 @@ public class ScreenManager {
 		norm3 = app.loadImage("data/imgs/norm3-09.png");
 		norm4 = app.loadImage("data/imgs/norm4-09.png");
 		//
-		var1 = app.loadImage("data/imgs/var1-09.png");
-		var2 = app.loadImage("data/imgs/var2-09.png");
-		var3 = app.loadImage("data/imgs/var3-09.png");
-		var4 = app.loadImage("data/imgs/var4-09.png");
+		//var1 = app.loadImage("data/imgs/var1-09.png");
+		//var2 = app.loadImage("data/imgs/var2-09.png");
+		//var3 = app.loadImage("data/imgs/var3-09.png");
+		//var4 = app.loadImage("data/imgs/var4-09.png");
 		//
 		crown = app.loadImage("data/imgs/crown-10.png");
 		coins = app.loadImage("data/imgs/coin-10.png");
-		bag = app.loadImage("data/imgs/bag-10.png");
+		//bag = app.loadImage("data/imgs/bag-10.png");
 		croco = app.loadImage("data/imgs/croco-10.png");
 		//
 		player1 = app.loadImage("data/imgs/Player1-11.png");
@@ -135,10 +136,10 @@ public class ScreenManager {
 		card3 = app.loadImage("data/imgs/CARD3-12.png");
 		card4 = app.loadImage("data/imgs/CARD4-12.png");
 		
-		card1S = app.loadImage("data/imgs/CARD1S-12.png");
-		card2S = app.loadImage("data/imgs/CARD2S-12.png");
-		card3S = app.loadImage("data/imgs/CARD3S-12.png");
-		card4S = app.loadImage("data/imgs/CARD4S-12.png");
+		//card1S = app.loadImage("data/imgs/CARD1S-12.png");
+		//card2S = app.loadImage("data/imgs/CARD2S-12.png");
+		//card3S = app.loadImage("data/imgs/CARD3S-12.png");
+		//card4S = app.loadImage("data/imgs/CARD4S-12.png");
 		
 		dice = app.loadImage("data/imgs/dice-07.png");
 		//
@@ -310,6 +311,7 @@ public class ScreenManager {
 			}
 		}
 		
+		//POSSIBLE MOVES
 		for (int i = 0; i < controler.getPosibleMoves().size(); i++) {
 			app.image(canSelect, controler.getPosibleMoves().get(i).getPosX()-40, controler.getPosibleMoves().get(i).getPosY()-30, 90, 75);
 		}
@@ -439,6 +441,12 @@ public class ScreenManager {
 		return selected;
 	}
 	
+	public void showQuestion(Question question) {
+		app.fill(35, 11, 99, 25);
+		app.rect(0, 0, 1080, 720);		
+		
+	}
+	
 	//GETTERS AND SETTERS
 	
 	//To change and detect current screen
@@ -473,6 +481,8 @@ public class ScreenManager {
 	public void setPlayersUi(ArrayList<Player> playersUi) {
 		this.playersUi = playersUi;
 	}
+
+	
 
 	
 }

@@ -286,11 +286,16 @@ public class Main extends PApplet{
 				}
 				//
 					
-				if(!scManager.getUiButtons().get(17).isActive()) {
+				if(!scManager.getUiButtons().get(17).isActive() && scManager.getControler().isCanMove()) {
 					System.out.println("PRESSING");
 					Box selectedBox = scManager.verifySelection(mouseX, mouseY);
 					if(selectedBox!= null) {
+						ArrayList<Integer> indexes = scManager.getControler().getMovementCost(scManager.getControler().getCurrentPlayer().getCurrentBox());
 						scManager.getControler().movePlayer(selectedBox);
+						
+						scManager.getControler().movePlayerVisually(indexes);
+						scManager.getControler().setCanMove(false);
+						scManager.showQuestion(scManager.getControler().getQuestion());
 					}
 				}
 				

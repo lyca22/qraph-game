@@ -26,6 +26,7 @@ public class Controller {
 	private int numRounds;
 	private int currentRound;
 	private boolean isSimpleGraph;
+	private boolean canMove;
 	private Board currentBoard;
 	private Player currentPlayer;
 	private ArrayList<Player> players;
@@ -35,6 +36,7 @@ public class Controller {
 	private ArrayList<String> categoriesNames;
 
 	public Controller() {
+		canMove = true;
 		numRounds = 10;
 		currentRound = 0;
 		isSimpleGraph = true;
@@ -913,6 +915,23 @@ public class Controller {
 		return roads;
 	}
 	
+	public void movePlayerVisually(ArrayList<Integer> indexes) {
+		/*ArrayList<ArrayList<Integer>> coordinates = new ArrayList();
+		for (int i = 0; i < currentBoard.getBoxes().size(); i++) {
+			for (int j = 0; j < indexes.size(); j++) {
+				if(i==indexes.get(j)) {
+					ArrayList<Integer> coordinatesF = new ArrayList();
+					coordinatesF.add(currentBoard.getBoxes().get(i).getPosX());
+					coordinatesF.add(currentBoard.getBoxes().get(i).getPosY());
+					coordinates.add(coordinatesF);
+				}
+			}
+		}*/
+		
+		//currentPlayer.setPosX(currentPlayer.getCurrentBox().getPosX());
+		//currentPlayer.setPosY(currentPlayer.getCurrentBox().getPosY());
+	}
+	
 	public int getNumRounds() {
 		return numRounds;
 	}
@@ -996,4 +1015,15 @@ public class Controller {
 	public void setCurrentRound(int currentRound) {
 		this.currentRound = currentRound;
 	}
+
+	public boolean isCanMove() {
+		return canMove;
+	}
+
+	public void setCanMove(boolean canMove) {
+		this.canMove = canMove;
+	}
+
+	
+	
 }
