@@ -29,6 +29,7 @@ public class Controller {
 	private boolean canMove;
 	private Board currentBoard;
 	private Player currentPlayer;
+	private Player initialPlayer;
 	private ArrayList<Player> players;
 	private ArrayList<Box> posibleMoves; //Used to display.
 	private Player winner; //Used to display.
@@ -52,7 +53,9 @@ public class Controller {
 		questionsDB.put(2, new ArrayList<Question>());
 		questionsDB.put(3, new ArrayList<Question>());
 		questionsDB.put(4, new ArrayList<Question>());
+		//loadDedaultQuestions();
 	}
+
 
 	public void start(ArrayList<Player> players) {
 		setupBoxes();
@@ -945,7 +948,7 @@ public class Controller {
 			}
 		}
 		return coordinates;
-		
+		 
 		
 		//currentPlayer.setPosX(currentPlayer.getCurrentBox().getPosX());
 		//currentPlayer.setPosY(currentPlayer.getCurrentBox().getPosY());
@@ -1041,6 +1044,14 @@ public class Controller {
 
 	public void setCanMove(boolean canMove) {
 		this.canMove = canMove;
+	}
+
+	public Player getInitialPlayer() {
+		return initialPlayer;
+	}
+
+	public void setInitialPlayer(Player initialPlayer) {
+		this.initialPlayer = initialPlayer;
 	}
 
 	

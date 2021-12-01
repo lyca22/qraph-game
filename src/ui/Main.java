@@ -262,7 +262,14 @@ public class Main extends PApplet{
 								scManager.getControler().start(scManager.getPlayersUi());
 								scManager.loadGameScreen();
 								int playerFirst = (int)(Math.random()*scManager.getControler().getPlayers().size()-1);
-								scManager.getControler().setCurrentPlayer(scManager.getControler().getPlayers().get(playerFirst));;
+								scManager.getControler().setCurrentPlayer(scManager.getControler().getPlayers().get(playerFirst));
+								
+								for (int i = 0; i <scManager.getControler().getPlayers().size(); i++) {
+									if(scManager.getControler().getPlayers().get(i).equals(scManager.getControler().getCurrentPlayer())){
+										scManager.setPlayerIndex(i);
+									}
+								}
+								scManager.getControler().setInitialPlayer(scManager.getControler().getCurrentPlayer());
 							}
 							//scManager.getControler().start(scManager.getPlayersUi());
 							break;
@@ -283,25 +290,27 @@ public class Main extends PApplet{
 							System.out.println(diceNum);
 							indexes = scManager.getControler().calculatePossibleMoves(scManager.getControler().getCurrentPlayer().getCurrentBox(), diceNum);
 							
-							for(int i =0; i < scManager.getControler().getPosibleMoves().size();i++) {
+							/*for(int i =0; i < scManager.getControler().getPosibleMoves().size();i++) {
 								System.out.println(i);
-							}
+							}*/
 							
 							scManager.getUiButtons().get(17).setActive(false);
 						}
 					}
 				}
 				//
-					
+				
 				if(!scManager.getUiButtons().get(17).isActive() && scManager.getControler().isCanMove()) {
-					System.out.println("PRESSING");
 					Box selectedBox = scManager.verifySelection(mouseX, mouseY);
 					if(selectedBox!= null) {
 						scManager.getControler().movePlayer(selectedBox);
 						scManager.getControler().setCanMove(false);
 						ArrayList<ArrayList<Integer>> coordinates =scManager.getControler().movePlayerVisually(indexes);
 						scManager.movePLayer(coordinates);
+						scManager.setChoosed(true);
 						//scManager.showQuestion(scManager.getControler().getQuestion());
+						
+						scManager.changeTurn();
 					}
 				}
 				

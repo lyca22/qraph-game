@@ -16,6 +16,8 @@ public class ScreenManager {
 	
 	private PApplet app;
 	private Controller controler;
+	private boolean choosed;
+	private int playerIndex;
 	
 	private ArrayList<Button> uiButtons;
 	private ArrayList<PImage> screenImages;
@@ -313,7 +315,7 @@ public class ScreenManager {
 		}
 		
 		//POSSIBLE MOVES
-		for (int i = 0; i < controler.getPosibleMoves().size(); i++) {
+		for (int i = 0; i < controler.getPosibleMoves().size() && !choosed; i++) {
 			app.image(canSelect, controler.getPosibleMoves().get(i).getPosX()-40, controler.getPosibleMoves().get(i).getPosY()-30, 90, 75);
 		}
 		
@@ -449,6 +451,7 @@ public class ScreenManager {
 	}
 	
 	public void movePLayer(ArrayList<ArrayList<Integer>> coordinates) {
+		/*System.out.println("SSSS "+coordinates.size());
 		for (int i = 0; i < coordinates.size(); i++) {
 			int currentX = controler.getCurrentPlayer().getPosX();
 			int currentY = controler.getCurrentPlayer().getPosY();
@@ -463,7 +466,31 @@ public class ScreenManager {
 			app.popMatrix();
 			}
 			
-		}		
+		}		*/
+		controler.getCurrentPlayer().setPosX(controler.getCurrentPlayer().getCurrentBox().getPosX());
+		controler.getCurrentPlayer().setPosY(controler.getCurrentPlayer().getCurrentBox().getPosY());
+	}
+	
+	
+	public void changeTurn() {
+		//System.out.println("asdfdsdf");
+		//System.out.println(playerIndex);
+		playerIndex++;
+		//System.out.println(playerIndex);
+		if(playerIndex >= controler.getPlayers().size()) {
+			playerIndex = 0;
+		}
+		
+		controler.setCurrentPlayer(controler.getPlayers().get(playerIndex));
+		
+		controler.getPosibleMoves().clear();
+		choosed = false;
+		uiButtons.get(17).setActive(true);
+		controler.setCanMove(true);
+		
+		if(controler.getCurrentPlayer().equals(controler.getInitialPlayer())) {
+			controler.setCurrentRound(controler.getCurrentRound()+1);
+		}
 	}
 	
 	//GETTERS AND SETTERS
@@ -500,6 +527,24 @@ public class ScreenManager {
 	public void setPlayersUi(ArrayList<Player> playersUi) {
 		this.playersUi = playersUi;
 	}
+
+	public boolean isChoosed() {
+		return choosed;
+	}
+
+	public void setChoosed(boolean choosed) {
+		this.choosed = choosed;
+	}
+
+	public int getPlayerIndex() {
+		return playerIndex;
+	}
+
+	public void setPlayerIndex(int playerIndex) {
+		this.playerIndex = playerIndex;
+	}
+
+	
 
 	
 
