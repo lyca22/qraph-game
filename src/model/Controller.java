@@ -24,6 +24,7 @@ public class Controller {
 	public static final int STOLEN_CROWNS = 1;
 
 	private int numRounds;
+	private int currentRound;
 	private boolean isSimpleGraph;
 	private Board currentBoard;
 	private Player currentPlayer;
@@ -34,9 +35,13 @@ public class Controller {
 	private ArrayList<String> categoriesNames;
 
 	public Controller() {
+		numRounds = 10;
+		currentRound = 0;
+		isSimpleGraph = true;
 		setSimpleGraph(true);
 		categoriesNames = new ArrayList<String>();
 		setQuestionsDB(new HashMap<Integer, ArrayList<Question>>());
+		posibleMoves = new ArrayList<Box>();
 		setupDeafultCategories();
 	}
 
@@ -51,6 +56,10 @@ public class Controller {
 		setupBoxes();
 		setPlayers(players);
 		shufflePlayersPositions();
+		for(int i = 0; i < players.size(); i++) {
+			players.get(i).setPosX(players.get(i).getCurrentBox().getPosX()-40);
+			players.get(i).setPosY(players.get(i).getCurrentBox().getPosY()-30);
+		}
 	}
 
 	private void setupBoxes() {
@@ -157,6 +166,7 @@ public class Controller {
 	}
 
 	public void movePlayer(Box finish) {
+		
 		currentPlayer.getCurrentBox().getPlayers().remove(currentPlayer);
 		finish.getPlayers().add(currentPlayer);
 		currentPlayer.setCurrentBox(finish);
@@ -260,8 +270,23 @@ public class Controller {
 		}
 	}
 	
-	public void calculatePossibleMoves(Box box, int distance) {
+	/*public ArrayList<Integer> getMovementCost(Box startBox){
+		int index = currentBoard.getBoxes().indexOf(startBox);
+		if(currentBoard.getGraph() instanceof SimpleGraph) {
+			SimpleGraph<Box> sg = (SimpleGraph<Box>) currentBoard.getGraph();
+			return sg.dijkstra(sg.getVertices().get(index));
+		}else {
+			ListGraph<Box> sg = (ListGraph<Box>) currentBoard.getGraph();
+			return sg.dijkstra(sg.getAdjList().get(index));
+		}
+	}*/
+	
+	//Changed needed.
+	public ArrayList<Integer> calculatePossibleMoves(Box box, int distance) {
 		ArrayList<Box> temp = new ArrayList<Box>();
+		ArrayList<Vertex<Box>> tempSimple = new ArrayList<Vertex<Box>>();
+		ArrayList<ListVertex<Box>> tempList = new ArrayList<ListVertex<Box>>();
+		ArrayList<Integer> dijkstraOutput = new ArrayList<Integer>();
 		if(currentBoard.getGraph() instanceof SimpleGraph) {
 			boolean found = false;
 			Vertex<Box> vertex = null;
@@ -272,14 +297,16 @@ public class Controller {
 				}
 			}
 			((SimpleGraph<Box>) currentBoard.getGraph()).breadthFirstSearch(vertex);
-			
 			for (Vertex<Box> tempVertex : ((SimpleGraph<Box>) currentBoard.getGraph()).getVertices()) {
-				if(tempVertex.getDistance() == distance) {
+				if(tempVertex.getDistance() <= distance) {
 					temp.add(tempVertex.getValue());
+					tempSimple.add(tempVertex);
 				}
 			}
-			
-			
+			SimpleGraph<Box> graphCopy = new SimpleGraph<Box>();
+			graphCopy.setVertices(tempSimple);
+			graphCopy.setEdges(((SimpleGraph<Box>)currentBoard.getGraph()).getEdges());
+			dijkstraOutput = graphCopy.dijkstra(vertex);
 		}else if(currentBoard.getGraph() instanceof ListGraph) {
 			boolean found = false;
 			ListVertex<Box> vertex = null;
@@ -290,15 +317,18 @@ public class Controller {
 				}
 			}
 			((ListGraph<Box>) currentBoard.getGraph()).breadthFirstSearch(vertex);
-			
 			for (ListVertex<Box> tempVertex : ((ListGraph<Box>) currentBoard.getGraph()).getAdjList()) {
-				if(tempVertex.getDistance() == distance) {
+				if(tempVertex.getDistance() <= distance) {
 					temp.add(tempVertex.getValue());
+					tempList.add(tempVertex);
 				}
 			}
+			ListGraph<Box> graphCopy = new ListGraph<Box>();
+			graphCopy.setAdjList(tempList);
+			dijkstraOutput = graphCopy.dijkstra(vertex);
 		}
-		
 		posibleMoves = temp;
+		return dijkstraOutput;
 	}
 	
 	public void readDB(String fileName) throws IOException {
@@ -967,4 +997,11 @@ public class Controller {
 		this.players = players;
 	}
 
+	public int getCurrentRound() {
+		return currentRound;
+	}
+
+	public void setCurrentRound(int currentRound) {
+		this.currentRound = currentRound;
+	}
 }

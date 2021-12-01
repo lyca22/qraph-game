@@ -2,6 +2,8 @@ package ui;
 
 import java.util.ArrayList;
 
+import model.Box;
+import model.BoxType;
 import model.Controller;
 import model.Player;
 import processing.core.PApplet;
@@ -55,6 +57,24 @@ public class ScreenManager {
 	private PImage player2;
 	private PImage player3;
 	private PImage player4;
+	//
+	private PImage card1;
+	private PImage card2;
+	private PImage card3;
+	private PImage card4;
+
+	private PImage card1S;
+	private PImage card2S;
+	private PImage card3S;
+	private PImage card4S;
+	//
+	private PImage dice;
+	//
+	private PImage gameBg;
+	private PImage canSelect;
+	
+	private PImage thumb;
+	
 	
 	public ScreenManager(PApplet app) {
 		
@@ -109,6 +129,23 @@ public class ScreenManager {
 		player2 = app.loadImage("data/imgs/Player2-11.png");
 		player3 = app.loadImage("data/imgs/Player3-11.png");
 		player4 = app.loadImage("data/imgs/Player4-11.png");
+		//
+		card1 = app.loadImage("data/imgs/CARD1-12.png");
+		card2 = app.loadImage("data/imgs/CARD2-12.png");
+		card3 = app.loadImage("data/imgs/CARD3-12.png");
+		card4 = app.loadImage("data/imgs/CARD4-12.png");
+		
+		card1S = app.loadImage("data/imgs/CARD1S-12.png");
+		card2S = app.loadImage("data/imgs/CARD2S-12.png");
+		card3S = app.loadImage("data/imgs/CARD3S-12.png");
+		card4S = app.loadImage("data/imgs/CARD4S-12.png");
+		
+		dice = app.loadImage("data/imgs/dice-07.png");
+		//
+		gameBg = app.loadImage("data/imgs/gameBG.png");
+		canSelect = app.loadImage("data/imgs/canSelect-09.png");
+		
+		thumb = app.loadImage("data/imgs/maprhumb-09.png");
 	}
 
 	private void loadMainScreen() {
@@ -141,7 +178,10 @@ public class ScreenManager {
 		uiButtons.add(new Button(826,589,40,140, false, ButtonIdentifier.START));
 	}
 	
-	
+	public void loadGameScreen() {
+		uiButtons.add(new Button(1010,550,50,50, false, ButtonIdentifier.THROW_DICE));
+	}
+
 	//RENDERS
 	public void renderMainScreen() {
 		app.image(mainBg, 0, 0, 1080, 720);
@@ -204,7 +244,8 @@ public class ScreenManager {
 		//app.rect(uiButtons.get(9).getPosX(), uiButtons.get(9).getPosY(), uiButtons.get(9).getWidth(), uiButtons.get(9).getHeight());
 		//app.rect(uiButtons.get(10).getPosX(), uiButtons.get(10).getPosY(), uiButtons.get(10).getWidth(), uiButtons.get(10).getHeight());	
 		//GRAPH
-		app.rect(uiButtons.get(15).getPosX(), uiButtons.get(15).getPosY(), uiButtons.get(15).getWidth(), uiButtons.get(15).getHeight());
+		app.image(thumb, 290, 480,135,105);
+		//zapp.rect(uiButtons.get(15).getPosX(), uiButtons.get(15).getPosY(), uiButtons.get(15).getWidth(), uiButtons.get(15).getHeight());
 		//START
 		app.rect(uiButtons.get(16).getPosX(), uiButtons.get(16).getPosY(), uiButtons.get(16).getWidth(), uiButtons.get(16).getHeight());
 		
@@ -232,6 +273,9 @@ public class ScreenManager {
 	}
 	
 	public void renderGameScreen() {
+		app.image(gameBg, 0, 0);	
+		app.fill(252, 158, 189);
+		app.text("ROUND: "+controler.getNumRounds() , 485, 80);
 		
 		for (int i = 0; i < controler.getCurrentBoard().getRoads().size(); i++) {
 			app.stroke(10);
@@ -240,6 +284,9 @@ public class ScreenManager {
 					controler.getCurrentBoard().getRoads().get(i).getSimpleEdge().getInitial().getValue().getPosY(), 
 					controler.getCurrentBoard().getRoads().get(i).getSimpleEdge().getEnd().getValue().getPosX(),
 					controler.getCurrentBoard().getRoads().get(i).getSimpleEdge().getEnd().getValue().getPosY());
+			app.fill(255);
+			app.text(controler.getCurrentBoard().getRoads().get(i).getSimpleEdge().getWeight()+"", (controler.getCurrentBoard().getRoads().get(i).getSimpleEdge().getInitial().getValue().getPosX()+controler.getCurrentBoard().getRoads().get(i).getSimpleEdge().getEnd().getValue().getPosX())/2,
+					(controler.getCurrentBoard().getRoads().get(i).getSimpleEdge().getInitial().getValue().getPosY()+controler.getCurrentBoard().getRoads().get(i).getSimpleEdge().getEnd().getValue().getPosY())/2);
 		}
 		
 		for (int i = 0; i < controler.getCurrentBoard().getBoxes().size(); i++) {
@@ -252,11 +299,144 @@ public class ScreenManager {
 			}else {
 				app.image(norm4, controler.getCurrentBoard().getBoxes().get(i).getPosX()-40, controler.getCurrentBoard().getBoxes().get(i).getPosY()-30, 90, 75);
 			}
-		} 
-		
-		for (int i = 0; i < controler.getPlayers().size(); i++) {
-			app.image(player1, controler.getPlayers().get(i).getPosX(),  controler.getPlayers().get(i).getPosY());
+			//
+			
+			if(controler.getCurrentBoard().getBoxes().get(i).getType().equals(BoxType.BOOST)) {
+				app.image(coins, controler.getCurrentBoard().getBoxes().get(i).getPosX()-18, controler.getCurrentBoard().getBoxes().get(i).getPosY()-45, 45, 45);
+			}else if(controler.getCurrentBoard().getBoxes().get(i).getType().equals(BoxType.CROCODILE)) {
+				app.image(croco, controler.getCurrentBoard().getBoxes().get(i).getPosX()-18, controler.getCurrentBoard().getBoxes().get(i).getPosY()-40, 45, 45);
+			}else if(controler.getCurrentBoard().getBoxes().get(i).getType().equals(BoxType.CROWN)) {
+				app.image(crown, controler.getCurrentBoard().getBoxes().get(i).getPosX()-18, controler.getCurrentBoard().getBoxes().get(i).getPosY()-45, 45, 45);
+			}
 		}
+		
+		for (int i = 0; i < controler.getPosibleMoves().size(); i++) {
+			app.image(canSelect, controler.getPosibleMoves().get(i).getPosX()-40, controler.getPosibleMoves().get(i).getPosY()-30, 90, 75);
+		}
+		
+		if(controler.getPlayers().size()> 0) {
+			switch(controler.getPlayers().get(0).getAvatar()) {
+			case 1:
+				app.image(player1, controler.getPlayers().get(0).getPosX()-10,  controler.getPlayers().get(0).getPosY()-25,60,60);
+				app.image(card1, 10, 10);
+				break;
+			case 2:
+				app.image(player2, controler.getPlayers().get(0).getPosX()-10,  controler.getPlayers().get(0).getPosY()-25,60,60);
+				app.image(card2, 10, 10);
+				break;
+			case 3:
+				app.image(player3, controler.getPlayers().get(0).getPosX()-10,  controler.getPlayers().get(0).getPosY()-25,60,60);
+				app.image(card3, 10, 10);
+				break;
+			case 4:
+				app.image(player4, controler.getPlayers().get(0).getPosX()-10,  controler.getPlayers().get(0).getPosY()-25,60,60);
+				app.image(card4, 10, 10);
+				break;
+			}
+			app.fill(255);
+			app.text(controler.getPlayers().get(0).getCoins()+"", 60, 55);
+			app.text(controler.getPlayers().get(0).getCrowns()+"", 165, 55);
+		
+			
+		}if(controler.getPlayers().size()> 1){
+			switch(controler.getPlayers().get(1).getAvatar()) {
+			case 1:
+				app.image(player1, controler.getPlayers().get(1).getPosX()+5,  controler.getPlayers().get(1).getPosY()-40,60,60);
+				
+				app.image(card1, 810, 10);
+				break;
+			case 2:
+				app.image(player2, controler.getPlayers().get(1).getPosX()+5,  controler.getPlayers().get(1).getPosY()-40,60,60);
+				app.image(card2, 810, 10);
+				break;
+			case 3:
+				app.image(player3, controler.getPlayers().get(1).getPosX()+5,  controler.getPlayers().get(1).getPosY()-40,60,60);
+				app.image(card3, 810, 10);
+				break;
+			case 4:
+				app.image(player4, controler.getPlayers().get(1).getPosX()+5,  controler.getPlayers().get(1).getPosY()-40,60,60);
+				app.image(card4, 810, 10);
+				break;
+			}
+			
+			app.fill(255);
+			app.text(controler.getPlayers().get(1).getCoins()+"", 860, 55);
+			app.text(controler.getPlayers().get(1).getCrowns()+"", 965, 55);
+			
+			
+			
+		}if(controler.getPlayers().size()> 2){
+			switch(controler.getPlayers().get(2).getAvatar()) {
+			case 1:
+				app.image(player1, controler.getPlayers().get(2).getPosX()+20,  controler.getPlayers().get(2).getPosY()-25,60,60);
+				app.image(card1, 10, 640);
+				break;
+			case 2:
+				app.image(player2, controler.getPlayers().get(2).getPosX()+20,  controler.getPlayers().get(2).getPosY()-25,60,60);
+				app.image(card2, 10, 640);
+				break;
+			case 3:
+				app.image(player3, controler.getPlayers().get(2).getPosX()+20,  controler.getPlayers().get(2).getPosY()-25,60,60);
+				app.image(card3, 10, 640);
+				break;
+			case 4:
+				app.image(player4, controler.getPlayers().get(2).getPosX()+20,  controler.getPlayers().get(2).getPosY()-25,60,60);
+				app.image(card4, 10, 640);
+				break;
+			}
+			
+			app.fill(255);
+			app.text(controler.getPlayers().get(2).getCoins()+"", 60, 685);
+			app.text(controler.getPlayers().get(2).getCrowns()+"", 165, 685);
+			
+		}if(controler.getPlayers().size()> 3){
+			switch(controler.getPlayers().get(3).getAvatar()) {
+			case 1:
+				app.image(player1, controler.getPlayers().get(3).getPosX()+5,  controler.getPlayers().get(3).getPosY()-10,60,60);
+				app.image(card1, 810, 640);
+				break;
+			case 2:
+				app.image(player2, controler.getPlayers().get(3).getPosX()+5,  controler.getPlayers().get(3).getPosY()-10,60,60);
+				app.image(card2, 810, 640);
+				break;
+			case 3:
+				app.image(player3, controler.getPlayers().get(3).getPosX()+5,  controler.getPlayers().get(3).getPosY()-10,60,60);
+				app.image(card3, 810, 640);
+				break;
+			case 4:
+				app.image(player4, controler.getPlayers().get(3).getPosX()+5,  controler.getPlayers().get(3).getPosY()-10,60,60);
+				app.image(card4, 810, 640);
+				break;
+			}
+			app.fill(255);
+			app.text(controler.getPlayers().get(3).getCoins()+"", 860, 685);
+			app.text(controler.getPlayers().get(3).getCrowns()+"", 965, 685);	
+			
+		}
+		
+		if(controler.getCurrentPlayer().getAvatar()==1) {
+				app.text("Glop's turn", 490, 50);
+		}else if(controler.getCurrentPlayer().getAvatar()==2) {
+			app.text("Kyle's turn", 490, 50);
+		}else if(controler.getCurrentPlayer().getAvatar()==3) {
+			app.text("Renas turn", 490, 50);
+		}else {
+			app.text("Tiko's turn", 490, 50);
+		}
+		
+		app.image(dice, uiButtons.get(17).getPosX(), uiButtons.get(17).getPosY());
+	}
+	
+	public Box verifySelection(int mouseX, int mouseY) {
+		Box selected = null;
+		for (int i = 0; i < controler.getPosibleMoves().size(); i++) {
+			if(mouseX > controler.getPosibleMoves().get(i).getPosX()-50 && mouseX < controler.getPosibleMoves().get(i).getPosX()+50
+				&& mouseY > controler.getPosibleMoves().get(i).getPosY()-35 && mouseY < controler.getPosibleMoves().get(i).getPosY()+35) {
+				selected = controler.getPosibleMoves().get(i);
+			}
+		}
+		
+		return selected;
 	}
 	
 	//GETTERS AND SETTERS
@@ -294,7 +474,5 @@ public class ScreenManager {
 		this.playersUi = playersUi;
 	}
 
-	
-	
 	
 }
