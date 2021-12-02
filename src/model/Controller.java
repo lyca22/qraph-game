@@ -36,7 +36,7 @@ public class Controller {
 	private HashMap<Integer, ArrayList<Question>> questionsDB; //Create 4 lists, each one with each type of question given a category. Or do it with HashMap I dunno Julian.
 	private ArrayList<String> categoriesNames;
 
-	public Controller() throws IOException {
+	public Controller() {
 		canMove = true;
 		numRounds = 10;
 		currentRound = 0;
@@ -48,13 +48,11 @@ public class Controller {
 		setupDeafultCategories();
 	}
 
-	public void setupDeafultCategories() throws IOException {
+	public void setupDeafultCategories() {
 		questionsDB.put(1, new ArrayList<Question>());
 		questionsDB.put(2, new ArrayList<Question>());
 		questionsDB.put(3, new ArrayList<Question>());
 		questionsDB.put(4, new ArrayList<Question>());
-		//loadDedaultQuestions();
-		//readDB("data/questionsDB/BD1.csv");
 	}
 
 	public void start(ArrayList<Player> players) {
