@@ -142,7 +142,7 @@ public class Controller {
 	private void simpleSpecialEdge(ArrayList<Integer> list, int pos, boolean isAdding) {
 		int value = isAdding ? 1 : -1;
 		for(int i = 0; i < currentBoard.getBoxes().size(); i++) {
-			if(i != pos || list.get(i) != Integer.MAX_VALUE) {
+			if(i != pos && list.get(i) != Integer.MAX_VALUE) {
 				list.set(i, list.get(i) + (SPECIAL_BOX_WEIGHT * value));
 			}
 		}
