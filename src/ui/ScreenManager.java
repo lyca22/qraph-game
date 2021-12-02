@@ -556,10 +556,8 @@ public class ScreenManager {
 			}
 		}		
 		
-		
 		controler.removeCoins();
 	}
-	
 	
 	public void changeTurn() {
 		//System.out.println("asdfdsdf");

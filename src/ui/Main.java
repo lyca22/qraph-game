@@ -3,6 +3,8 @@ package ui;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.text.StyledEditorKit.ForegroundAction;
+
 import datastr.SimpleGraph;
 import datastr.Vertex;
 import model.Box;
@@ -305,16 +307,31 @@ public class Main extends PApplet{
 				}
 				
 				if(scManager.isShowQuestion()) {
+					int nowP=0;
+					for(int i = 0; i < scManager.getControler().getPlayers().size();i++) {
+						if( scManager.getControler().getPlayers().get(i).equals(scManager.getControler().getCurrentPlayer())) {
+							nowP = i;
+						}
+					}
+					
+					if(nowP==0) {
+						nowP = scManager.getControler().getPlayers().size()-1;
+					}else {
+						nowP--;
+					}
+					
 					scManager.setShowQuestion(false);
 					if(mouseX> 380 && mouseX < 640 && mouseY > 300 && mouseY < 340 && scManager.getCurrentAnswer()==1) {
-						scManager.getControler().getCurrentPlayer().setCoins(scManager.getControler().getCurrentPlayer().getCoins()+4);
+						scManager.getControler().getPlayers().get(nowP).setCoins(scManager.getControler().getPlayers().get(nowP).getCoins()+4);
 					}else if(mouseX> 380 && mouseX < 640 && mouseY > 340 && mouseY < 380 && scManager.getCurrentAnswer()==2) {
-						scManager.getControler().getCurrentPlayer().setCoins(scManager.getControler().getCurrentPlayer().getCoins()+4);
+						scManager.getControler().getPlayers().get(nowP).setCoins(scManager.getControler().getPlayers().get(nowP).getCoins()+4);
 					}else if(mouseX> 380 && mouseX < 640 && mouseY > 380 && mouseY < 420 && scManager.getCurrentAnswer()==3) {
-						scManager.getControler().getCurrentPlayer().setCoins(scManager.getControler().getCurrentPlayer().getCoins()+4);
+						scManager.getControler().getPlayers().get(nowP).setCoins(scManager.getControler().getPlayers().get(nowP).getCoins()+4);
 					}else if(mouseX> 380 && mouseX < 640 && mouseY > 420 && mouseY < 460 && scManager.getCurrentAnswer()==4) {
-						scManager.getControler().getCurrentPlayer().setCoins(scManager.getControler().getCurrentPlayer().getCoins()+4);
+						scManager.getControler().getPlayers().get(nowP).setCoins(scManager.getControler().getPlayers().get(nowP).getCoins()+4);
 					}
+					
+					
 				}
 				//
 				
