@@ -1,6 +1,7 @@
 package ui;
 	
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import datastr.SimpleGraph;
 import datastr.Vertex;
@@ -148,12 +149,15 @@ public class Main extends PApplet{
 		case GAME_SCREEN:
 			scManager.renderGameScreen();
 			break;
+		case END_SCREEN:
+			scManager.renderEndScreen();
 		default:
 			break;
 		}
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void mousePressed() {
 		Button pressedBtn = pressesSensibleArea();
 		
@@ -171,7 +175,7 @@ public class Main extends PApplet{
 							scManager.setScreenId(ScreenIdentifier.CONFIGURATION_SCREEN);
 							break;
 						case EXIT:
-							System.out.println("EXIT");
+							System.exit(0);
 							break;
 						case ABOUT:
 							scManager.setScreenId(ScreenIdentifier.ABOUT_SCREEN);
@@ -314,6 +318,20 @@ public class Main extends PApplet{
 					}
 				}
 				
+				break;
+			case END_SCREEN:
+				if(pressedBtn!=null) {
+					ButtonIdentifier identifier = pressedBtn.getIdentifier();
+					if(identifier.equals(ButtonIdentifier.BACK)) {
+						/*scManager.setScreenId(ScreenIdentifier.MAIN_SCREEN);
+						scManager.getControler().setCurrentRound(0);
+						for (int i = 0; i <  scManager.getControler().getPlayers().size(); i++) {
+							scManager.getControler().getPlayers().get(i).setCoins(15);
+							scManager.getControler().getPlayers().get(i).setCrowns(0);
+						}*/
+						scManager = new ScreenManager(this);
+					}
+				}
 				break;
 			default:
 				break;

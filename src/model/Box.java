@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Box {
 
+	
 	private int posX;
 	private int posY;
 	private ArrayList<Player> players;
