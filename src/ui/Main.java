@@ -331,7 +331,6 @@ public class Main extends PApplet{
 						scManager.getControler().getPlayers().get(nowP).setCoins(scManager.getControler().getPlayers().get(nowP).getCoins()+4);
 					}
 					
-					
 				}
 				//
 				
