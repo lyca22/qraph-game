@@ -1,7 +1,8 @@
 package ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
+
 
 import model.Box;
 import model.BoxType;
@@ -17,7 +18,9 @@ public class ScreenManager {
 	private PApplet app;
 	private Controller controler;
 	private boolean choosed;
+	private boolean showQuestion;
 	private int playerIndex;
+	private int currentAnswer;
 	
 	private ArrayList<Button> uiButtons;
 	private ArrayList<PImage> screenImages;
@@ -81,7 +84,7 @@ public class ScreenManager {
 	private PImage backBtn;
 	
 	
-	public ScreenManager(PApplet app) {
+	public ScreenManager(PApplet app) throws IOException {
 		
 		this.app = app;
 		screenImages = new ArrayList<>();
@@ -440,6 +443,10 @@ public class ScreenManager {
 		}
 		
 		app.image(dice, uiButtons.get(17).getPosX(), uiButtons.get(17).getPosY());
+		
+		if(showQuestion) {
+			showQuestion(null);
+		}
 	}
 	
 	public void renderEndScreen() {
@@ -463,6 +470,8 @@ public class ScreenManager {
 		}
 		
 		app.image(backBtn, uiButtons.get(18).getPosX()-15, uiButtons.get(18).getPosY());
+		
+		
 	}
 	
 	
@@ -479,9 +488,27 @@ public class ScreenManager {
 	}
 	
 	public void showQuestion(Question question) {
-		app.fill(35, 11, 99, 25);
-		app.rect(0, 0, 1080, 720);		
-		
+		ArrayList<String> options = new ArrayList();
+		options.add("2");
+		options.add("4");
+		options.add("6");
+		options.add("8");
+		question = new Question("1+1?", options, 1);
+		//errase above
+		currentAnswer = question.getAnswer();
+		app.fill(35, 11, 99, 50);
+		app.rect(0, 0, 1080, 720);
+		app.fill(240);
+		app.rect(360, 250, 320, 220);
+		app.fill(20);
+		app.text(question.getStatement(), 380, 280);
+		for (int i = 0; i < question.getOptions().size(); i++) {
+			app.strokeWeight(1);
+			app.fill(230);
+			app.rect(370, 290+((i)*40), 180, 40);
+			app.fill(20);
+			app.text(question.getOptions().get(i), 380, 280+((1+i)*40));
+		}
 	}
 	
 	public void movePLayer(ArrayList<ArrayList<Integer>> coordinates) {
@@ -610,6 +637,22 @@ public class ScreenManager {
 
 	public void setPlayerIndex(int playerIndex) {
 		this.playerIndex = playerIndex;
+	}
+
+	public boolean isShowQuestion() {
+		return showQuestion;
+	}
+
+	public void setShowQuestion(boolean showQuestion) {
+		this.showQuestion = showQuestion;
+	}
+
+	public int getCurrentAnswer() {
+		return currentAnswer;
+	}
+
+	public void setCurrentAnswer(int currentAnswer) {
+		this.currentAnswer = currentAnswer;
 	}
 
 

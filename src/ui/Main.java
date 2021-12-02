@@ -1,7 +1,7 @@
 package ui;
 	
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import datastr.SimpleGraph;
 import datastr.Vertex;
@@ -133,7 +133,12 @@ public class Main extends PApplet{
 	}
 	
 	public void setup() {
-		scManager = new ScreenManager(this);
+		try {
+			scManager = new ScreenManager(this);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		noStroke();
 	}
 	
@@ -286,20 +291,29 @@ public class Main extends PApplet{
 			case GAME_SCREEN:
 				ArrayList<Integer> indexes = new ArrayList();
 				
-				if(pressedBtn!=null) {
+				if(pressedBtn!=null && !scManager.isShowQuestion()) {
 					ButtonIdentifier identifier = pressedBtn.getIdentifier();
 					if(identifier.equals(ButtonIdentifier.THROW_DICE)) {
 						if(scManager.getUiButtons().get(17).isActive()) {
 							int diceNum = (int)(Math.random()*3)+1;
-							System.out.println(diceNum);
-							indexes = scManager.getControler().calculatePossibleMoves(scManager.getControler().getCurrentPlayer().getCurrentBox(), diceNum);
 							
-							/*for(int i =0; i < scManager.getControler().getPosibleMoves().size();i++) {
-								System.out.println(i);
-							}*/
+							indexes = scManager.getControler().calculatePossibleMoves(scManager.getControler().getCurrentPlayer().getCurrentBox(), diceNum);
 							
 							scManager.getUiButtons().get(17).setActive(false);
 						}
+					}
+				}
+				
+				if(scManager.isShowQuestion()) {
+					scManager.setShowQuestion(false);
+					if(mouseX> 380 && mouseX < 640 && mouseY > 300 && mouseY < 340 && scManager.getCurrentAnswer()==1) {
+						scManager.getControler().getCurrentPlayer().setCoins(scManager.getControler().getCurrentPlayer().getCoins()+4);
+					}else if(mouseX> 380 && mouseX < 640 && mouseY > 340 && mouseY < 380 && scManager.getCurrentAnswer()==2) {
+						scManager.getControler().getCurrentPlayer().setCoins(scManager.getControler().getCurrentPlayer().getCoins()+4);
+					}else if(mouseX> 380 && mouseX < 640 && mouseY > 380 && mouseY < 420 && scManager.getCurrentAnswer()==3) {
+						scManager.getControler().getCurrentPlayer().setCoins(scManager.getControler().getCurrentPlayer().getCoins()+4);
+					}else if(mouseX> 380 && mouseX < 640 && mouseY > 420 && mouseY < 460 && scManager.getCurrentAnswer()==4) {
+						scManager.getControler().getCurrentPlayer().setCoins(scManager.getControler().getCurrentPlayer().getCoins()+4);
 					}
 				}
 				//
@@ -313,7 +327,7 @@ public class Main extends PApplet{
 						scManager.movePLayer(coordinates);
 						scManager.setChoosed(true);
 						//scManager.showQuestion(scManager.getControler().getQuestion());
-						
+						scManager.setShowQuestion(true);
 						scManager.changeTurn();
 					}
 				}
@@ -329,7 +343,12 @@ public class Main extends PApplet{
 							scManager.getControler().getPlayers().get(i).setCoins(15);
 							scManager.getControler().getPlayers().get(i).setCrowns(0);
 						}*/
-						scManager = new ScreenManager(this);
+						try {
+							scManager = new ScreenManager(this);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				}
 				break;
