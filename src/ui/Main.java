@@ -1,6 +1,7 @@
 package ui;
 	
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import datastr.SimpleGraph;
 import datastr.Vertex;
@@ -322,7 +323,13 @@ public class Main extends PApplet{
 				if(pressedBtn!=null) {
 					ButtonIdentifier identifier = pressedBtn.getIdentifier();
 					if(identifier.equals(ButtonIdentifier.BACK)) {
-						scManager.setScreenId(ScreenIdentifier.MAIN_SCREEN);
+						/*scManager.setScreenId(ScreenIdentifier.MAIN_SCREEN);
+						scManager.getControler().setCurrentRound(0);
+						for (int i = 0; i <  scManager.getControler().getPlayers().size(); i++) {
+							scManager.getControler().getPlayers().get(i).setCoins(15);
+							scManager.getControler().getPlayers().get(i).setCrowns(0);
+						}*/
+						scManager = new ScreenManager(this);
 					}
 				}
 				break;
